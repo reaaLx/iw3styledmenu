@@ -1,0 +1,19 @@
+#include "ui/menudef.h"
+#define CAC_MENU_NAME 	"popup_cac_template"
+#define CAC_PREFIX 		"template_"
+
+#include "ui_mp/common_macro.inc"
+{
+	#include "ui_mp/cac.inc"
+}
+
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X			140
+
+#undef CHOICE_HORIZONTAL_ALIGN
+#define CHOICE_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#undef CHOICE_VERTICAL_ALIGN
+#define CHOICE_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+
+#undef CHOICE_POPUP_TITLE_HEIGHT
+#define CHOICE_POPUP_TITLE_HEIGHT	4

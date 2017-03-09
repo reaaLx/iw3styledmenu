@@ -1,0 +1,91 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_GROUP			"settings"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X			150
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y			22
+
+#undef CHOICE_Y_COUNT
+#define CHOICE_Y_COUNT			14
+
+#undef CHOICE_X_SPACING
+#define CHOICE_X_SPACING		280
+
+#undef CHOICE_DVAR_TEXTALIGN
+#define CHOICE_DVAR_TEXTALIGN	ITEM_ALIGN_MIDDLE_LEFT
+
+#undef CHOICE_TEXT_OFFSET_X
+#define CHOICE_TEXT_OFFSET_X	( - ( 4 + CHOICE_SIZE_Y ) )
+{
+	menuDef 
+	{
+		name			"settings_quick_koth"
+		fullscreen		1
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_FILLED
+		soundloop 		"music_mainmenu_mp"
+		border			0
+		onOpen			{ focusFirst; }
+		onEsc			
+		{ 
+			close "settings_quick_koth"; 
+		}
+		#include "ui/blurredbg.inc"
+		CHOICE_MENU_TITLE( "@MENU_GAME_TYPE_SETTINGS" )
+		// -----------------------------------------
+		#define BACK_OPEN;
+		#include "ui_mp/navcontrols.inc"
+		itemDef 
+		{
+			name			"reset_to_default"
+			text			"@MENU_RESET_TO_DEFAULT"
+			type			1
+			style			WINDOW_STYLE_FILLED
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 8 100 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textfont		UI_FONT_NORMAL
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			textaligny		18
+			visible			when( 1 );
+			mouseEnter		{ play "mouse_over"; }
+			action 
+			{
+				play "mouse_click";
+				open "reset_gamesettings";
+			}
+		}
+		#define KOTH_SETTINGS;
+		#define TEAMBASED 1
+		#include "ui_mp/settings_quick.inc"
+		CHOICE_SECTION_TITLE( 1, "@MPUI_HEADQUARTERS" )
+		CHOICE_DVARFLOATLIST( 2, CHOICE1_TEXT, CHOICE1_DVAR, CHOICE1_STRLIST, CHOICE1_EXEC )
+		CHOICE_DVARFLOATLIST( 3, CHOICE2_TEXT, CHOICE2_DVAR, CHOICE2_STRLIST, CHOICE2_EXEC )
+		CHOICE_DVARFLOATLIST( 4, CHOICE3_TEXT, CHOICE3_DVAR, CHOICE3_STRLIST, CHOICE3_EXEC )
+		CHOICE_DVARFLOATLIST( 5, CHOICE4_TEXT, CHOICE4_DVAR, CHOICE4_STRLIST, CHOICE4_EXEC )
+		CHOICE_DVARFLOATLIST( 6, CHOICE5_TEXT, CHOICE5_DVAR, CHOICE5_STRLIST, CHOICE5_EXEC )
+		
+		CHOICE_SECTION_TITLE( 15, "@MPUI_RULES_GAMEPLAY_OPTIONS" )
+		CHOICE_DVARFLOATLIST( 16, CHOICE_OLDSCHOOL_TEXT, CHOICE_OLDSCHOOL_DVAR, CHOICE_OLDSCHOOL_STRLIST, CHOICE_OLDSCHOOL_EXEC )
+		CHOICE_DVARFLOATLIST( 17, CHOICE_HARDCORE_TEXT, CHOICE_HARDCORE_DVAR, CHOICE_HARDCORE_STRLIST, CHOICE_HARDCORE_EXEC )
+		CHOICE_DVARFLOATLIST( 18, CHOICE_SPECTATE_TEXT, CHOICE_SPECTATE_DVAR, CHOICE_SPECTATE_STRLIST, CHOICE_SPECTATE_EXEC )
+		CHOICE_DVARFLOATLIST( 19, CHOICE_KILLCAM_TEXT, CHOICE_KILLCAM_DVAR, CHOICE_KILLCAM_STRLIST, CHOICE_KILLCAM_EXEC )
+		#ifdef TEAMBASED
+			CHOICE_DVARFLOATLIST( 20, CHOICE_FRIENDLYFIRE_TEXT, CHOICE_FRIENDLYFIRE_DVAR, CHOICE_FRIENDLYFIRE_STRLIST, CHOICE_FRIENDLYFIRE_EXEC )
+		#endif
+	}
+}

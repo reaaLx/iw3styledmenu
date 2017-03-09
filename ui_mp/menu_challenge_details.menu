@@ -1,0 +1,174 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define STYLE_PC		1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+// main popup frame properties ----------------------------
+#define ORIGIN_TIER_FRAME_X			46
+#define ORIGIN_TIER_FRAME_Y			70
+#define ORIGIN_TIER_FRAME 			ORIGIN_TIER_FRAME_X ORIGIN_TIER_FRAME_Y
+
+#define WIDTH_TIER_FRAME			540
+#define HEIGHT_TIER_FRAME			338
+#define SIZE_TIER_FRAME				WIDTH_TIER_FRAME HEIGHT_TIER_FRAME
+#define RECT_TIER_FRAME				ORIGIN_TIER_FRAME SIZE_TIER_FRAME
+	
+#define COLOR_TIER_FRAME			0.1 0.1 0.12 0.85 //0.05 0.1 0.15 0.85 //0.1 0.15 0.25 0.4
+	
+#define BORDER_TIER_FRAME			WINDOW_BORDER_RAISED
+#define BORDER_SIZE_TIER_FRAME		1
+#define BORDER_COLOR_TIER_FRAME		0.35 0.35 0.37 1//0.4 0.4 0.425 1
+	
+// list box properties -------------------------------------
+#define PADDING						8
+#define ORIGIN_LIST_BOX_X			(ORIGIN_TIER_FRAME_X+PADDING)
+#define ORIGIN_LIST_BOX_Y			(ORIGIN_TIER_FRAME_Y+PADDING)
+	
+#define WIDTH_LIST_BOX				((((WIDTH_TIER_FRAME+8)-PADDING*3)/2))
+#define HEIGHT_LIST_BOX				((HEIGHT_TIER_FRAME+4)-PADDING*2)
+	
+// info box properties -------------------------------------
+#define ORIGIN_INFO_BOX_X			(ORIGIN_TIER_FRAME_X+((WIDTH_TIER_FRAME+4+PADDING)/2))
+#define ORIGIN_INFO_BOX_Y			(ORIGIN_TIER_FRAME_Y+38)
+	
+#define WIDTH_INFO_BOX				(((WIDTH_TIER_FRAME+4)-PADDING*3)/2)
+#define HEIGHT_INFO_BOX				296
+
+#define LABEL_TEXT_COLOR		0.7 0.75 0.75 1
+{
+	menuDef	
+	{
+		name 			"menu_challenge_details"
+		visible			0
+		fullscreen		0
+		rect			0 0 640 480 0 0
+		focusColor		COLOR_FOCUSED
+		style			WINDOW_STYLE_FILLED
+		popup
+		onOpen 
+		{ 
+			exec "set ui_hide_desc 1";
+			focusFirst; 
+		}
+		onClose
+		{
+			exec "set ui_hide_desc 0";
+		}
+		onESC
+		{ 
+			play "mouse_click";
+			close "menu_challenge_details" 
+		}
+		//=================== main frame ==================
+		/*macro ex:		PREPROC_SHADER_DRAW_ADV( px, py, pw, ph, porigin, pshader, pcolor, pborder, pbordersize, pbordercolor ) */
+		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 2 2, "white", 0.25 0.25 0.27 1, 0, 0, 0 0 0 0 )
+		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 0 0, "white", COLOR_TIER_FRAME, BORDER_TIER_FRAME, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
+		/*mainframe*/	PREPROC_SHADER_DRAW_ADV( ORIGIN_TIER_FRAME_X, ORIGIN_TIER_FRAME_Y+2, WIDTH_TIER_FRAME, HEIGHT_TIER_FRAME-2, "line_horizontal", 0.8 0.8 0.8 0.45, 0, 1, 1 1 1 1 )
+//		/*perforation*/	PREPROC_PERFORATION( ORIGIN_TIER_FRAME_X+WIDTH_TIER_FRAME-64, ORIGIN_TIER_FRAME_Y, -64, 16, 0, 4, 0, 0 )
+//		/*perforation*/	PREPROC_PERFORATION( ORIGIN_TIER_FRAME_X+WIDTH_TIER_FRAME-64, ORIGIN_TIER_FRAME_Y, -64, 16, 0, 20, 0, 0 )
+		/*listbox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X, ORIGIN_LIST_BOX_Y, WIDTH_LIST_BOX, HEIGHT_LIST_BOX, "gradient_center", 0 0 0 0.85, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
+		/*infobox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y, WIDTH_INFO_BOX, HEIGHT_INFO_BOX, "gradient_center", 0 0 0 0.55, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
+		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40, exp text ( "@" + tablelookup( "mp/challengeTable.csv" , 4 , localvarstring( "ui_challengeTierTable" ) , 1 ) ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
+
+		// ------ CHALLENGE ITEM NAME ------
+
+
+		// ------ CHALLENGE ITEMS ------
+		#define LIST_ITEM_HEIGHT	14
+		#define LIST_ITEM_COLOR		0.7 0.75 0.75 0.8
+		#define LIST_ITEM_COLOR_LOCKED	0.4 0.45 0.45 0.8		
+		
+		// background bar
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+2, WIDTH_INFO_BOX-4, 22,"white", 0.65 0.7 0.8 0.2, 0, 1, 0 0 0 0 )
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+24, WIDTH_INFO_BOX-4, 2,"white", 0 0 0 0.35, 0, 1, 0 0 0 0 )
+		// name
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+20, WIDTH_INFO_BOX-8, 20,  exp text( locstring("@"+tablelookup("mp/allChallengesTable.csv",0,localvarstring("ui_selected_ref"),1))+locstring("@"+tablelookup("mp/allChallengesTable.csv",0,localvarstring("ui_selected_ref"),3)+"_"+int(max(getplayerdata("challengeState",localvarstring("ui_selected_ref")),1))) ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, COLOR_TITLE autowrapped )
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+20, WIDTH_INFO_BOX-8, 20,  exp text( p_stat_num ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped )
+		// desc
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+44, WIDTH_INFO_BOX-8, 20,  exp text( PQ_DESC ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped )
+		// desc 2
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+104, WIDTH_INFO_BOX-4, 2,"white", 0.75 0.8 0.9 0.2, 0, 1, 0 0 0 0 )	
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+102, WIDTH_INFO_BOX-4, 2,"white", 0 0 0 0.35, 0, 1, 0 0 0 0 )					
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+124, WIDTH_INFO_BOX-8, 20,  exp text( "@MENU_XP_REWARD" ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped )
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+90, ORIGIN_INFO_BOX_Y+124, WIDTH_INFO_BOX-8, 20,  exp text( PQ_DESC_UNLOCK ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped )
+		// unlock desc
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+174, WIDTH_INFO_BOX-4, 2,"white", 0.75 0.8 0.9 0.2, 0, 1, 0 0 0 0 )
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+172, WIDTH_INFO_BOX-4, 2,"white", 0 0 0 0.35, 0, 1, 0 0 0 0 )						
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+194, WIDTH_INFO_BOX-8, 20,  exp text( PQ_UNLOCKS ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped )	
+		// progress
+		//PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+WIDTH_INFO_BOX-46, ORIGIN_INFO_BOX_Y+6, 40, LIST_ITEM_HEIGHT, "white", 0 0 0 0, 1, 1, 0.9 0.95 1 0.25 )
+		//PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+WIDTH_INFO_BOX-44, ORIGIN_INFO_BOX_Y+8, 36*(PROGRESS_BAR_WIDTH(dvarString(ui_table_slot))), LIST_ITEM_HEIGHT-4, "line_vertical", 1 1 1 1, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_INPROGRESS )
+//		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+2, (ORIGIN_INFO_BOX_X-67)*(PROGRESS_BAR_WIDTH(dvarString(ui_table_slot))), 22, "gradient_fadein", 0.8 0.8 0.825 0.175, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_INPROGRESS )
+
+		#define PREPROC_LIST_ITEM( pslot, p_stat_num ) \
+		itemDef	\
+		{ \
+			type			ITEM_TYPE_BUTTON \
+			exp				rect X( ORIGIN_LIST_BOX_X+10 ) \
+			exp				rect Y( ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2) ) \
+			exp				rect W( WIDTH_LIST_BOX-58 ) \
+			exp				rect H( LIST_ITEM_HEIGHT ) \
+			forecolor		1 1 0.5 1 \
+			onFocus	\
+			{ \
+				play "mouse_over"; \
+				setLocalVarString "ui_selected_ref" (tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0)); \
+				execnow "set ui_table_slot "p_stat_num; \
+			} \
+		} \
+		/* item bg box */  \
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+8, ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-58-(LIST_ITEM_HEIGHT/4), LIST_ITEM_HEIGHT, "white", 0.8 0.85 0.95 0.1, 0, 1, 1 1 1 0.25 ) \
+		/* item bg box edge */ \
+		PREPROC_SHADER_DRAW_ADV( (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-50)-(LIST_ITEM_HEIGHT/4), ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), LIST_ITEM_HEIGHT/4, LIST_ITEM_HEIGHT, "button_highlight_end", 0.8 0.85 0.95 0.1, 0, 1, 1 1 1 0.25 ) \
+		/* bar bg box */ \
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), 40, LIST_ITEM_HEIGHT, "white", 0.8 0.85 0.95 0.1, 1, 2, 0.8 0.85 0.95 0.25 ) \
+		/* item name */ \
+		PREPROC_TEXT_DRAW_ADV( ORIGIN_LIST_BOX_X+10, ORIGIN_LIST_BOX_Y+2+(pslot)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-6, LIST_ITEM_HEIGHT, exp text(locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0),1))+locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0),3)+"_"+(int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0)),1))-1))), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR visible when (tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0)!=""&&(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),p_stat_num,1)=="tier_prestige")&&!isitemunlocked("tier_prestige")))) \
+
+		/* highlight */
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+8, ORIGIN_LIST_BOX_Y+4+(dvarint(ui_table_slot)-1)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-58-(LIST_ITEM_HEIGHT/4), LIST_ITEM_HEIGHT,"gradient_fadein", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
+		PREPROC_SHADER_DRAW_ADV( (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-50)-(LIST_ITEM_HEIGHT/4), ORIGIN_LIST_BOX_Y+4+(dvarint(ui_table_slot)-1)*(LIST_ITEM_HEIGHT+2), LIST_ITEM_HEIGHT/4, LIST_ITEM_HEIGHT,"button_highlight_end", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
+		/* highlight 2 */
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+4, ORIGIN_LIST_BOX_Y+4+(dvarint(ui_table_slot)-1)*(LIST_ITEM_HEIGHT+2)+F_HEIGHT_OFFSET, 2, F_HEIGHT,"white", 0.55 1 0.55 0.8, 0, 1, 1 1 1 0.65 ) 
+		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-6, ORIGIN_LIST_BOX_Y+4+(dvarint(ui_table_slot)-1)*(LIST_ITEM_HEIGHT+2)+F_HEIGHT_OFFSET, 2, F_HEIGHT,"white", 0.55 1 0.55 0.8, 0, 1, 1 1 1 0.65 )
+
+		// sin cycle for animation of the hightlighting bars
+		#define F_HEIGHT_OFFSET ((1-((8+sin(milliseconds()/80))/8))/2)*LIST_ITEM_HEIGHT
+		#define F_HEIGHT ((8+sin(milliseconds()/80))/8)*LIST_ITEM_HEIGHT
+
+		/* progress bar */
+//		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-46, ORIGIN_LIST_BOX_Y+6+(pslot-1)*(LIST_ITEM_HEIGHT+2), 36/*36*(PROGRESS_BAR_WIDTH(pslot_s))*/, LIST_ITEM_HEIGHT-4, "white", 0.8 0.85 0.95 0.25, 0, 1, 0.9 0.95 1 0.25 visible 0 ) \
+		/* complete */
+//		PREPROC_TEXT_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-49, ORIGIN_LIST_BOX_Y+2+(pslot)*(LIST_ITEM_HEIGHT+2), 40, LIST_ITEM_HEIGHT,  exp text( "@MENU_100PERCENT" ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_CENTER, 0.8 0.85 0.95 0.5 visible when( stat( int( tablelookup( ptablename, 1, ptableslot, 2 ) ) ) == 255 ) ) \
+		/* lock status */
+//		REPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+(pslot-1)*(LIST_ITEM_HEIGHT+2)+2, 40, LIST_ITEM_HEIGHT+4, "specialty_locked", 0.8 0.9 1 0.65, 0, 1, 0.9 0.95 1 0.25 )
+		/* new status */
+//		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+(pslot-1)*(LIST_ITEM_HEIGHT+2)+2, 40, LIST_ITEM_HEIGHT+4, "specialty_new", 1 0.9 0.75 0.85, 0, 1, 0.9 0.95 1 0.25 )
+
+		PREPROC_LIST_ITEM( 1, "1" )
+		PREPROC_LIST_ITEM( 2, "2" )	
+		PREPROC_LIST_ITEM( 3, "3" )
+		PREPROC_LIST_ITEM( 4, "4" )
+		PREPROC_LIST_ITEM( 5, "5" )
+		PREPROC_LIST_ITEM( 6, "6" )
+		PREPROC_LIST_ITEM( 7, "7" )
+		PREPROC_LIST_ITEM( 8, "8" )
+		PREPROC_LIST_ITEM( 9, "9" )
+		PREPROC_LIST_ITEM( 10, "10" )
+		PREPROC_LIST_ITEM( 11, "11" )
+		PREPROC_LIST_ITEM( 12, "12" )
+		PREPROC_LIST_ITEM( 13, "13" )
+		PREPROC_LIST_ITEM( 14, "14" )
+		PREPROC_LIST_ITEM( 15, "15" )
+		PREPROC_LIST_ITEM( 16, "16" )
+		PREPROC_LIST_ITEM( 17, "17" )
+		PREPROC_LIST_ITEM( 18, "18" )
+		PREPROC_LIST_ITEM( 19, "19" )
+		PREPROC_LIST_ITEM( 20, "20" )
+	}
+}	

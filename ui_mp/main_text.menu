@@ -1,0 +1,115 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			80
+
+#define CHOICE_GROUP			"main"
+#define CHOICE_SEP_1			3
+#define CHOICE_SEP_2			6
+#define CHOICE_SEP_3			9
+
+#define STYLE_PC	1
+
+#define PC
+#include "ui_mp/menustyle.inc"
+
+#include "ui/choices_setup_common.menu"
+//#include "ui_mp/stats_info.inc"
+
+{
+	menuDef
+	{
+		name			"main_text"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+		fadeClamp		1.0
+		fadeCycle		1
+		fadeAmount		0.1
+		onOpen
+		{ 
+			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
+		}
+
+		// Menu items -------------------------------------------
+		#include "ui/bg.inc"
+
+		itemDef // cod:mw logo
+		{
+			visible			1
+			rect			324 56 278 68
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			background		"logo_cod2"
+			visible 		when( dvarString( "ui_mod_logo" ) == "" );
+			decoration
+		}
+		itemDef // mod logo
+		{
+			visible			1
+			rect			324 56 278 68
+			forecolor		1 1 1 1
+			style			WINDOW_STYLE_SHADER
+			exp material	( dvarString( "ui_mod_logo" ) )
+			visible 		when( dvarString( "ui_mod_logo" ) != "" );
+			decoration
+		}
+		
+		#define SETUP_ACTION_CREATEACLASS \
+				play "mouse_click"; \
+				open "cac_popup";
+				
+		#define SETUP_ACTION_CREATESERVER \
+				exec "xrequirelivesignin"; \
+				setdvar "systemlink" 0; \
+				setdvar "splitscreen" 0; \
+				setdvar "onlinegame" 1; \
+				exec "exec default_xboxlive.cfg"; \
+				exec "party_maxplayers 18"; \
+				exec "xblive_privatematch 0"; \
+				exec "xblive_rankedmatch 0"; \
+				exec "xstartprivateparty"; \
+				setdvar "ui_mptype" 0; \
+				exec "xcheckezpatch"; \
+				exec "exec default_xboxlive.cfg" \
+				exec "exec xblive_rankedmatch 0"; \
+				exec "ui_enumeratesaved"; \
+				exec "xblive_privatematch 1"; \
+				exec "xstartprivatematch"; \
+				open "createserver";
+				
+		#define CLEARUIHINT	exec "set ui_hint_text @MP_NULL"
+				
+		CHOICE_BUTTON_VIS( 1, "@MENU_AUTO_UPDATE", open "auconfirm";, when( dvarbool( "cl_updateAvailable" ) ) )
+		CHOICE_BUTTON_VIS( 2, "@MENU_JOIN_GAME", open "pc_join_unranked";, 1)
+		CHOICE_BUTTON_VIS( 3, "@MENU_START_NEW_SERVER", close "self"; SETUP_ACTION_CREATESERVER, 1 )
+
+		CHOICE_SEPARATOR_VIS( CHOICE_SEP_1, 1 )
+
+		CHOICE_BUTTON_VIS( 4, "@MENU_SELECT_PROFILE", setdvar "ui_playerProfileAlreadyChosen" 0; open "player_profile";, 1 )
+		
+//		CHOICE_BUTTON_FOCUS_VIS_ADV( 5, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS", CLEARUIHINT, when( stat( 260 ) == 1 ), stat( 260 ) >= 1 )
+//		CHOICE_BUTTON_FOCUS_VIS_NOHI( 5, "", ;, exec "set ui_hint_text @MPUI_DESC_CREATE_A_CLASS_LOCKED", CLEARUIHINT, when ( !isitemunlocked( "cac" ) ) )
+		CHOICE_BUTTON_FOCUS_VIS( 5, "@MPUI_CREATE_A_CLASS", SETUP_ACTION_CREATEACLASS;, setLocalVarFloat "ui_popupYPos"(getfocuseditemy());, ;, when ( isitemunlocked( "cac" ) ) )
+		CHOICE_DBUTTON_VIS( 5, "@MPUI_CREATE_A_CLASS", when ( !isitemunlocked( "cac" ) ) )
+		CHOICE_NEWICON_VIS( 5, "specialty_new", when ( ( ( getplayerdataanybooltrue( "weaponNew" ) || getplayerdataanybooltrue( "camoNew" ) || getplayerdataanybooltrue( "attachmentNew" ) ) || getplayerdataanybooltrue( "perkNew" ) || ( ( getplayerdata( "perkNew" , "frag_grenade_mp" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "frag_grenade_mp" , 8 ) ) ) || ( getplayerdata( "perkNew" , "semtex_mp" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "semtex_mp" , 8 ) ) ) || ( getplayerdata( "perkNew" , "c4_mp" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "c4_mp" , 8 ) ) ) || ( getplayerdata( "perkNew" , "claymore_mp" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "claymore_mp" , 8 ) ) ) || ( getplayerdata( "perkNew" , "throwingknife_mp" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "throwingknife_mp" , 8 ) ) ) || ( getplayerdata( "perkNew" , "specialty_tacticalinsertion" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_tacticalinsertion" , 8 ) ) ) || ( getplayerdata( "perkNew" , "specialty_blastshield" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_blastshield" , 8 ) ) ) || weaponclassnew( "weapon_grenade" ) || weaponclassnew( "weapon_equipment" ) ) || getplayerdata( "featureNew" , "cac" ) ) ) )
+		
+		CHOICE_BUTTON_VIS( 6, "@MENU_RANK_AND_CHALLENGES", open "menu_challenges";, 1 )
+	
+		CHOICE_SEPARATOR_VIS( CHOICE_SEP_2, 1 )
+		
+		CHOICE_BUTTON_VIS( 7, "@MENU_CONTROLS", open "main_controls";, 1 )
+		CHOICE_BUTTON_VIS( 8, "@MENU_OPTIONS", open "main_options";, 1 )
+		
+		CHOICE_SEPARATOR_VIS( CHOICE_SEP_3, 1 )
+		
+		CHOICE_BUTTON_VIS( 9, "@MENU_MODS", close "self"; open "mods_menu";, 1 )
+		CHOICE_BUTTON_VIS( 10, "@MENU_SINGLE_PLAYER", open "single_popmenu";, 1 )
+		CHOICE_BUTTON_VIS( 11, "@MENU_QUIT", open "quit_popmenu";, 1 )
+
+		CHOICE_FOOTNOTE_VIS( "@MENU_GAME_EXPERIENCE_MAY_CHANGE", 40, 420, 1 )
+	}
+}	
+	

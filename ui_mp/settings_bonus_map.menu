@@ -1,0 +1,94 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_SIZE_X			150
+#define CHOICE_SIZE_Y			22
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			34
+
+#define CHOICE_GROUP			"map_selection"
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+
+// ------------------- end preprocessing definitions ----------------------
+{
+	menuDef
+	{
+		name			"settings_bonus_map"
+		fullscreen		1
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_FILLED
+		border			0
+		soundloop 		"music_mainmenu_mp"
+		onOpen
+		{
+			focusFirst;
+			setfocusbydvar "ui_mapname";
+		}
+		onEsc
+		{
+			close "settings_bonus_map";
+		}
+		onClose
+		{
+			execNow "xupdatepartystate";
+		}
+		
+		// ------------------  statics ------------------------
+		#include "ui/blurredbg.inc"
+
+		CHOICE_MENU_TITLE( "@MENU_CHOOSE_MAP_CAP" )
+		
+		//--- style override ---
+
+		#undef CHOICE_SIZE_Y
+		#define CHOICE_SIZE_Y			18
+
+		#undef CHOICE_Y_SPACING
+		#define CHOICE_Y_SPACING		20
+
+		#undef CHOICE_TEXTSIZE
+		#define CHOICE_TEXTSIZE			TEXTSIZE_SMALL
+
+		#undef CHOICE_TEXT_OFFSET_X
+		#define CHOICE_TEXT_OFFSET_X	-21
+
+		#undef ALT_HINT_X_OFFSET
+		#define ALT_HINT_X_OFFSET		-14
+
+		#undef HIGHLIGHT_COLOR
+		#define HIGHLIGHT_COLOR			0.9 0.95 1 0.25
+
+		#undef NEW_X_OFFSET			
+		#define NEW_X_OFFSET			(-(CHOICE_SIZE_X+4))
+
+		#undef NEW_Y_OFFSET			
+		#define NEW_Y_OFFSET			-3
+		//--- end style override ---
+		
+		#define MAP_LIST \
+				LOCAL_MAP_SELECTION( 1, "mp_complex", 		"@PATCH_COMPLEX", 	"@PATCH_DESC_MAP_COMPLEX", 		"preview_mp_complex" 	) \
+				LOCAL_MAP_SELECTION( 2, "mp_crash", 		"@MPUI_CRASH", 		"@MPUI_DESC_MAP_CRASH", 		"preview_mp_crash" 		) \
+				LOCAL_MAP_SELECTION( 3, "mp_overgrown", 	"@MPUI_OVERGROWN", 	"@MPUI_DESC_MAP_OVERGROWN", 	"preview_mp_overgrown" 	) \
+				LOCAL_MAP_SELECTION( 4, "mp_compact", 		"@PATCH_COMPACT", 	"@PATCH_DESC_MAP_COMPACT", 		"preview_mp_compact" 	) \
+				LOCAL_MAP_SELECTION( 5, "mp_storm", 		"@PATCH_STORM", 	"@PATCH_DESC_MAP_STORM", 		"preview_mp_storm" 		) \
+				LOCAL_MAP_SELECTION( 6, "mp_abandon",		"@PATCH_ABANDON", 	"@PATCH_DESC_MAP_ABANDON", 		"preview_mp_abandon" 	) \
+				LOCAL_MAP_SELECTION( 7, "mp_fuel2",			"@PATCH_FUEL2", 	"@PATCH_DESC_MAP_FUEL2",		"preview_mp_fuel2" 		) \
+				LOCAL_MAP_SELECTION( 8, "mp_strike", 		"@MPUI_STRIKE", 	"@MPUI_DESC_MAP_STRIKE", 		"preview_mp_strike" 	) \
+				LOCAL_MAP_SELECTION( 9, "mp_trailerpark",	"@PATCH_TRAILERPARK","@PATCH_DESC_MAP_TRAILERPARK", "preview_mp_trailerpark") \
+				LOCAL_MAP_SELECTION( 10, "mp_vacant", 		"@MPUI_VACANT",		"@MPUI_DESC_MAP_VACANT",		"preview_mp_vacant"		) \
+
+		#define MAP_TABLE	"mp/mapsTable.csv"
+		
+		#include "ui_mp/map_info.inc"
+	}
+}

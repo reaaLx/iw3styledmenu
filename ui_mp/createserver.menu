@@ -1,0 +1,179 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			34
+	
+#define CHOICE_SEP_1			7
+#define CHOICE_SEP_2			11
+
+#define CHOICE_GROUP			"createserver"
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+
+{
+	menuDef // Server Creation //
+	{
+		name			"createserver"
+		fullscreen		1	
+		rect			0 0 640 480
+		soundloop 		"music_mainmenu_mp"
+		focuscolor		COLOR_FOCUSED
+		style			1
+		border			0
+		onEsc  			{ close self; }
+		onOpen 
+		{ 
+			uiScript "loadArenas";
+			execnow "xblive_rankedmatch" 0;
+			execnow "xblive_privatematch" 1;
+			exec "exec dvar_defaults.cfg";
+		}
+		onClose
+		{
+			open "main_text";
+		}
+		
+		#include "ui/blurredbg.inc"
+		
+		#define BACK_ENABLE		1
+		#include "ui_mp/navcontrols.inc"
+		CHOICE_MENU_TITLE( "@MENU_START_NEW_SERVER" )
+		
+		// server settings =========================================
+//		CHOICE_DVARLIST_VIS(1, "@MENU_GAME_TYPE", "", ITEM_TYPE_MULTI, ownerdraw UI_NETGAMETYPE textaligny 20, ;, 1 )
+		CHOICE_DVAREDIT_VIS(2, "@MENU_SERVER_NAME", "sv_hostname", 20, 20, ;, 1 )
+		CHOICE_DVARFLOATLIST(3, "@MENU_DEDICATED", "ui_dedicated", { "@MENU_NO" 0 "@MENU_LAN" 1 "@MENU_INTERNET" 2 }, ; )
+		CHOICE_DVAREDIT_NUMERIC(4, "@MENU_MAXIMUM_PLAYERS", "sv_maxclients", 3, ; )
+		CHOICE_DVAREDIT_NUMERIC(5, "@MENU_MINIMUM_PING", "sv_minping", 4, ; )
+		CHOICE_DVAREDIT_NUMERIC(6, "@MENU_MAXIMUM_PING", "sv_maxping", 4, ; )		
+		CHOICE_DVAREDIT_VIS(7, "@MENU_PASSWORD1", "g_password", 12, 12, ;, 1 )	
+				
+		CHOICE_SEPARATOR( CHOICE_SEP_1 )
+				
+		CHOICE_DVARYESNO(8, "@MENU_VOICECHATCOLON", "sv_voice", ; )
+		CHOICE_DVARYESNO(9, "@MENU_AUTOBALANCE_TEAMS", "scr_teambalance", ; )
+		CHOICE_DVARYESNO(10, "@MENU_ALLOW_VOTING", "g_allowvote", ; )
+		CHOICE_DVARYESNO(11, "@MPUI_PUNKBUSTERWITHCOLONANDTWOSPACES", "sv_punkbuster", ; )		
+
+		CHOICE_SEPARATOR( CHOICE_SEP_2 )
+
+		#define LOCAL_RULES_ACTION \
+				uiScript openMenuOnDvar "ui_gametype" war "settings_quick_war"; \
+				uiScript openMenuOnDvar "ui_gametype" sd "settings_quick_sd"; \
+				uiScript openMenuOnDvar "ui_gametype" sab "settings_quick_sab"; \
+				uiScript openMenuOnDvar "ui_gametype" koth "settings_quick_koth"; \
+				uiScript openMenuOnDvar "ui_gametype" dom "settings_quick_dom"; \
+				uiScript openMenuOnDvar "ui_gametype" dm "settings_quick_dm"; \
+				uiScript openMenuOnDvar "ui_gametype" ctf "settings_quick_ctf";
+
+		CHOICE_BUTTON(12, "@MENU_GAME_TYPE_SETTINGS", LOCAL_RULES_ACTION )				
+		CHOICE_BUTTON(13, "Change Gametype", open "settings_gametype" )
+		CHOICE_BUTTON(14, "Change Map", open "settings_map" )
+
+		// map selection ===========================================
+		itemDef 
+		{
+			name			"mappreview"
+			rect			-260 86 200 135 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+			style 			WINDOW_STYLE_SHADER
+			foreColor 		1 1 1 1
+			decoration
+			textScale 		0.55
+			visible 		1
+			exp 			material ("preview_" + dvarString ( "ui_mapname" ) )
+		}
+		itemDef
+		{
+			rect 			-260 86 200 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+			style 			1
+			foreColor 		1 1 1 0.65
+			backColor 		0 0 0 0.5
+			background 		"white"
+			decoration 
+			autoWrapped 
+			textAlign 		6
+			textAlignX 		-4
+			textScale 		0.375
+			textFont 		3
+			visible 		1
+			exp 			text ( dvarString( "party_mapname" ) )
+		}				
+		itemDef
+		{
+			rect 			-260 201 200 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+			style 			1
+			foreColor 		1 1 1 0.65
+			backColor 		0 0 0 0.5
+			background 		"white"
+			decoration 
+			autoWrapped 
+			textAlign 		6
+			textAlignX 		-4
+			textScale 		0.375
+			textFont 		3
+			visible 		1
+			exp 			text ( dvarString( "party_gametype" ) )
+		}
+/*		
+		itemDef 
+		{
+			name			"maplist"
+			rect			-260 233 200 160 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+			type			ITEM_TYPE_LISTBOX
+			style			WINDOW_STYLE_FILLED
+			elementwidth 	120
+			elementheight 	22
+			origin			0 0
+			textfont		UI_FONT_NORMAL
+			textscale		CHOICE_TEXTSIZE
+			elementtype		LISTBOX_TEXT
+			feeder			FEEDER_ALLMAPS
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textalignx 		6
+			textaligny 		0
+			outlinecolor	1 1 1 0.2
+			forecolor 		CHOICE_TEXTCOLOR
+			backcolor 		0 0 0 0
+			border			1
+			bordersize		1
+			bordercolor		1 1 1 0.15
+			visible			1
+			columns			1 2 190 25
+			mouseEnter 		{ play "mouse_over"; setitemcolor maplist bordercolor 1 1 1 0.55 }
+			mouseExit 		{ setitemcolor maplist bordercolor 1 1 1 0.15 }
+			doubleclick		{ play "mouse_click"; uiScript "StartServer"; }
+		}
+*/		
+		// buttons =================================================
+
+		itemDef 
+		{
+			name			"accept"
+			text			"@MENU_START"
+			type			ITEM_TYPE_BUTTON
+			textfont		UI_FONT_NORMAL
+			style			WINDOW_STYLE_FILLED	
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			220 8 40 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
+			textalign		ITEM_ALIGN_LEFT
+			textscale		TEXTSIZE_SMALL
+			textalignx		0
+			textaligny		18
+			visible			1
+			mouseEnter		{ play "mouse_over"; }
+			action 
+			{
+				play "mouse_click";
+				uiScript "StartServer"
+			}	
+		}		
+	}
+}

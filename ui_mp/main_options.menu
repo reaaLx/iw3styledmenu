@@ -1,0 +1,3 @@
+#define OPTIONS_MAIN
+
+#include "ui_mp/options.menu"

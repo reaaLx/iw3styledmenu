@@ -1,0 +1,46 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+	
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X	320
+	
+#undef CHOICE_HORIZONTAL_ALIGN
+#define CHOICE_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+#undef CHOICE_VERTICAL_ALIGN
+#define CHOICE_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+
+#define ORIGIN_OPTIONS_FRAME		220 0
+{
+	menuDef
+	{
+		name			"apply_picmip_popmenu"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		onOpen
+		{
+			setLocalVarBool ui_showApply 0;
+
+			execnow "setfromdvar r_picmip ui_r_picmip";
+			execnow "setfromdvar r_picmip_bump ui_r_picmip_bump";
+			execnow "setfromdvar r_picmip_spec ui_r_picmip_spec";
+			execnow "setfromdvar r_picmip_manual ui_r_picmip_manual";
+			exec "wait; wait; r_applyPicmip";
+			close "apply_picmip_popmenu";
+			open "options_graphics";
+		}
+		// background black frame
+		PREPROC_SHADER_DRAW( ORIGIN_OPTIONS_FRAME 600 480, 100 0, "white", 0.1 0.1 0.12 1, 0, 1, 0 0 0 0 )
+		
+		CHOICE_SECTION_TITLE( 1, "@MENU_APPLYING_CHANGES" )
+	}
+}
