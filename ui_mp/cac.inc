@@ -203,7 +203,12 @@
 			setPlayerData( "perkNew" , "localVarString" ( "ui_upgrade_ref" ) , "false" ); \
 
 	#define LOCAL_EQUIPMENT_ITEM( itemIndex, weaponStat ) \
-			CHOICE_BUTTON_FOCUS( itemIndex, "@"+tablelookup("mp/perkTable.csv",1,weaponStat,2), LOCAL_EQUIPMENT_ACTION( weaponStat ), LOCAL_EQUIPMENT_FOCUS( weaponStat ), LOCAL_EQUIPMENT_NOFOCUS( weaponStat ) )
+			CHOICE_BUTTON_FOCUS_VIS( itemIndex, "@"+tablelookup("mp/perkTable.csv",1,weaponStat,2), LOCAL_EQUIPMENT_ACTION( weaponStat ), LOCAL_EQUIPMENT_FOCUS( weaponStat ), LOCAL_EQUIPMENT_NOFOCUS( weaponStat ), when ( isitemunlocked( weaponStat ) ) ) \
+			CHOICE_DBUTTON_VIS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), when ( !isitemunlocked( weaponStat ) ) ) \	
+			CHOICE_CAPTION_VIS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), when ( !isitemunlocked( weaponStat ) ) ) \
+			CHOICE_NEWICON_VIS( itemIndex, "specialty_new", when((getplayerdata("perkNew",weaponStat)||getplayerdata("perkNew",tablelookup("mp/perkTable.csv",1,weaponStat,8))))) \
+			CHOICE_NEWICON_VIS( itemIndex, "specialty_locked", when ( !isitemunlocked( weaponStat ) ) ) \
+
 	// perks 1
 		#define LOCAL_PERK1_ACTION( perkStat ) \
 				setPlayerData( "perkNew" , perkStat , "false" ); \
@@ -786,7 +791,11 @@
 				} \
 				
 		#define LOCAL_WEAPON_ITEM( itemIndex, weaponStat ) \
-				CHOICE_BUTTON_FOCUS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), LOCAL_WEAPON_ACTION( weaponStat ), setLocalVarString "ui_selected_ref" ( weaponStat );, setPlayerData( "weaponNew" , weaponStat , "false" ); )
+				CHOICE_BUTTON_FOCUS_VIS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), LOCAL_WEAPON_ACTION( weaponStat ), setLocalVarString "ui_selected_ref" ( weaponStat );, setPlayerData( "weaponNew" , weaponStat , "false" );, when ( isitemunlocked( weaponStat ) ) ) \
+				CHOICE_DBUTTON_VIS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), when ( !isitemunlocked( weaponStat ) ) ) \
+				CHOICE_CAPTION_VIS( itemIndex, "@"+tablelookup("mp/statsTable.csv",4,weaponStat,3), when ( ( isitemunlocked( weaponStat ) == 0 ) ) ) \
+				CHOICE_NEWICON_VIS( itemIndex, "specialty_new", when((getplayerdata("weaponNew",weaponStat)||getplayerdataanybooltrue("camoNew",weaponStat)||getplayerdataanybooltrue("attachmentNew",weaponStat)))) \
+				CHOICE_NEWICON_VIS( itemIndex, "specialty_locked", when ( ( isitemunlocked( weaponStat ) == 0 ) ) ) \
 // CAMOS
 		#define LOCAL_CAMO_ACTION( camoStat ) \
 				if ( localvarint( "ui_tabDepth" ) == 0 ) \
@@ -1122,4 +1131,5 @@
 				} \
 		
 		#define LOCAL_ATTACHMENT_ITEM( itemIndex, attachmentStat ) \
-				CHOICE_BUTTON_FOCUS( itemIndex, LOCAL_ATTACHMENT_NAME( attachmentStat ), LOCAL_ATTACHMENT_ACTION( attachmentStat ), LOCAL_ATTACHMENT_FOCUS( attachmentStat ), LOCAL_ATTACHMENT_NOFOCUS )\
+				CHOICE_BUTTON_FOCUS_VIS( itemIndex, LOCAL_ATTACHMENT_NAME( attachmentStat ), LOCAL_ATTACHMENT_ACTION( attachmentStat ), LOCAL_ATTACHMENT_FOCUS( attachmentStat ), LOCAL_ATTACHMENT_NOFOCUS, when(tablelookup("mp/statsTable.csv",4,getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"weapon"),attachmentStat)!=""))\
+				CHOICE_DBUTTON_VIS( itemIndex, LOCAL_ATTACHMENT_NAME( attachmentStat ), when(tablelookup("mp/statsTable.csv",4,getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"weapon"),attachmentStat)!=""&&(!isitemunlocked(getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"weapon")+""+(tablelookup("mp/statsTable.csv",4,getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"weapon"),attachmentStat)))||((((getplayerdata("customClasses",localvarint("classIndex"),"perks",1)=="specialty_bling")&&menuisopen("popup_primary_attachments_bling"))||((getplayerdata("customClasses",localvarint("classIndex"),"perks",1)=="specialty_bling"&&isitemunlocked("specialty_secondarybling"))&&menuisopen("popup_secondary_attachments_bling")))&&tablelookup("mp/attachmentCombos.csv",0,getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"attachment",0),tablegetrownum("mp/attachmentCombos.csv",0,tablelookup("mp/statsTable.csv",4,getplayerdata("customClasses",localvarint("classIndex"),"weaponSetups",0,"weapon"),attachmentStat)))=="no"))))

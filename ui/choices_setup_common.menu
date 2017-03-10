@@ -584,7 +584,8 @@
 			textAlign		CHOICE_TEXTALIGN \
 			textAlignX		CHOICE_TEXT_OFFSET_X \
 			forecolor		CHOICE_TEXTCOLOR_DISABLED \
-			visible			visArg \
+			disablecolor 	CHOICE_TEXTCOLOR_DISABLED \
+			disabled		visArg \
 			decoration \
 		} \
 		
@@ -601,7 +602,8 @@
 			textAlign		CHOICE_TEXTALIGN \
 			textAlignX		CHOICE_TEXT_OFFSET_X \
 			forecolor		CHOICE_TEXTCOLOR_DISABLED \
-			visible			visArg \
+			disablecolor 	CHOICE_TEXTCOLOR_DISABLED \
+			disabled		visArg \
 			decoration \
 		} \
 
