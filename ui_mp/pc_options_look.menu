@@ -1,0 +1,67 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef  CHOICE_Y_START
+#define CHOICE_Y_START		-20
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y 		18
+		
+#undef CHOICE_TEXTSIZE
+#define CHOICE_TEXTSIZE 	0.33
+
+{
+	menuDef
+	{
+		name			"pc_options_look"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		onOpen
+		{
+			close "pc_options_actions";
+			close "pc_options_advanced_video";
+			close "pc_options_controls";
+			close "pc_options_movement";
+			close "pc_options_video";
+			close "options_multi";
+			close "controls_multi";
+			close "options_graphics";
+			close "options_graphics_defaults";
+			close "options_graphics_texture";
+			close "main_controls";
+			close "main_options";
+		}
+		onESC
+		{
+			close "self";
+		}
+		#include "ui/bg.inc"
+		#include "ui_mp/leftside_controlsx.inc"
+		
+		CHOICE_SECTION_TITLE( 21, "@MENU_LOOK" )
+		CHOICE_DVARYESNO( 22, "@MENU_INVERT_MOUSE", ui_mousePitch, uiScript update ui_mousePitch )
+		CHOICE_BIND( 23, "@MENU_LEAN_LEFT", "+leanleft", ; )
+		CHOICE_BIND( 24, "@MENU_LEAN_RIGHT", "+leanright", ; )
+		CHOICE_BIND( 25, "@MENU_LOOK_UP", "+lookup", ; )
+		CHOICE_BIND( 26, "@MENU_LOOK_DOWN", "+lookdown", ; )
+		CHOICE_BIND( 27, "@MENU_TURN_LEFT", "+left", ; )
+		CHOICE_BIND( 28, "@MENU_TURN_RIGHT", "+right", ; )
+		CHOICE_BIND( 29, "@MENU_MOUSE_LOOK", "+mlook", ; )
+		CHOICE_BIND( 30, "@MENU_CENTER_VIEW", "centerview", ; )
+		CHOICE_DVARYESNO( 31, "@MENU_FREE_LOOK", cl_freelook, ; )
+		CHOICE_DVARYESNO( 32, "@MENU_SMOOTH_MOUSE", m_filter, ; )
+		CHOICE_DVARSLIDER( 33, "@MENU_MOUSE_SENSITIVITY", sensitivity, 5, 1, 30, ; )
+
+		//CHOICE_BACK( "@MENU_BACK", close self )
+
+		CHOICE_KEYBINDHELP
+	}
+}

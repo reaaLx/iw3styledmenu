@@ -88,7 +88,7 @@ itemDef { \
 		PREPROC_RANK_ICON_VIS( itemNumber, pshader, y_offset, 1 )
 
 #define PREPROC_RANK_ICON_VIS( itemNumber, pshader, y_offset, visArg ) \
-	PREPROC_SHADER_DRAW_ALIGNED_VIS( (LABEL_START_X+PLAYERSTATS_WIDTH-80) (LABEL_START_Y+y_offset+(LABEL_ITEM_SPACING*(itemNumber-1))) 22 22 RIGHTITEM_ALIGN VERTICAL_ALIGN_TOP, ORIGIN_PLAYERSTATS, pshader, 1 1 1 1, 0, 0, 0 0 0 0, visArg )
+		PREPROC_SHADER_DRAW_ALIGNED_VIS( (LABEL_START_X+PLAYERSTATS_WIDTH-80) (LABEL_START_Y+y_offset+(LABEL_ITEM_SPACING*(itemNumber-1))) 22 22 RIGHTITEM_ALIGN VERTICAL_ALIGN_TOP, ORIGIN_PLAYERSTATS, pshader, 1 1 1 1, 0, 0, 0 0 0 0, visArg )
 	
 	// UI art
 	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (PLAYERSTATS_WIDTH+8) 326 RIGHTITEM_ALIGN VERTICAL_ALIGN_TOP, ORIGIN_PLAYERSTATS, "white", FRAME_BG_COLOR, 0, 0, 0 0 0 0 )
@@ -147,13 +147,14 @@ itemDef { \
 	
 	PREPROC_LABEL( "@MPUI_RANK_PRE", 1 )				
 	PREPROC_VALUE_TEXT_LEFT_ALIGNED( "@"+tablelookup("mp/ranktable.csv",0,levelforexperience(getplayerdata("experience")),5), 2, SUB_LABEL_INDENT, LABEL_TITLECOLOR )
-	PREPROC_VALUE_TEXT( locString( "@MPUI_LEVEL_N", int(tablelookup("mp/ranktable.csv",0,stat(252),14)) ), 1, -24, LABEL_TITLECOLOR )
-	PREPROC_RANK_ICON( 1, tablelookup( "mp/rankIconTable.csv" , 0 ,levelforexperience(getplayerdata("experience")),getplayerdata("prestige")+1), -4 )
-	
+	PREPROC_VALUE_TEXT( locString( "@MPUI_LEVEL_N", int(tablelookup("mp/ranktable.csv",0,getplayercardinfo(4,1,0),14)) ), 1, -24, LABEL_TITLECOLOR )
+	PREPROC_RANK_ICON( 1, tablelookup("mp/rankIconTable.csv",0,getplayercardinfo(4,1,0),(getplayercardinfo(5,1,0)+1)), -4 )
+
 	PREPROC_SUB_LABEL( "@MPUI_XP_PRE", 3 )
-	PREPROC_VALUE_TEXT( getplayerdata( "experience" ), 3, -24, LABEL_TEXTCOLOR )
-	
+	PREPROC_VALUE_TEXT( "@"+tablelookup("mp/ranktable.csv",0,levelforexperience(getplayerdata("experience")),5), 3, -24, LABEL_TEXTCOLOR )
+
 	PREPROC_DIVIDER( 4 )
+
 	PREPROC_LABEL( "@MPUI_NEXT_RANK_PRE", 5 )
 	/* rank name */
 	PREPROC_VALUE_TEXT_VIS( "@"+tablelookup("mp/ranktable.csv",0,stat(252)+1,5), 6, SUB_LABEL_INDENT, LABEL_TITLECOLOR, when( CAN_RANK_UP && PRESTIGE_NEXT==0 ), ITEM_ALIGN_MIDDLE_LEFT )

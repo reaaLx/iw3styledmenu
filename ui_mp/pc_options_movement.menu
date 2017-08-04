@@ -1,0 +1,77 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+#define CHOICE_SEP_1		25
+#define CHOICE_SEP_2		32
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef  CHOICE_Y_START
+#define CHOICE_Y_START		-20
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y 		18
+		
+#undef CHOICE_TEXTSIZE
+#define CHOICE_TEXTSIZE 	0.33
+{
+	menuDef
+	{
+		name			"pc_options_movement"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		onOpen
+		{
+			close "pc_options_actions";
+			close "pc_options_advanced_video";
+			close "pc_options_controls";
+			close "pc_options_look";
+			close "pc_options_video";
+			close "options_multi";
+			close "controls_multi";
+			close "options_graphics";
+			close "options_graphics_defaults";
+			close "options_graphics_texture";
+			close "main_controls";
+			close "main_options";
+		}
+		onESC
+		{
+			close "self";
+		}
+		#include "ui/bg.inc"
+		#include "ui_mp/leftside_controlsx.inc"
+		
+		CHOICE_SECTION_TITLE( 21, "@MENU_MOVE" )
+
+		CHOICE_BIND( 22, "@MENU_FORWARD", "+forward", ; )
+		CHOICE_BIND( 23, "@MENU_BACKPEDAL", "+back", ; )
+		CHOICE_BIND( 24, "@MENU_MOVE_LEFT", "+moveleft", ; )
+		CHOICE_BIND( 25, "@MENU_MOVE_RIGHT", "+moveright", ; )
+		
+		CHOICE_SEPARATOR( CHOICE_SEP_1 )
+		
+		CHOICE_BIND( 26, "@MENU_STANDJUMP", "+gostand", ; )
+		
+		CHOICE_BIND( 27, "@MENU_GO_TO_CROUCH", "gocrouch", ; )
+		CHOICE_BIND( 28, "@MENU_GO_TO_PRONE", "goprone", ; )
+
+		CHOICE_BIND( 29, "@MENU_TOGGLE_CROUCH", "togglecrouch", ; )
+		CHOICE_BIND( 30, "@MENU_TOGGLE_PRONE", "toggleprone", ; )
+		
+		CHOICE_BIND( 31, "@MENU_CROUCH", "+movedown", ; )
+		CHOICE_BIND( 32, "@MENU_PRONE", "+prone", ; )
+				
+		CHOICE_SEPARATOR( CHOICE_SEP_2 )
+		
+		CHOICE_BIND( 33, "@MENU_CHANGE_STANCE", "+stance", ; )
+		CHOICE_BIND( 34, "@MENU_STRAFE", "+strafe", ; )
+
+		CHOICE_KEYBINDHELP
+	}
+}

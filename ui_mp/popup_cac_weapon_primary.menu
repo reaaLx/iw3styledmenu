@@ -77,10 +77,10 @@
 		PREPROC_TEXT_DRAW_ALIGNED_EXP(CHOICE_POPUP_WIDTH 56 246 20 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_info_desc"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR ) 
 		PREPROC_SHADER_DRAW_ALIGNED( (CHOICE_POPUP_WIDTH + 150 ) 6 44 44 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_info_icon"), 1 1 1 1, 0, 2, CHOICE_POPUP_BORDER_COLOR ) 
 
-		LOCAL_ITEM_PRIMARY( 1, "@MENU_ASSAULT_RIFLES_CAPS", open "popup_cac_assault_primary"; )
-		LOCAL_ITEM_PRIMARY( 2, "@MENU_SMGS_CAPS", open "popup_cac_smg_primary"; )
-		LOCAL_ITEM_PRIMARY( 3, "@MENU_LMGS_CAPS", open "popup_cac_lmg_primary"; )
-		LOCAL_ITEM_PRIMARY( 4, "@MENU_SNIPER_RIFLES_CAPS", open "popup_cac_sniper_primary"; )
+		LOCAL_ITEM_WEAPON( 1, "@MPUI_ASSAULT_RIFLES", open "popup_cac_assault_primary"; )
+		LOCAL_ITEM_WEAPON( 2, "@MPUI_SUB_MACHINE_GUNS", open "popup_cac_smg_primary"; )
+		LOCAL_ITEM_WEAPON( 3, "@MPUI_LIGHT_MACHINE_GUNS", open "popup_cac_lmg_primary"; )
+		LOCAL_ITEM_WEAPON( 4, "@MPUI_SNIPER_RIFLES", open "popup_cac_sniper_primary"; )
 
 	}
 }

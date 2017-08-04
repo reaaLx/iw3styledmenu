@@ -35,7 +35,7 @@
 			setLocalVarBool "ui_showApply" 0;
 			setLocalVarBool "ui_hideBack" 1;
 			
-			setitemcolor fadebox backcolor 0 0 0 1;
+			setItemColor fadebox backColor 0 0 0 1;
 			fadeout fadebox ;
 			setdvar g_reloading "0";
 		}
@@ -92,17 +92,17 @@
 		{
 			name 			"sourcefield"
 			style			WINDOW_STYLE_FILLED
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			ownerdraw 		UI_NETSOURCE
 			rect 			ORIGIN_FILTER1 170 15 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
 			textstyle 		3
-			textalign 		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny 		16
+			textAlign 		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny 		16
 			textstyle 		3
-			textscale 		CUSTOM_BUTTON_TEXT_SIZE
-			forecolor 		1 1 1 1
-			backcolor 		0 0 0 0
+			textScale 		CUSTOM_BUTTON_TEXT_SIZE
+			foreColor 		1 1 1 1
+			backColor 		0 0 0 0
 			visible 		1
 			onFocus
 			{ 
@@ -135,16 +135,16 @@
 			textstyle 		3
 			text 			"@MENU_GAME_TYPE"
 			ownerdraw 		UI_JOINGAMETYPE
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			rect 			ORIGIN_FILTER2 170 15 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign 		ITEM_ALIGN_LEFT
-			textalignx 		0
-			textaligny 		16
-			textscale 		CUSTOM_BUTTON_TEXT_SIZE
-			forecolor 		1 1 1 1
+			textAlign 		ITEM_ALIGN_LEFT
+			textAlignx 		0
+			textAligny 		16
+			textScale 		CUSTOM_BUTTON_TEXT_SIZE
+			foreColor 		1 1 1 1
 			border 			0
-			bordercolor 	0 0 0 0
-			backcolor 		0 0 0 0
+			borderColor 	0 0 0 0
+			backColor 		0 0 0 0
 			visible 		1
 			onfocus
 			{ 
@@ -175,15 +175,15 @@
 			name			"filterServers"
 			text			"@MENU_FILTER_SERVERS"
 			type			ITEM_TYPE_BUTTON
-			textfont		UI_FONT_NORMAL
-			textscale		CUSTOM_BUTTON_TEXT_SIZE
+			textFont		UI_FONT_NORMAL
+			textScale		CUSTOM_BUTTON_TEXT_SIZE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			style			WINDOW_STYLE_FILLED
 			rect			ORIGIN_FILTER3 130 15  CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny		16
-			forecolor		.9 .9 .95 1
+			textAlign		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny		16
+			foreColor		.9 .9 .95 1
 			visible			1
 			onfocus
 			{ 
@@ -215,13 +215,13 @@
 			name 			"refreshdate"
 			ownerdraw 		UI_SERVERREFRESHDATE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textfont		UI_FONT_NORMAL
-			textscale 		0.25
+			textFont		UI_FONT_NORMAL
+			textScale 		0.25
 			rect 			ORIGIN_FILTER4 265 18
-			textalign 		ITEM_ALIGN_LEFT
-			textalignx 		0
-			textaligny 		16
-			forecolor 		1 1 1 1
+			textAlign 		ITEM_ALIGN_LEFT
+			textAlignx 		0
+			textAligny 		16
+			foreColor 		1 1 1 1
 			visible 		1
 			decoration
 		}
@@ -230,15 +230,15 @@
 			name			"refreshSource"
 			text			"@MENU_REFRESH_LIST"
 			type			ITEM_TYPE_BUTTON
-			textscale		CUSTOM_BUTTON_TEXT_SIZE
+			textScale		CUSTOM_BUTTON_TEXT_SIZE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			style			WINDOW_STYLE_FILLED
 			rect			ORIGIN_FILTER1B 130 15  CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny		16
-			textfont		UI_FONT_NORMAL
-			forecolor		.9 .9 .95 1
+			textAlign		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny		16
+			textFont		UI_FONT_NORMAL
+			foreColor		.9 .9 .95 1
 			visible			1
 			onfocus
 			{ 
@@ -269,16 +269,16 @@
 		{
 			name			"refreshFilter"
 			text			"@MENU_QUICK_REFRESH"
-			textscale		CUSTOM_BUTTON_TEXT_SIZE
+			textScale		CUSTOM_BUTTON_TEXT_SIZE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			style			WINDOW_STYLE_FILLED
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			type			ITEM_TYPE_BUTTON
 			rect			ORIGIN_FILTER2B 130 15  CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny		16
-			forecolor		.9 .9 .95 1
+			textAlign		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny		16
+			foreColor		.9 .9 .95 1
 			visible			1
 			onfocus
 			{ 
@@ -310,15 +310,15 @@
 		{
 			text			"@MENU_NEW_FAVORITE"
 			type			ITEM_TYPE_BUTTON
-			textfont		UI_FONT_NORMAL
-			textscale		CUSTOM_BUTTON_TEXT_SIZE
+			textFont		UI_FONT_NORMAL
+			textScale		CUSTOM_BUTTON_TEXT_SIZE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			style			WINDOW_STYLE_FILLED
 			rect			ORIGIN_FILTER3B 130 15  CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny		16
-			forecolor		CHOICE_TEXTCOLOR_DISABLED
+			textAlign		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny		16
+			foreColor		CHOICE_TEXTCOLOR_DISABLED
 			visible			when( dvarint( "ui_netSource" ) != 2 )
 			decoration
 		}
@@ -327,15 +327,15 @@
 			name			createFavorite
 			text			"@MENU_NEW_FAVORITE"
 			type			ITEM_TYPE_BUTTON
-			textfont		UI_FONT_NORMAL
-			textscale		CUSTOM_BUTTON_TEXT_SIZE
+			textFont		UI_FONT_NORMAL
+			textScale		CUSTOM_BUTTON_TEXT_SIZE
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			style			WINDOW_STYLE_FILLED
 			rect			ORIGIN_FILTER3B 130 15  CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-			textalign		ITEM_ALIGN_LEFT
-			textalignx		0
-			textaligny		16
-			forecolor		.9 .9 .95 1
+			textAlign		ITEM_ALIGN_LEFT
+			textAlignx		0
+			textAligny		16
+			foreColor		.9 .9 .95 1
 			visible			1
 			// Only show when view favorite servers list
 			dvarTest "ui_netSource"
@@ -372,16 +372,16 @@
 		#define WIDTH_MAP			70
 		#define WIDTH_PLAYER		50
 		#define WIDTH_TYPE			102
-		#define WIDTH_VOICE			20 
-		#define WIDTH_PURE			20 
-		#define WIDTH_MOD			20 
-		#define WIDTH_PB			20
+		#define WIDTH_VOICE			90
+		#define WIDTH_PURE			-2
+		#define WIDTH_MOD			-2 
+		#define WIDTH_PB			-2
 		#define WIDTH_PING			40 
 
 		#define TAB_HEIGHT			16
 		#define TAB_LABEL_OFFSET	\
-				textalignx 4			\
-				textaligny ( TAB_HEIGHT - 2 )
+				textAlignx 4			\
+				textAligny ( TAB_HEIGHT - 2 )
 
 		#define TABLE_X				4
 		#define TABLE_Y				64
@@ -408,8 +408,8 @@
 			group 			grpSystembutton
 			rect 			TABLE_X TABLE_Y TABLE_WIDTH TABLE_HEIGHT
 			style 			WINDOW_STYLE_FILLED
-			forecolor 		1 1 1 1
-			backcolor 		0 0 0 .3
+			foreColor 		1 1 1 1
+			backColor 		0 0 0 .3
 			visible 		1
 			decoration
 		}
@@ -449,8 +449,8 @@
 					origin 			-2 -2 \
 					style 			WINDOW_STYLE_FILLED \
 					border 			1 \
-					backcolor 		pcolor \
-					bordercolor 	TAB_BORDER_COLOR \
+					backColor 		pcolor \
+					borderColor 	TAB_BORDER_COLOR \
 					visible 		1 \
 					decoration \
 				}
@@ -478,25 +478,25 @@
 			style 			WINDOW_STYLE_FILLED
 			elementwidth 	120
 			elementheight 	16
-			textfont		UI_FONT_NORMAL
-			textalign 		1
-			textaligny 		0
-			textscale 		0.25
+			textFont		UI_FONT_NORMAL
+			textAlign 		1
+			textAligny 		0
+			textScale 		0.25
 			elementtype 	LISTBOX_TEXT
 			feeder 			FEEDER_SERVERS
-			forecolor 		1 1 1 1
-			backcolor 		0 0 0 0
+			foreColor 		1 1 1 1
+			backColor 		0 0 0 0
 			outlinecolor 	OPTIONS_HEADING_JOIN_COLOR
 			visible 		1
 //			numcols			xpos			xwidth			textlen		type
-			columns 8		18 				1				1
-							25 				18 				1
-							46 				203 			38
-							229 			98				25
-							332 			85 				10
-							382 			35 				35
-							492 			100 			20
-							592 			20 				4
+			columns 8		7 				1				1			//
+							27 				18 				1			//
+							46 				203 			38			//
+							259 			98				25			//
+							332 			85 				10			//
+							382 			35 				35			//
+							484 			100 			20			//
+							582 			20 				4			//
 			doubleClick 	{ uiScript "JoinServer"; }
 		}
 
@@ -511,20 +511,20 @@
 			type ITEM_TYPE_BUTTON
 			style WINDOW_STYLE_FILLED
 			rect RECT_PASSWORD
-			forecolor 1 1 1 1
-			backcolor OPTIONS_HEADING_JOIN_COLOR
+			foreColor 1 1 1 1
+			backColor OPTIONS_HEADING_JOIN_COLOR
 			visible 1
 			action
 			{
 				play "mouse_click";
 				uiScript ServerSort 0;
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor password backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor passwordColumn backcolor 0 0 0.4 .15
+				setItemColor grpTabs backColor TAB_BG_COLOR;
+				setItemColor password backColor .1 .2 .37 1;
+				setItemColor grpColumn backColor 0 0 0 0;
+				setItemColor passwordColumn backColor 0 0 0.4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor passwordColumn bordercolor 1 1 1 1; play "mouse_over" }
-			mouseExit { hide "message_sort"; setitemcolor passwordColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor passwordColumn borderColor 1 1 1 1; play "mouse_over" }
+			mouseExit { hide "message_sort"; setItemColor passwordColumn borderColor TAB_BORDER_COLOR }
 		}
 		itemDef
 		{
@@ -545,19 +545,20 @@
 			type ITEM_TYPE_BUTTON
 			style WINDOW_STYLE_FILLED
 			rect RECT_HARDWARE
-			forecolor 1 1 1 1
-			backcolor OPTIONS_HEADING_JOIN_COLOR
+			foreColor 1 1 1 1
+			backColor OPTIONS_HEADING_JOIN_COLOR
 			visible 1
 			action
 			{
 				play "mouse_click";
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor hardware backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor hardwareColumn backcolor 0 0 0.4 .15
+				uiScript ServerSort 1;
+				setItemColor grpTabs backColor TAB_BG_COLOR;
+				setItemColor hardware backColor .1 .2 .37 1;
+				setItemColor grpColumn backColor 0 0 0 0;
+				setItemColor hardwareColumn backColor 0 0 0.4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor hardwareColumn bordercolor 1 1 1 1; play "mouse_over"; }
-			mouseExit { hide "message_sort"; setitemcolor hardwareColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor hardwareColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor hardwareColumn borderColor TAB_BORDER_COLOR }
 		}
 		itemDef
 		{
@@ -578,25 +579,25 @@
 			text "@MENU_SERVER NAME"
 			TAB_LABEL_OFFSET
 			type ITEM_TYPE_BUTTON
-			textscale 0.25
-			textfont	UI_FONT_NORMAL
+			textScale 0.25
+			textFont UI_FONT_NORMAL
 			style WINDOW_STYLE_FILLED
 			rect RECT_SERVER
-			textalign ITEM_ALIGN_LEFT
-			forecolor 1 1 1 1
-			backcolor OPTIONS_HEADING_JOIN_COLOR
+			textAlign ITEM_ALIGN_LEFT
+			foreColor 1 1 1 1
+			backColor OPTIONS_HEADING_JOIN_COLOR
 			visible 1
 			action
 			{
 				play "mouse_click" ;
-				uiScript ServerSort 1;
-				setitemcolor grpTabs backcolor TAB_BG_COLOR ;
-				setitemcolor server backcolor .1 .2 .37 1 ;
-				setitemcolor grpColumn backcolor 0 0 0 0 ;
-				setitemcolor serverColumn backcolor 0 0 0.4 .15
+				uiScript ServerSort 2;
+				setItemColor grpTabs backColor TAB_BG_COLOR ;
+				setItemColor server backColor .1 .2 .37 1 ;
+				setItemColor grpColumn backColor 0 0 0 0 ;
+				setItemColor serverColumn backColor 0 0 0.4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor serverColumn bordercolor 1 1 1 1; play "mouse_over"; }
-			mouseExit { hide "message_sort"; setitemcolor serverColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor serverColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor serverColumn borderColor TAB_BORDER_COLOR }
 		}
 		// MAP ===================================================================
 		itemDef
@@ -606,25 +607,25 @@
 			type ITEM_TYPE_BUTTON
 			text "@MENU_MAP_NAME"
 			TAB_LABEL_OFFSET
-			textscale 0.25
-			textfont UI_FONT_NORMAL
+			textScale 0.25
+			textFont UI_FONT_NORMAL
 			style WINDOW_STYLE_FILLED
 			rect RECT_MAP
-			textalign ITEM_ALIGN_LEFT
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
+			textAlign ITEM_ALIGN_LEFT
+			backColor OPTIONS_HEADING_JOIN_COLOR
+			foreColor 1 1 1 1
 			visible 1
 			action
 			{
 				play "mouse_click" ;
-				uiScript ServerSort 2;
-				setitemcolor grpTabs backcolor TAB_BG_COLOR ;
-				setitemcolor map backcolor .1 .2 .37 1 ;
-				setitemcolor grpColumn backcolor 0 0 0 0 ;
-				setitemcolor mapColumn backcolor 0 0 .4 .15
+				uiScript ServerSort 3;
+				setItemColor grpTabs backColor TAB_BG_COLOR ;
+				setItemColor map backColor .1 .2 .37 1 ;
+				setItemColor grpColumn backColor 0 0 0 0 ;
+				setItemColor mapColumn backColor 0 0 .4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor mapColumn bordercolor 1 1 1 1; play "mouse_over"; }
-			mouseExit { hide "message_sort"; setitemcolor mapColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor mapColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor mapColumn borderColor TAB_BORDER_COLOR }
 		}
 
 		// PLAYERS ===============================================================
@@ -635,25 +636,25 @@
 			text "@MENU_NUMPLAYERS"
 			TAB_LABEL_OFFSET
 			type ITEM_TYPE_BUTTON
-			textscale 0.25
+			textScale 0.25
 			style WINDOW_STYLE_FILLED
-			textfont	UI_FONT_NORMAL
+			textFont	UI_FONT_NORMAL
 			rect RECT_PLAYER
-			textalign ITEM_ALIGN_LEFT
-			forecolor 1 1 1 1
-			backcolor OPTIONS_HEADING_JOIN_COLOR
+			textAlign ITEM_ALIGN_LEFT
+			foreColor 1 1 1 1
+			backColor OPTIONS_HEADING_JOIN_COLOR
 			visible 1
 			action
 			{
 				play "mouse_click" ;
-				uiScript ServerSort 3;
-				setitemcolor grpTabs backcolor TAB_BG_COLOR ;
-				setitemcolor Players backcolor .1 .2 .37 1 ;
-				setitemcolor grpColumn backcolor 0 0 0 0 ;
-				setitemcolor playerColumn backcolor 0 0 .4 .15
+				uiScript ServerSort 4;
+				setItemColor grpTabs backColor TAB_BG_COLOR ;
+				setItemColor Players backColor .1 .2 .37 1 ;
+				setItemColor grpColumn backColor 0 0 0 0 ;
+				setItemColor playerColumn backColor 0 0 .4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor playerColumn bordercolor 1 1 1 1; play "mouse_over"; }
-			mouseExit { hide "message_sort"; setitemcolor playerColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor playerColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor playerColumn borderColor TAB_BORDER_COLOR }
 		}
 
 		// TYPE ==================================================================
@@ -663,158 +664,55 @@
 			group "grpTabs"
 			text "@MENU_TYPE1"
 			TAB_LABEL_OFFSET
-			textfont	UI_FONT_NORMAL
-			textscale 0.25
+			textFont UI_FONT_NORMAL
+			textScale 0.25
 			type ITEM_TYPE_BUTTON
 			style WINDOW_STYLE_FILLED
 			rect RECT_TYPE
-			textalign ITEM_ALIGN_LEFT
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
+			textAlign ITEM_ALIGN_LEFT
+			backColor OPTIONS_HEADING_JOIN_COLOR
+			foreColor 1 1 1 1
 			visible 1
 			action
 			{
 				play "mouse_click";
-				uiScript ServerSort 4;
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor Type backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor typeColumn backcolor 0 0 .4 .15
+				uiScript ServerSort 5;
+				setItemColor grpTabs backColor TAB_BG_COLOR;
+				setItemColor Type backColor .1 .2 .37 1;
+				setItemColor grpColumn backColor 0 0 0 0;
+				setItemColor typeColumn backColor 0 0 .4 .15;
 			}
-			mouseEnter { show "message_sort"; setitemcolor typeColumn bordercolor 1 1 1 1; play "mouse_over"; }
-			mouseExit { hide "message_sort"; setitemcolor typeColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor typeColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor typeColumn borderColor TAB_BORDER_COLOR }
 		}
 
 		// VOICE =================================================================
 		itemDef
 		{
-			name "voice"
+			name "mod"
 			group "grpTabs"
+			text "@MPUI_MOD"
+			TAB_LABEL_OFFSET
+			textFont UI_FONT_NORMAL
+			textScale 0.25
 			type ITEM_TYPE_BUTTON
 			style WINDOW_STYLE_FILLED
 			rect RECT_VOICE
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
+			textAlign ITEM_ALIGN_LEFT
+			backColor OPTIONS_HEADING_JOIN_COLOR
+			foreColor 1 1 1 1
 			visible 1
 			action
 			{
 				play "mouse_click";
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor voice backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor voiceColumn backcolor 0 0 .4 .15
+				uiScript ServerSort 6;
+				setItemColor grpTabs backColor TAB_BG_COLOR;
+				setItemColor mod backColor .1 .2 .37 1;
+				setItemColor grpColumn backColor 0 0 0 0;
+				setItemColor voiceColumn backColor 0 0 .4 .15;
 			}
-			mouseEnter { show "message_sort"; setitemcolor voiceColumn bordercolor 1 1 1 1; play "mouse_over";}
-			mouseExit { hide "message_sort"; setitemcolor voiceColumn bordercolor TAB_BORDER_COLOR }
-		}
-		itemDef
-		{
-			name "voiceicon"
-			style WINDOW_STYLE_SHADER
-			rect ORIGIN_VOICE 16 16
-			origin 3 0
-			background "voice_on"
-			visible 1
-			decoration
-		}
-
-		// PURE ==================================================================
-		itemDef
-		{
-			name "pure"
-			group "grpTabs"
-			type ITEM_TYPE_BUTTON
-			style WINDOW_STYLE_FILLED
-			rect RECT_PURE
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
-			visible 1
-			action
-			{
-				play "mouse_click";
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor pure backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor pureColumn backcolor 0 0 .4 .15
-			}
-			mouseEnter { show "message_sort"; setitemcolor pureColumn bordercolor 1 1 1 1; play "mouse_over";}
-			mouseExit { hide "message_sort"; setitemcolor pureColumn bordercolor TAB_BORDER_COLOR }
-		}
-		itemDef
-		{
-			name "pureicon"
-			style WINDOW_STYLE_SHADER
-			rect ORIGIN_PURE 16 16
-			origin 2 0
-			background "hud_server_pure"
-			visible 1
-			decoration
-		}
-
-		// MOD ===================================================================
-		itemDef
-		{
-			name "Mod"
-			group "grpTabs"
-			type ITEM_TYPE_BUTTON
-			style WINDOW_STYLE_FILLED
-			rect RECT_MOD
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
-			visible 1
-			action
-			{
-				play "mouse_click";
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor Mod backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor modColumn backcolor 0 0 .4 .15
-			}
-			mouseEnter { show "message_sort"; setitemcolor modColumn bordercolor 1 1 1 1; play "mouse_over";}
-			mouseExit { hide "message_sort"; setitemcolor modColumn bordercolor TAB_BORDER_COLOR }
-		}
-		itemDef
-		{
-			name "modicon"
-			style WINDOW_STYLE_SHADER
-			rect ORIGIN_MOD 16 16
-			origin 2 0
-			background "mod_header"
-			visible 1
-			decoration
-		}
-
-		// PB ====================================================================		
-		itemDef 
-		{
-			name "pb"
-			group "grpTabs"
-			type ITEM_TYPE_BUTTON
-			style WINDOW_STYLE_FILLED	
-			rect RECT_PB
-			backcolor OPTIONS_HEADING_JOIN_COLOR
-			forecolor 1 1 1 1
-			visible 1 
-			action 
-			{
-				play "mouse_click"; 
-				setitemcolor grpTabs backcolor TAB_BG_COLOR; 
-				setitemcolor pb backcolor .1 .2 .37 1;  
-				setitemcolor grpColumn backcolor 0 0 0 0; 
-				setitemcolor pbColumn backcolor 0 0 .4 .15 
-			}
-			mouseEnter { show "message_sort"; setitemcolor pbColumn bordercolor 1 1 1 1; play "mouse_over";}
-			mouseExit { hide "message_sort"; setitemcolor pbColumn bordercolor TAB_BORDER_COLOR }	  	  
-		}
-		itemDef 
-		{
-			name "pbicon"
-			style WINDOW_STYLE_SHADER
-			rect ORIGIN_PB 16 16
-			origin 2 0
-			background "punkbusterlogo"
-			visible 1
-			decoration
+			mouseEnter { show "message_sort"; setItemColor voiceColumn borderColor 1 1 1 1; play "mouse_over"; }
+			mouseExit { hide "message_sort"; setItemColor voiceColumn borderColor TAB_BORDER_COLOR }
 		}
 				
 		// PING ==================================================================
@@ -825,25 +723,25 @@
 			text "@MENU_PING"
 			TAB_LABEL_OFFSET
 			type ITEM_TYPE_BUTTON
-			textscale 0.25
-			textfont	UI_FONT_NORMAL
+			textScale 0.25
+			textFont	UI_FONT_NORMAL
 			style WINDOW_STYLE_FILLED
 			rect RECT_PING
-			textalign ITEM_ALIGN_LEFT
-			backcolor .1 .2 .37 1 // Start highlighted
-			forecolor 1 1 1 1
+			textAlign ITEM_ALIGN_LEFT
+			backColor .1 .2 .37 1 // Start highlighted
+			foreColor 1 1 1 1
 			visible 1
 			action
 			{
 				play "mouse_click";
-				uiScript ServerSort 5;				
-				setitemcolor grpTabs backcolor TAB_BG_COLOR;
-				setitemcolor Ping backcolor .1 .2 .37 1;
-				setitemcolor grpColumn backcolor 0 0 0 0;
-				setitemcolor pingColumn backcolor 0 0 .4 .15
+				uiScript ServerSort 7;				
+				setItemColor grpTabs backColor TAB_BG_COLOR;
+				setItemColor Ping backColor .1 .2 .37 1;
+				setItemColor grpColumn backColor 0 0 0 0;
+				setItemColor pingColumn backColor 0 0 .4 .15
 			}
-			mouseEnter { show "message_sort"; setitemcolor pingColumn bordercolor 1 1 1 1 ; play "mouse_over";}
-			mouseExit { hide "message_sort"; setitemcolor pingColumn bordercolor TAB_BORDER_COLOR }
+			mouseEnter { show "message_sort"; setItemColor pingColumn borderColor 1 1 1 1 ; play "mouse_over";}
+			mouseExit { hide "message_sort"; setItemColor pingColumn borderColor TAB_BORDER_COLOR }
 		}
 
 		#undef TABLE_HEIGHT
@@ -861,36 +759,36 @@
 			name 			"serverinfo"
 			text 			"@MENU_SERVER_INFO"
 			type 			ITEM_TYPE_BUTTON
-			textfont		UI_FONT_NORMAL
-			textscale 		TEXTSIZE_SMALL
+			textFont		UI_FONT_NORMAL
+			textScale 		TEXTSIZE_SMALL
 			style 			WINDOW_STYLE_FILLED
 			border 			1
-			bordercolor 	.1 .1 .1 .25
+			borderColor 	.1 .1 .1 .25
 			rect 			70 10 92 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 384 270 92 15
-			textalign 		ITEM_ALIGN_CENTER
-			textalignx 		9		// center
-			textaligny 		18
-			backcolor 		TAB_BG_COLOR
-			forecolor 		TEXTBUTTON_COLOR
+			textAlign 		ITEM_ALIGN_CENTER
+			textAlignx 		9		// center
+			textAligny 		18
+			backColor 		TAB_BG_COLOR
+			foreColor 		TEXTBUTTON_COLOR
 			visible 		0
 			action 			{ play "mouse_click"; open "serverinfo_popmenu"; }
-			mouseEnter 		{ show "message_serverinfo"; setitemcolor serverinfo backcolor .1 .2 .37 1 ; play "mouse_over";}
-			mouseExit 		{ hide "message_serverinfo"; setitemcolor serverinfo backcolor TAB_BG_COLOR }
+			mouseEnter 		{ show "message_serverinfo"; setItemColor serverinfo backColor .1 .2 .37 1 ; play "mouse_over";}
+			mouseExit 		{ hide "message_serverinfo"; setItemColor serverinfo backColor TAB_BG_COLOR }
 		}
 		itemDef 
 		{
 			name			"addFavorite"
 			text			"@MENU_ADD_TO_FAVORITES"
 			type			ITEM_TYPE_BUTTON
-			textscale		TEXTSIZE_SMALL
+			textScale		TEXTSIZE_SMALL
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			ownerdrawFlag	UI_SHOW_NOTFAVORITESERVERS
 			rect			-176 10 92 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 140 420 120 14
-			textfont		UI_FONT_NORMAL
-			textalign		ITEM_ALIGN_CENTER
-			textaligny		18
-			forecolor		TEXTBUTTON_COLOR
+			textFont		UI_FONT_NORMAL
+			textAlign		ITEM_ALIGN_CENTER
+			textAligny		18
+			foreColor		TEXTBUTTON_COLOR
 			visible 		when ( 1 )
 			dvarTest 		"ui_netSource"
 			hideDvar 		{ "2" }
@@ -908,15 +806,15 @@
 			name			"delfavorite"
 			text			"@MENU_DEL_FAVORITE"
 			type			ITEM_TYPE_BUTTON
-			textscale		TEXTSIZE_SMALL
+			textScale		TEXTSIZE_SMALL
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			ownerdrawFlag	UI_SHOW_FAVORITESERVERS
 			rect			-176 10 92 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 140 420 120 14
-			textalign		ITEM_ALIGN_CENTER
-			textaligny		18
-			forecolor		TEXTBUTTON_COLOR
+			textAlign		ITEM_ALIGN_CENTER
+			textAligny		18
+			foreColor		TEXTBUTTON_COLOR
 			visible 		when ( 1 )
 			dvarTest 		"ui_netSource"
 			showDvar 		{ "2" }
@@ -934,14 +832,14 @@
 			name			"passwordenter"
 			text			"@MENU_PASSWORD"
 			type			ITEM_TYPE_BUTTON
-			textscale		TEXTSIZE_SMALL
+			textScale		TEXTSIZE_SMALL
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			rect			-46 10 80 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 280 420 90 14
-			textalign		ITEM_ALIGN_CENTER
-			textaligny		18
-			forecolor		TEXTBUTTON_COLOR
+			textAlign		ITEM_ALIGN_CENTER
+			textAligny		18
+			foreColor		TEXTBUTTON_COLOR
 			visible			1
 			action 
 			{
@@ -956,14 +854,14 @@
 			name			"serverinfo"
 			text			"@MENU_SERVER_INFO"
 			type			ITEM_TYPE_BUTTON
-			textscale		TEXTSIZE_SMALL
+			textScale		TEXTSIZE_SMALL
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			rect			50 10 92 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 390 420 100 14
-			textalign		ITEM_ALIGN_CENTER
-			textaligny		18
-			forecolor		TEXTBUTTON_COLOR
+			textAlign		ITEM_ALIGN_CENTER
+			textAligny		18
+			foreColor		TEXTBUTTON_COLOR
 			visible			1
 			action 
 			{
@@ -978,14 +876,14 @@
 			name			"accept"
 			text			"@MENU_JOIN_SERVER"
 			type			1
-			textfont		UI_FONT_NORMAL
+			textFont		UI_FONT_NORMAL
 			style			WINDOW_STYLE_FILLED
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			rect			160 10 92 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM // 510 420 90 14
-			textalign		ITEM_ALIGN_CENTER
-			textscale		TEXTSIZE_SMALL
-			textaligny		18
-			forecolor		TEXTBUTTON_COLOR
+			textAlign		ITEM_ALIGN_CENTER
+			textScale		TEXTSIZE_SMALL
+			textAligny		18
+			foreColor		TEXTBUTTON_COLOR
 			visible			1
 			mouseEnter		{ play "mouse_over"}
 			action 
@@ -1000,13 +898,13 @@
 			text			"@MENU_BACK"
 			type			1
 			style			WINDOW_STYLE_FILLED
-			forecolor		TEXTBUTTON_COLOR
+			foreColor		TEXTBUTTON_COLOR
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			rect			-250 10 40 20 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_BOTTOM
-			textfont		UI_FONT_NORMAL
-			textalign		ITEM_ALIGN_LEFT
-			textscale		TEXTSIZE_SMALL
-			textaligny		18
+			textFont		UI_FONT_NORMAL
+			textAlign		ITEM_ALIGN_LEFT
+			textScale		TEXTSIZE_SMALL
+			textAligny		18
 			visible			1
 			mouseEnter		{ play "mouse_over"; }
 			action 

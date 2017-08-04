@@ -1,0 +1,395 @@
+#include "ui/menudef.h"
+
+#define TEAM_IS_MARINES		(localVarString( ui_team ) == "marines")
+#define TEAM_IS_OPFOR		(localVarString( ui_team ) == "opfor")
+
+#define RANK_ORIGIN 0 6
+#define ONLINEGAME (dvarInt( "onlinegame" ) && !dvarInt( "xblive_privatematch" ) )
+#define ONLINEGAME_OFFSET 10
+
+#define FLASH_OFS 	((sin(milliseconds()/90))*2)
+#define FLASH_OFS2 	((sin(milliseconds()/90))*4)
+
+#define HUD_ALPHA 0.65
+#define HUD_FOREGROUND_ALPHA 0.75
+#define DPAD_ICON_ALPHA 0.65
+
+#define	BOTTOM_RECT_X 0
+#define	BOTTOM_RECT_Y 0
+
+#define WEAPINFO_X -4
+#define WEAPINFO_Y -36
+ 
+#define NOT_SPECTATING ( !spectatingClient() )
+       
+#define TEAM_IS_TIED ( team( "score" ) == otherteam( score ) )
+#define TEAM_IS_WINNING ( team( "score" ) > otherteam( score ) )
+#define TEAM_IS_LOSING ( team( "score" ) < otherteam( score ) )
+
+// At ui_bomb_timer 0, regular timer shows up next to the scoreboard.
+// At ui_bomb_timer 1, the briefcase being shown with countdown timer.
+// At ui_bomb_timer 2 and 3, the briefcase shows up for no reason seems to be unused...
+// At ui_bomb_timer 4, the briefcase is hidden and the Nuke Material + Nuke Timer should be showing.
+
+#define SCOREBAR_ORIGIN 0 -7
+#define ESCOREBAR_ORIGIN 8 -6
+	
+#define SCORE_OFFSET_X	4
+#define SCORE_OFFSET_Y	2
+	
+#define TEAM_IS_TIED	(team(score) == otherteam(score))
+#define TEAM_IS_WINNING (team(score) > otherteam(score))
+#define TEAM_IS_LOSING	(team(score) < otherteam(score))
+	
+#define PLAYER_IS_TIED		(player(score) == scoreatrank(1) && scoreatrank(1) == scoreatrank(2))
+#define PLAYER_IS_WINNING	(player(score) > scoreatrank(2))
+#define PLAYER_IS_LOSING	(player(score) < scoreatrank(1))
+	
+#define SHOULD_DISPLAY_SCOREBAR (team( name ) != "TEAM_SPECTATOR")
+{
+	menuDef
+	{
+		name 			"scorebar_hd"
+		rect			(BOTTOM_RECT_X+SCORE_OFFSET_X) (BOTTOM_RECT_Y+SCORE_OFFSET_Y) 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+		exp				rect Y( BOTTOM_RECT_Y - (ONLINEGAME * ONLINEGAME_OFFSET) );
+		fullScreen		0
+		visible 		when( !inkillcam() && !ui_active() && dvarint( "ui_hud_hardcore" ) == 0 );
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -45 128 64 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -45 + (TEAM_IS_LOSING*20) );
+			exp				rect H( 64 - (TEAM_IS_LOSING*128) );
+			forecolor		1 1 1 HUD_ALPHA
+//			background		"scorebar_backdrop"
+			visible			when( team( name ) != "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -45 128 64 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -45 + (PLAYER_IS_LOSING*20) );
+			exp				rect H( 64 - (PLAYER_IS_LOSING*128) );
+			forecolor		1 1 1 HUD_ALPHA
+//			background		"scorebar_backdrop"
+			visible			when( team( name ) == "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -36 36 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 -5
+			exp				material( dvarString( "g_TeamIcon_Allies" ) );
+			visible			when ( team( name ) == "TEAM_ALLIES" && SHOULD_DISPLAY_SCOREBAR ); 
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -36 36 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 -5
+			exp				material( dvarString( "g_TeamIcon_Allies" ) );
+			visible			when (  team( name ) == "TEAM_SPECTATOR" && SHOULD_DISPLAY_SCOREBAR ); 
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -36 36 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 -5
+			exp				material( dvarString( "g_TeamIcon_Axis" ) );
+			visible			when ( team( name ) == "TEAM_AXIS" && SHOULD_DISPLAY_SCOREBAR );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -36 36 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 -5
+			exp				material( dvarString( "g_TeamIcon_Allies" ) );
+			visible			when ( team( name ) == "TEAM_FREE" && TEAM_IS_MARINES && SHOULD_DISPLAY_SCOREBAR ); 
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 -36 36 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 -5
+			exp				material( dvarString( "g_TeamIcon_Axis" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible			when ( team( name ) == "TEAM_FREE" && TEAM_IS_OPFOR && SHOULD_DISPLAY_SCOREBAR ); 
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			46 -41 80 12 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -41 + 0-(TEAM_IS_LOSING*24) );
+			background		"white"
+			forecolor		1 1 1 0.25
+			visible			when ( team( name ) != "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR ); 
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			46 -41 80 12 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -41 + 0-(PLAYER_IS_LOSING*24) );
+			background		"white"
+			forecolor		1 1 1 0.25
+			visible			when ( team( name ) == "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR ); 
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			128 -47 24 24 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -47 + 0-(TEAM_IS_LOSING*24) );
+//			background		"hud_arrow_left"
+			forecolor		1 1 1 HUD_ALPHA
+			visible			when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_AXIS") && SHOULD_DISPLAY_SCOREBAR ); 
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			128 -47 24 24 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -47 + 0-(PLAYER_IS_LOSING*24) );
+//			background		"hud_arrow_left"
+			forecolor		1 1 1 HUD_ALPHA
+			visible			when ( team( name ) == "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR ); 
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -39 76 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -39 + 0-(TEAM_IS_LOSING*24) );
+			exp				rect W( 76 * (team( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_allies" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_SPECTATOR") && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -39 76 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -39 + 0-(TEAM_IS_LOSING*24) );
+			exp				rect W( 76 * (team( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_axis" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( team( name ) == "TEAM_AXIS" && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -39 76 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -39 + 0-(PLAYER_IS_LOSING*24) );
+			exp				rect W( 76 * (player( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_axis" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_FREE") && TEAM_IS_OPFOR && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -39 76 8 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -39 + 0-(PLAYER_IS_LOSING*24) );
+			exp				rect W( 76 * (player( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_allies" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_FREE") && TEAM_IS_MARINES && SHOULD_DISPLAY_SCOREBAR )
+			visible	0
+			decoration
+		}
+		itemDef 
+		{
+			rect		50 -27 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp			rect Y( -27 + 0-(TEAM_IS_LOSING*24) );
+			exp text	( team( score ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			visible 	when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_AXIS") && SHOULD_DISPLAY_SCOREBAR )
+			decoration 
+		}
+		itemDef 
+		{
+			rect		50 -27 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp			rect Y( -27 + 0-(PLAYER_IS_LOSING*24) );
+			exp text	( player( score ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			visible 	when ( team( name ) == "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR )
+			decoration 
+		}
+
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			46 -22 80 10 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -22 + (TEAM_IS_LOSING*12) );
+			background		"white"
+			forecolor		1 1 1 0.25
+			visible			when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_AXIS") && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			46 -22 80 10 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -22 + (PLAYER_IS_LOSING*12) );
+			background		"white"
+			forecolor		1 1 1 0.25
+			visible			when ( team( name ) == "TEAM_FREE" && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -20 76 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -20 + (TEAM_IS_LOSING*12) );
+			exp				rect W( 76 * (otherteam( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_allies" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( team( name ) == "TEAM_AXIS" && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -20 76 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -20 + (TEAM_IS_LOSING*12) );
+			exp				rect W( 76 * (otherteam( score ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_axis" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_SPECTATOR") && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -20 76 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -20 + (PLAYER_IS_LOSING*12) );
+			exp				rect W( 76 * (scoreatrank( 2 ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_allies" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_FREE") && TEAM_IS_OPFOR && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			48 -20 76 6 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp				rect Y( -20 + (PLAYER_IS_LOSING*12) );
+			exp				rect W( 76 * (scoreatrank( 2 ) / dvarInt( "ui_scorelimit" ) ) );
+//			exp				material( "scorebar_" + dvarString( "scr_axis" ) );
+			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
+			visible 		when ( (team( name ) == "TEAM_FREE") && TEAM_IS_MARINES && SHOULD_DISPLAY_SCOREBAR )
+			decoration
+		}
+		itemDef 
+		{
+			rect		50 -8 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp			rect Y( -8 + (TEAM_IS_LOSING*12) );
+			exp text	( otherteam( score ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			visible 	when ( (team( name ) == "TEAM_ALLIES" || team( name ) == "TEAM_AXIS") && SHOULD_DISPLAY_SCOREBAR )
+			decoration 
+		}
+		itemDef 
+		{
+			rect		50 -8 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp			rect Y( -8 + (PLAYER_IS_LOSING*12) );
+			exp text	( scoreatrank( 2 ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			visible 	when ( team( name ) == "TEAM_FREE" && player( score ) == scoreatrank( 1 ) && SHOULD_DISPLAY_SCOREBAR )
+			decoration 
+		}
+		itemDef 
+		{
+			rect		50 -8 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			exp			rect Y( -8 + (PLAYER_IS_LOSING*12) );
+			exp text	( scoreatrank( 1 ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			visible 	when ( team( name ) == "TEAM_FREE" && player( score ) != scoreatrank( 1 ) && SHOULD_DISPLAY_SCOREBAR )
+			decoration 
+		}
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			134 -48 48 48 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin			5 6
+			exp				material( "hud_suitcase_bomb" );
+			visible			when ( dvarBool( ui_bomb_timer ) ); 
+			forecolor		1 1 1 0.25
+			decoration
+		}
+		itemDef 
+		{
+			rect		134 -2 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin		6 0
+			exp text	( secondsAsCountdown( timeLeft() ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			visible 	when ( timeLeft() >= 60 && !dvarBool( ui_bomb_timer ) );
+			forecolor	1 1 1 HUD_FOREGROUND_ALPHA
+			decoration 
+		}
+		itemDef 
+		{
+			rect		134 -2 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin		6 0
+			exp text	( secondsAsCountdown( timeLeft() ) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 0.75 0 HUD_FOREGROUND_ALPHA
+			visible 	when ( timeLeft() >= 30 && timeLeft() < 60 && !dvarBool( ui_bomb_timer ) );
+			decoration 
+		}		
+		itemDef 
+		{
+			rect		134 -2 1 1 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_BOTTOM
+			origin		6 0
+			exp text	( secondsAsCountdown( timeLeft() ) + "." + (9 - int( (milliseconds() / 100)%10 )) );
+			textfont	UI_FONT_OBJECTIVE
+			textscale	0.35
+			textalign	ITEM_ALIGN_LEFT
+			textstyle	ITEM_TEXTSTYLE_SHADOWEDMORE
+			forecolor	1 0.5 0 1
+			visible 	when ( (timeLeft() >= 0 && timeLeft() < 30) || dvarBool( ui_bomb_timer ) );
+			decoration 
+		}
+	}
+}	

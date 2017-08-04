@@ -1,19 +1,70 @@
 #include "ui/menudef.h"
-#define CAC_MENU_NAME 	"popup_cac_template"
-#define CAC_PREFIX 		"template_"
-
 #include "ui_mp/common_macro.inc"
-{
-	#include "ui_mp/cac.inc"
-}
+
+#define STYLE_PC		1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+#include "ui_mp/cacpopup.inc"
+#include "ui_mp/cac_macros.inc"
 
 #undef CHOICE_SIZE_X
-#define CHOICE_SIZE_X			140
+#define CHOICE_SIZE_X	212
 
-#undef CHOICE_HORIZONTAL_ALIGN
-#define CHOICE_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
-#undef CHOICE_VERTICAL_ALIGN
-#define CHOICE_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+#define CAC_POPUP_X		( -57 )
+#define CAC_POPUP_Y		( 100 )
 
-#undef CHOICE_POPUP_TITLE_HEIGHT
-#define CHOICE_POPUP_TITLE_HEIGHT	4
+#define ITEM_NUM 5
+{
+	menuDef
+	{
+		name "popup_cac_template"
+	   	fullscreen 0
+		rect ( CAC_POPUP_X ) ( CAC_POPUP_Y ) CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+		border 0
+		backcolor 0 0 0 0
+		bordersize CHOICE_POPUP_BORDER_WIDTH
+		bordercolor CHOICE_POPUP_BORDER_COLOR
+		focusColor COLOR_FOCUSED
+	   	style WINDOW_STYLE_FILLED
+		popup
+		exp rect y ( localvarfloat( "ui_popup_cac_template_ypos" ) + 24 )
+		visible when ( localvarint( "ui_tabDepth" ) == localvarint( "ui_popup_cac_template_tabDepth" ) )
+		onOpen
+		{
+			setLocalVarFloat "ui_popup_cac_template_ypos" ( localvarfloat( "ui_popupYPos" ) );
+			setLocalVarInt "ui_leftPopup" ( 1 );
+			focusfirst;
+		}
+		onRequestClose
+		{
+			setLocalVarInt "ui_leftPopup" ( 0 );
+		}
+		onEsc
+		{
+			close self;
+		}
+		#include "ui_mp/cac.inc"
+
+		PREPROC_SHADER_DRAW_ALIGNED( -4 -24 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 8 -24 (CHOICE_POPUP_WIDTH-4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, "@MPUI_RESET_CAC", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR )
+
+		PREPROC_SHADER_DRAW( -4 -4 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_SHADER_DRAW( -4 -4 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_fadein", 0 0 0 0.7, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+
+		#undef CHOICE_X_START
+		#define CHOICE_X_START		0
+		
+		#undef CHOICE_Y_START
+		#define CHOICE_Y_START		0
+		
+		CHOICE_BUTTON( 1, "@CLASS_DEFAULT_ASSAULT", 	open "popup_cac_defaultclasswarning_assault"; )
+		CHOICE_BUTTON( 2, "@CLASS_DEFAULT_SPECOPS", 	open "popup_cac_defaultclasswarning_spec_ops"; )
+		CHOICE_BUTTON( 3, "@CLASS_DEFAULT_HEAVYGUNNER", open "popup_cac_defaultclasswarning_heavy_gunner"; )
+		CHOICE_BUTTON( 4, "@CLASS_DEFAULT_DEMOLITIONS", open "popup_cac_defaultclasswarning_demolitions"; )
+		CHOICE_BUTTON( 5, "@CLASS_DEFAULT_SNIPER", 		open "popup_cac_defaultclasswarning_sniper"; )
+	}
+}	
