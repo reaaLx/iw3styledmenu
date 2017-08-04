@@ -1,10 +1,6 @@
 #define LOADOUT_WIDTH 			270
 
-#ifdef PC
-	#define ORIGIN_LOADOUT			((-(LOADOUT_WIDTH - RIGHTITEM_OFFSET))-80) 38
-#else
-	#define ORIGIN_LOADOUT			(-(LOADOUT_WIDTH - RIGHTITEM_OFFSET)) 38
-#endif
+#define ORIGIN_LOADOUT			((-(LOADOUT_WIDTH - RIGHTITEM_OFFSET))-80) 4
 
 #define RATEBAR_FRAME_BORDER		0//WINDOW_BORDER_SUNKEN
 #define RATEBAR_FRAME_BORDERSIZE	2
@@ -40,14 +36,11 @@
 		
 
 	// background frame --------
-	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (LOADOUT_WIDTH+8) 326 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (LOADOUT_WIDTH+8) 376 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
 
-#ifdef PC
-	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 358 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-#else
-	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 342 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-#endif
-	PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_WIDTH+4) -4 20 358 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+//	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 342 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_WIDTH+4) -4 20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
 	
 	// primary weapon camo
 //	PREPROC_SHADER_DRAW_ALIGNED( -4 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
@@ -56,7 +49,7 @@
 //	PREPROC_SHADER_DRAW_ALIGNED( ((((LOADOUT_WIDTH+8)/4)*3)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	
 	/* top bar */ 			LOADOUT_PLATING( 4, 20, 0, 1 )
-	/* bottom bar */		LOADOUT_PLATING( 346, 16, 1, 0 )
+	/* bottom bar */		LOADOUT_PLATING( 386, 16, 1, 0 )
 	/* weapon divider */ 	LOADOUT_PLATING( 104, 8, 1, 1 )
 	/* perk plate */ 		LOADOUT_PLATING( 192, 16, 1, 1 )
 	// perks //
@@ -242,12 +235,19 @@
 	PREPROC_SHADER_DRAW_ALIGNED( 32 (PERK_Y_OFFSET+(PERK_Y_SPACING*2)+16) 14 14 LOADOUT_ALIGN, ORIGIN_LOADOUT, "ui_arrow_right", 1 1 1 0.4, 0, 1, 1 1 1 1) 
 	PREPROC_TEXT_DRAW_ALIGNED_EXP( 48 (PERK_Y_OFFSET+(PERK_Y_SPACING*2)+15) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@" + tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutPerk3" ) , 4 ), PERK_DESC_TEXTSIZE, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR )		
 
+	// deathstreak icons ------------
+	PREPROC_SHADER_DRAW_ALIGNED( 0 (PERK_Y_OFFSET-2+(PERK_Y_SPACING*3)) 32 32 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutDeathStreak" ) , 3 ), 1 1 1 1, 0, 1, 1 1 1 1 visible when( 1 ) ) 
+	// deathstreak name -------------
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( 36 (PERK_Y_OFFSET+(PERK_Y_SPACING*3)) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@" + tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutDeathStreak" ) , 2 ), TEXTSIZE_SMALL, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )
+
+	PREPROC_SHADER_DRAW_ALIGNED( -4 (PERK_Y_OFFSET+64+(PERK_Y_SPACING*2)) (LOADOUT_WIDTH+8) 1 LOADOUT_ALIGN, ORIGIN_LOADOUT, "white", 1 1 1 0.1, 0, 1, 1 1 1 1) 
+
 	// equipment icons ------------
-	PREPROC_SHADER_DRAW_ALIGNED( 0 (PERK_Y_OFFSET-5+(PERK_Y_SPACING*3)) 32 32 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutEquipment" ) , 3 ), 1 1 1 1, 0, 1, 1 1 1 1 visible when( 1 ) ) 
+	PREPROC_SHADER_DRAW_ALIGNED( 0 (PERK_Y_OFFSET-5+(PERK_Y_SPACING*4)) 32 32 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutEquipment" ) , 3 ), 1 1 1 1, 0, 1, 1 1 1 1 visible when( 1 ) ) 
 	// equipment name -------------
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( 36 (PERK_Y_OFFSET+(PERK_Y_SPACING*3)) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@" + tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutEquipment" ) , 2 ), TEXTSIZE_SMALL, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( 36 (PERK_Y_OFFSET+(PERK_Y_SPACING*4)) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@" + tablelookup( "mp/perkTable.csv" , 1 , localvarstring( "loadoutEquipment" ) , 2 ), TEXTSIZE_SMALL, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )
 
 	// extra icons ------------
-	PREPROC_SHADER_DRAW_ALIGNED( 125 ( PERK_Y_OFFSET-2+(PERK_Y_SPACING*3)) 32 32 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 6 ), 1 1 1 1, 0, 1, 1 1 1 1 visible when( 1 ) ) 	
+	PREPROC_SHADER_DRAW_ALIGNED( 125 ( PERK_Y_OFFSET-2+(PERK_Y_SPACING*4)) 32 32 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 6 ), 1 1 1 1, 0, 1, 1 1 1 1 visible when( 1 ) ) 	
 	// extra names ------------
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( 160 (PERK_Y_OFFSET+(PERK_Y_SPACING*3)) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, locstring( "@MPUI_N_XN" , "@" + tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 3 ) , int( tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 5 ) ) ), TEXTSIZE_SMALL, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( 160 (PERK_Y_OFFSET+(PERK_Y_SPACING*4)) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, locstring( "@MPUI_N_XN" , "@" + tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 3 ) , int( tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutOffhandSecondary" ) , 5 ) ) ), TEXTSIZE_SMALL, 0, -2, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )

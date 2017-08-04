@@ -41,7 +41,7 @@
 			open "main_text";
 		}
 		
-		#include "ui/blurredbg.inc"
+		#include "ui/bg.inc"
 		
 		#define BACK_ENABLE		1
 		#include "ui_mp/navcontrols.inc"

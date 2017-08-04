@@ -27,19 +27,17 @@
 		onOpen
 		{
 			exec "setfromdvar ui_name name";
-			close options_look;
-			close options_move;
-			close options_shoot;
-			close options_graphics;
-			close options_sound;
-			close options_game;
-			close options_view;
-			close options_defaults;
-			close options_driverinfo;
-			close options_credits;
-			close options_graphics_defaults;
-			close options_graphics_texture;
-			close options_control_defaults;
+			close "pc_options_actions";
+			close "pc_options_advanced_video";
+			close "pc_options_controls";
+			close "pc_options_movement";
+			close "pc_options_video";
+			close "options_multi";
+			close "options_graphics";
+			close "options_graphics_defaults";
+			close "options_graphics_texture";
+			close "main_controls";
+			close "main_options";;
 		}
 		onESC 
 		{ 

@@ -42,11 +42,16 @@
 			close "self"; 
 			open "main_text";
 		}
-		#define BACK_ENABLE		1
+		#define BACK_ENABLE 1
 		#include "ui_mp/navcontrols.inc"
 		
 		#include "ui/bg.inc"
+		
+		#include "ui_mp/navcontrols.inc"
 
+		#undef ORIGIN_TITLE
+		#define ORIGIN_TITLE 64 0
+		
 		CHOICE_MENU_TITLE( "@MENU_MODS" )
 
 		itemDef 

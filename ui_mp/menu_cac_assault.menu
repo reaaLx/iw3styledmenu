@@ -10,7 +10,7 @@
 #define CHOICE_GROUP			"menu"
 #define CHOICE_SEP_1			2
 #define CHOICE_SEP_2			4
-#define CHOICE_SEP_3			7
+#define CHOICE_SEP_3			8
 
 #undef CHOICE_SIZE_Y
 #define CHOICE_SIZE_Y 		18
@@ -41,6 +41,10 @@
 		{ 
 			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
 		}
+		onEsc
+		{
+			close "self";
+		}
 		#include "ui/bg.inc"
 		#include "ui_mp/cac_loadout.inc"
 		
@@ -52,7 +56,7 @@
 		CHOICE_MENU_TITLE( "@MPUI_CREATE_A_CLASS_CAP" )		
 
 		LOCAL_CAC_BUTTON( 1, "@MPUI_PRIMARY_WEAPON1", open "popup_cac_weapon_primary"; )
-		LOCAL_CAC_BUTTON( 2, "@MPUI_SIDE_ARM1", open "popup_cac_secondary"; )
+		LOCAL_CAC_BUTTON( 2, "@MPUI_SIDE_ARM1", open "popup_cac_weapon_secondary"; )
 		
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )
 		
@@ -70,10 +74,13 @@
 		LOCAL_CAC_BUTTON( 7, "@MPUI_PERK_3", open "popup_cac_perk3"; )
 //		CHOICE_NEWICON_VIS( 6, "specialty_new", when( ANY_NEW_PERK3 ) )
 
+		LOCAL_CAC_BUTTON( 8, "@MPUI_DEATHSTREAK", open "popup_cac_deathstreak"; )
+//		CHOICE_NEWICON_VIS( 7, "specialty_new", when ( ( ( getplayerdata( "perkNew" , "specialty_grenadepulldeath" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_grenadepulldeath" , 8 ) ) ) || ( getplayerdata( "perkNew" , "specialty_finalstand" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_finalstand" , 8 ) ) ) || ( getplayerdata( "perkNew" , "specialty_c4death" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_c4death" , 8 ) ) ) || ( getplayerdata( "perkNew" , "specialty_combathigh" ) || getplayerdata( "perkNew" , tablelookup( "mp/perkTable.csv" , 1 , "specialty_combathigh" , 8 ) ) ) ) )
+
 		CHOICE_SEPARATOR( CHOICE_SEP_3 )
 
-		CHOICE_BUTTON( 8, "@MENU_RENAME", open "pc_rename"; )
-		CHOICE_BUTTON( 9, "@MENU_RESET_TO_DEFAULT", open "popup_cac_template"; )		
+		CHOICE_BUTTON( 9, "@MENU_RENAME", open "pc_rename"; )
+		LOCAL_CAC_BUTTON( 10, "@MENU_RESET_TO_DEFAULT", open "popup_cac_template"; )		
 		
 	}
 }	
