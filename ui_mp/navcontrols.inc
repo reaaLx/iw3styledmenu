@@ -5,7 +5,7 @@
 #ifdef	PC
 	itemDef 	
 	{ 
-		style			WINDOW_STYLE_SHADER 
+		style			3 
 		rect			-120 -32 378 64 0 0 
 		background		"white" 
 		forecolor		0.9 0.9 0.95 0.175 
@@ -14,17 +14,17 @@
 	} 
 	itemDef 	
 	{ 
-		style			WINDOW_STYLE_SHADER 
+		style			3 
 		rect			258 -32 16 -64 0 0 
 		origin			0 0 
-		background		HIGHLIGHT_SHADER_ART 
+		background		"button_highlight_end" 
 		forecolor		0.9 0.9 0.95 0.175 
 		visible			1
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			56 448 528 40 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
@@ -33,27 +33,27 @@
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			584 448 16 64 0 0
 		origin			0 0
-		background		HIGHLIGHT_SHADER_ART
+		background		"button_highlight_end"
 		forecolor		0.9 0.9 0.95 0.175
 		visible			1
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			40 448 -16 64 0 0
 		origin			0 0
-		background		HIGHLIGHT_SHADER_ART
+		background		"button_highlight_end"
 		forecolor		0.9 0.9 0.95 0.175
 		visible			1
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			-120 464 160 32 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
@@ -62,7 +62,7 @@
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			600 464 160 32 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
@@ -74,58 +74,58 @@
 #ifndef PC
 	itemDef 	
 	{ 
-		style			WINDOW_STYLE_SHADER 
+		style			3 
 		rect			-120 0 420 68 0 0 
 		background		"white" 
 		forecolor		0.9 0.9 0.95 0.175 
-		visible			when( ENABLE_TITLE_BG ); 
+		visible			when( ENABLE_TITLE_BG )
 		decoration 	
 	} 
 	itemDef 	
 	{ 
-		style			WINDOW_STYLE_SHADER 
+		style			3 
 		rect			300 0 16 -68 0 0 
 		origin			0 0 
-		background		HIGHLIGHT_SHADER_ART 
+		background		"button_highlight_end" 
 		forecolor		0.9 0.9 0.95 0.175 
-		visible			when( ENABLE_TITLE_BG );
+		visible			when( ENABLE_TITLE_BG )
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			-120 414 1200 64 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
-		visible			when( ENABLE_TITLE_BG && ALT_PANEL );
+		visible			when( ENABLE_TITLE_BG && ALT_PANEL )
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			-120 416 420 64 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
-		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) );
+		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) )
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			300 416 16 64 0 0
 		origin			0 0
-		background		HIGHLIGHT_SHADER_ART
+		background		"button_highlight_end"
 		forecolor		0.9 0.9 0.95 0.175
-		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) );
+		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) )
 		decoration	
 	}
 	itemDef		
 	{
-		style			WINDOW_STYLE_SHADER
+		style			3
 		rect			316 432 440 64 0 0
 		background		"white"
 		forecolor		0.9 0.9 0.95 0.175
-		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) );
+		visible			when( ENABLE_TITLE_BG && ( ALT_PANEL == 0 ) )
 		decoration	
 	}
 #endif
@@ -151,7 +151,7 @@
 		textalign		ITEM_ALIGN_LEFT
 		textscale		TEXTSIZE_SMALL
 		textaligny		18
-		visible			when( BACK_ENABLE );
+		visible			when( BACK_ENABLE )
 		mouseEnter		{ play "mouse_over"; }
 		action 
 		{

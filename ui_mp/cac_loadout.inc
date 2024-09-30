@@ -34,7 +34,6 @@
 	#define LOADOUT_PLATING( py, ph, vis_gradient_top, vis_gradient_bottom ) \
 			LOADOUT_PLATING_RAW( ORIGIN_LOADOUT, 0, py, (LOADOUT_WIDTH+8), ph, LOADOUT_ALIGN, vis_gradient_top, vis_gradient_bottom )
 		
-
 	// background frame --------
 	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (LOADOUT_WIDTH+8) 376 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
 
@@ -44,8 +43,8 @@
 	
 	// primary weapon camo
 //	PREPROC_SHADER_DRAW_ALIGNED( -4 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
-	PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/4)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
-	PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/2)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/4)-4) 16 210 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	//PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/2)-4) 16 100 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 //	PREPROC_SHADER_DRAW_ALIGNED( ((((LOADOUT_WIDTH+8)/4)*3)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	
 	/* top bar */ 			LOADOUT_PLATING( 4, 20, 0, 1 )
@@ -74,94 +73,24 @@
 	#define INFO_TEXT				""
 	#define INFO_TITLE				"@MENU_PRIMARY_ATTRIBUTES" //"Primary Attributes"
 	#define INFO_TITLE_COLOR		CHOICE_TEXTCOLOR
-	//#include "ui_mp/info_box.inc"
+	#include "ui_mp/info_box.inc"
 	
-//	#define ORIGIN_ATTRIBUTE_LABEL	(INFO_BOX_X) (INFO_BOX_Y+2)
-		
-//	PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_ATTRIBUTE_LABEL INFO_BOX_WIDTH 20 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, -60 0, text "@MENU_ACCURACY1", TEXTSIZE_SMALL, -68, 16, ITEM_ALIGN_RIGHT, CHOICE_TEXTCOLOR )
-//	PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_ATTRIBUTE_LABEL INFO_BOX_WIDTH 20 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, -60 20, text "@MENU_DAMAGE", TEXTSIZE_SMALL, -68, 16, ITEM_ALIGN_RIGHT, CHOICE_TEXTCOLOR )
-//	PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_ATTRIBUTE_LABEL INFO_BOX_WIDTH 20 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, -60 40, text "@MENU_RANGE", TEXTSIZE_SMALL, -68, 16, ITEM_ALIGN_RIGHT, CHOICE_TEXTCOLOR )
-//	PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_ATTRIBUTE_LABEL INFO_BOX_WIDTH 20 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, -60 60, text "@MENU_FIRE_RATE", TEXTSIZE_SMALL, -68, 16, ITEM_ALIGN_RIGHT, CHOICE_TEXTCOLOR )
-//	PREPROC_TEXT_DRAW_ALIGNED( ORIGIN_ATTRIBUTE_LABEL INFO_BOX_WIDTH 20 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, -60 80, text "@MENU_MOBILITY", TEXTSIZE_SMALL, -68, 16, ITEM_ALIGN_RIGHT, CHOICE_TEXTCOLOR )
-
 	// meter bar unit dividers
 	#define ATTRIBUTE_UNITS( px, py ) \
-		PREPROC_SHADER_DRAW_ALIGNED( (px+(RATE_BAR_WIDTH/4)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 RATE_BAR_HEIGHT, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 ) \
-		PREPROC_SHADER_DRAW_ALIGNED( (px+(RATE_BAR_WIDTH/2)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 RATE_BAR_HEIGHT, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 ) \
-		PREPROC_SHADER_DRAW_ALIGNED( (px+((RATE_BAR_WIDTH/4)*3)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 RATE_BAR_HEIGHT, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 )
+		PREPROC_SHADER_DRAW_ALIGNED( (px+(98/4)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 12, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (px+(98/2)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 12, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (px+((98/4)*3)) py 1 3 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 12, "line_vertical", 1 1 1 0.2, 0, 0, 0 0 0 0 )
 		
 	// weapon attribut meter bars
 	#define ATTRIBUTE_BAR_FORMAT( px, py, pnum ) \
-		ATTRIBUTE_UNITS( px, py )\
-		PREPROC_SHADER_DRAW_ALIGNED( px py (-(RATE_BAR_WIDTH)) RATE_BAR_HEIGHT CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "gradient", 1 1 1 0.5, 0, 0, 0 0 0 0 ) \
-		PREPROC_SHADER_DRAW_ADV( px, py, \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4), pnum ))+ \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4), pnum ))))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.25 0.3 0.35 1, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP )\
-		PREPROC_SHADER_DRAW_ADV( px, py, \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4), pnum ))+ \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4), pnum ))))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		RATEBAR_BAR_SHADER, RATEBAR_BAR_COLOR, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP ) \
-		/* attachment delta bar -*/ \
-		PREPROC_SHADER_DRAW_ADV( px+(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4), pnum )))*RATE_BAR_WIDTH/100+\
-		((int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4), pnum )))*RATE_BAR_WIDTH/100), py, \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4), pnum )))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.4 0.15 0.15 1, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR VIS_WHEN_ATTACH_MINUS(tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4),pnum) rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP )\
-		/* attachment delta bar +*/ \
-		PREPROC_SHADER_DRAW_ADV( px+(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4), pnum )))*RATE_BAR_WIDTH/100, py, \
-		(int(tablelookup("mp/attributestable.csv", 1, tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4), pnum )))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.3 0.8 0.3 0.5, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR VIS_WHEN_ATTACH_PLUS(tablelookup("mp/statsTable.csv",0,STAT_CAC_PRIMARY,4)+"_"+ \
-		tablelookup("mp/attachmentTable.csv",9,STAT_CAC_PRIMARY_ATTACHMENT,4),pnum) rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP )\
+			ATTRIBUTE_UNITS( px, py )
 
 	#define PREVIEW_VIS_CONDITION visible when( PREVIEW_VIS_CONDITION_RAW );
 	#define PREVIEW_VIS_CONDITION_RAW dvarInt( ui_show_preview )
 
 	#define ATTRIBUTE_BAR_FORMAT_PREVIEW( px, py, pnum ) \
-		ATTRIBUTE_UNITS( px, py )\
-		PREPROC_SHADER_DRAW_ALIGNED( px py (-(RATE_BAR_WIDTH)) RATE_BAR_HEIGHT CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP, 0 0, "white", 0 0 0 1, 0, 0, 0 0 0 0 PREVIEW_VIS_CONDITION ) \
-		PREPROC_SHADER_DRAW_ADV( px, py, \
-		(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted), pnum ))+ \
-		(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted)+"_"+ \
-		dvarString(ui_attachment_highlighted), pnum ))))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.25 0.3 0.35 1, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP PREVIEW_VIS_CONDITION )\
-		PREPROC_SHADER_DRAW_ADV( px, py, \
-		(100)*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		RATEBAR_BAR_SHADER, RATEBAR_BAR_COLOR, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP PREVIEW_VIS_CONDITION ) \
-		/* attachment delta bar -*/ \
-		PREPROC_SHADER_DRAW_ADV( px+(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted), pnum )))*RATE_BAR_WIDTH/100+\
-		((int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted)+"_"+ \
-		dvarString(ui_attachment_highlighted), pnum )))*RATE_BAR_WIDTH/100), py, \
-		(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted)+"_"+ \
-		dvarString(ui_attachment_highlighted), pnum )))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.4 0.15 0.15 1, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR \
-		VIS_WHEN_ATTACH_MINUS_PREVIEW(dvarString(ui_primary_highlighted)+"_"+dvarString(ui_attachment_highlighted),pnum, PREVIEW_VIS_CONDITION_RAW ) \
-		rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP )\
-		/* attachment delta bar +*/ \
-		PREPROC_SHADER_DRAW_ADV( px+(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted), pnum )))*RATE_BAR_WIDTH/100, py, \
-		(int(tablelookup("mp/attributestable.csv", 1, dvarString(ui_primary_highlighted)+"_"+ \
-		dvarString(ui_attachment_highlighted), pnum )))*RATE_BAR_WIDTH/100, RATE_BAR_HEIGHT, \
-		"white", 0.3 0.8 0.3 0.5, RATEBAR_FRAME_BORDER, RATEBAR_FRAME_BORDERSIZE, RATEBAR_FRAME_BORDERCOLOR \
-		VIS_WHEN_ATTACH_PLUS_PREVIEW(dvarString(ui_primary_highlighted)+"_"+dvarString(ui_attachment_highlighted),pnum, PREVIEW_VIS_CONDITION_RAW ) \
-		rect 0 0 0 0 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP )
+			ATTRIBUTE_UNITS( px, py )\
 		
-//	ATTRIBUTE_BAR_FORMAT( (INFO_BOX_X+100), (INFO_BOX_Y+6), 2 )
-//	ATTRIBUTE_BAR_FORMAT( (INFO_BOX_X+100), (INFO_BOX_Y+26), 3 )
-//	ATTRIBUTE_BAR_FORMAT( (INFO_BOX_X+100), (INFO_BOX_Y+46), 4 ) 
-//	ATTRIBUTE_BAR_FORMAT( (INFO_BOX_X+100), (INFO_BOX_Y+66), 5 )
-//	ATTRIBUTE_BAR_FORMAT( (INFO_BOX_X+100), (INFO_BOX_Y+86), 6 )
-	
-//	ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+6), 2 )
-//	ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+26), 3 )
-//	ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+46), 4 ) 
-//	ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+66), 5 )
-//	ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+86), 6 )
-	
 #endif
 
 // weapon loadout info display ============
@@ -177,6 +106,7 @@
 	
 	// second weapon name
 	PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 (20+88) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@" + tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "loadoutSecondary" ) , 3 ), TEXTSIZE_DEFAULT, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, COLOR_TITLE )
+	
 	// second weapon attachment name
 //	PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 (74+88) (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@"+tablelookup("mp/attachmenttable.csv", 9, STAT_CAC_SECONDARY_ATTACHMENT, 3), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_LEFT, CHOICE_TEXTCOLOR )
 	// second weapon image

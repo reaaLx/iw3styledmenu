@@ -273,7 +273,7 @@ menuDef
 	#endif
 #endif
 	
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }
 
 // THUMBSTICK LAYOUT MENU
@@ -320,7 +320,7 @@ menuDef
 
 #ifndef	CONTROL_IN_GAME_SPLITSCREEN
 
-	#include "ui/controls_thumbstick_set.menu"
+	//#include "ui/controls_thumbstick_set.menu"
 	
 	#define SETUP_FOCUS( pnum ) \
 		show "controls_thumbstick_set"pnum;
@@ -337,7 +337,7 @@ menuDef
 	CHOICE_BUTTON_FOCUS( 3, "@MENU_LEGACY", SETUP_ACTION( "thumbstick_legacy" ), SETUP_FOCUS( "3" ), SETUP_UNFOCUS( "3" ) )
 	CHOICE_BUTTON_FOCUS( 4, "@MENU_LEGACY_SOUTHPAW", SETUP_ACTION( "thumbstick_legacysouthpaw" ), SETUP_FOCUS( "4" ), SETUP_UNFOCUS( "4" ) )
 
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }
 
 // BUTTON LAYOUT MENU
@@ -384,7 +384,7 @@ menuDef
 		
 #ifndef	CONTROL_IN_GAME_SPLITSCREEN
 
-	#include "ui_mp/controls_buttons_set.menu"
+	//#include "ui_mp/controls_buttons_set.menu"
 
 	#define SETUP_FOCUS2( pnum ) \
 		show "controls_buttons_set"pnum;
@@ -405,7 +405,7 @@ menuDef
 	CHOICE_BUTTON_FOCUS( 6, "@MENU_LEFTY_ALT", SETUP_ACTION2( "buttons_lefty_alt" ), SETUP_FOCUS2( "6" ), SETUP_UNFOCUS2( "6" ) )
 	#endif
 
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }
 
 // LOOK SENSITIVITY MENU
@@ -461,7 +461,7 @@ menuDef
 	CHOICE_BUTTON_FOCUS_VIS_EX( 3, "@MENU_HIGH", SETUP_ACTION3( "exec viewSensitivity_high" ), ;, ;, when( 1 ), SETUP_EXTRA( SENSITIVITY_4_S ) )
 	CHOICE_BUTTON_FOCUS_VIS_EX( 4, "@MENU_CUSTOM", close CONTROL_SENSITIVITY_NAME; open CONTROL_SENSITIVITY_CUSTOM_NAME, ;, ;, when( 1 ), name sensitivity_custom; )	
 
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }
 
 
@@ -549,7 +549,7 @@ menuDef
 	#undef CHOICE_Y_SPACING
 	#define CHOICE_Y_SPACING		(CHOICE_SIZE_Y+2)
 
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }
 
 
@@ -769,5 +769,5 @@ menuDef
 	CHOICE_CAPTION_COLOR_VIS( 4, "@MENU_BRIGHTNESS_BARELY_VISIBLE", 0 0 0 1, when( dvarBool( hiDef ) ) );
 	CHOICE_CAPTION_COLOR_VIS( 5, "@MENU_BRIGHTNESS_EASILY_VISIBLE", 0 0 0 1, when( dvarBool( hiDef ) ) );
 #endif
-	#include "ui/safearea.menu"
+	//#include "ui/safearea.menu"
 }

@@ -43,6 +43,10 @@
 		{ 
 			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
 		}
+		onEsc
+		{
+			close "self";
+		}
 
 		// Menu items -------------------------------------------
 		#include "ui/bg.inc"
@@ -52,34 +56,41 @@
 		CHOICE_MENU_TITLE( "@MENU_RANK_AND_CHALLENGES_CAP" )
 
 		#define LOCAL_CH_ACTION( ch_stat ) \
-				setLocalVarString "ui_challengeTierTable" ( tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 4 ) ); \
+				setLocalVarString "ui_challengeTierTable" ( tablelookup( "mp/challengeTable.csv", 5, ch_stat, 4 ) ) \
 				open "menu_challenge_details"; \
-				setLocalVarInt "dataValue" ( tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 0 ) ); \
-				setPlayerData( "challengeTierNew" , "localVarInt" ( "dataValue" ) , "false" );
+				setLocalVarInt "dataValue" ( tablelookup( "mp/challengeTable.csv", 5, ch_stat, 0 ) ) \
+				setPlayerData( "challengeTierNew", "localVarInt" ( "dataValue" ), "false" )
 
 		#define CLEARUIHINT	\
 				setLocalVarString "ui_hint_text" ( "@NULL_EMPTY" )
 		
 		#define LOCAL_CH_SHOW( ch_stat ) \
-				setLocalVarString "ui_hint_text" ( ( "@" + tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 2 ) ) );
-		
+				setLocalVarString "ui_hint_text" ( "@" + tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 2 ) )
+
+		// lookup textArg
+//		#define LOCAL_CH_VIS( itemIndex, textArg, ch_stat, ch_vis ) \
+//				CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, "@" + tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 1 ), LOCAL_CH_ACTION( ch_stat ), LOCAL_CH_SHOW( ch_stat ), CLEARUIHINT, ch_vis, vis )
+
+		// set textArg
 		#define LOCAL_CH_VIS( itemIndex, textArg, ch_stat, ch_vis ) \
-				CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, "@" + tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 1 ), LOCAL_CH_ACTION( ch_stat ), LOCAL_CH_SHOW( ch_stat ), CLEARUIHINT, ch_vis, vis )
-		
+				CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, textArg, LOCAL_CH_ACTION( ch_stat ), LOCAL_CH_SHOW( ch_stat ), CLEARUIHINT, ch_vis, vis )
+
 //		CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, textArg, actionArg, onFocusArg, leaveFocusArg, visArg, vis )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 1, "@CHALLENGE_PRIMARY_WEAPONS_CAPS", open "popup_challenge_weapon_primary";, setLocalVarString "ui_hint_text" ( "@CHALLENGE_PRIMARY_WEAPONS_HINT" );, CLEARUIHINT;, 1, ; )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@CHALLENGE_SECONDARY_WEAPONS_CAPS", open "popup_challenge_weapon_secondary";, setLocalVarString "ui_hint_text" ( "@CHALLENGE_SECONDARY_WEAPONS_HINT" );, CLEARUIHINT;, 1, ; )
-		LOCAL_CH_VIS( 3, "Perks";, 2, 1 )
-		LOCAL_CH_VIS( 4, "Equipment";, 3, 1 )
+		CHOICE_BUTTON_FOCUS_VIS_ADV( 1, "@MPUI_PRIMARY", open "popup_challenge_weapon_primary", setLocalVarString "ui_hint_text" ( "@CHALLENGE_PRIMARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
+		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_SECONDARY", open "popup_challenge_weapon_secondary", setLocalVarString "ui_hint_text" ( "@CHALLENGE_SECONDARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
+		LOCAL_CH_VIS( 3, "Perks", 2, 1 )
+		LOCAL_CH_VIS( 4, "Equipment", 3, 1 )
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )
-		LOCAL_CH_VIS( 5, "Basic Training";, 4, 1 )
-		LOCAL_CH_VIS( 6, "Operations";, 5, 1 )
-		LOCAL_CH_VIS( 7, "Killstreak";, 6, 1 )
-		LOCAL_CH_VIS( 8, "Precision";, 7, 1 )
-		LOCAL_CH_VIS( 9, "Finishing Moves";, 8, 1 )
-		LOCAL_CH_VIS( 10, "Elite";, 11, 1 )
-		LOCAL_CH_VIS( 11, "Intimidation";, 12, 1 )
-		LOCAL_CH_VIS( 12, "Prestige";, 13, 1 )
+		LOCAL_CH_VIS( 5, "Basic Training", 4, 1 )
+		LOCAL_CH_VIS( 6, "Operations", 5, 1 )
+		LOCAL_CH_VIS( 7, "Killstreak", 6, 1 )
+		LOCAL_CH_VIS( 8, "Precision", 7, 1 )
+		LOCAL_CH_VIS( 9, "Finishing Moves", 8, 1 )
+		LOCAL_CH_VIS( 10, "Elite", 11, 1 )
+		LOCAL_CH_VIS( 11, "Intimidation", 12, 1 )
+		LOCAL_CH_VIS( 12, "Prestige", 13, 1 )
+		// if any iw4 client enables it lol
+		//LOCAL_CH_VIS( 13, "Secret (DEV ONLY)";, 14, 1 )
 		
 		// description arrow thingy
 		itemDef	

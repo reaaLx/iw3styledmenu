@@ -1,37 +1,37 @@
 #include "ui/menudef.h"
 
-#define TEAM_IS_MARINES		(localVarString( ui_team ) == "marines")
-#define TEAM_IS_OPFOR		(localVarString( ui_team ) == "opfor")
+#define TEAM_IS_MARINES			( localVarString( "ui_team" ) == "marines" )
+#define TEAM_IS_OPFOR			( localVarString( "ui_team" ) == "opfor" )
 
-#define RANK_ORIGIN 0 6
-#define ONLINEGAME (dvarInt( "onlinegame" ) && !dvarInt( "xblive_privatematch" ) )
-#define ONLINEGAME_OFFSET 10
+#define RANK_ORIGIN 			0 6
+#define ONLINEGAME 				( dvarInt( "onlinegame" ) && !dvarInt( "xblive_privatematch" ) )
+#define ONLINEGAME_OFFSET 		10
 
-#define FLASH_OFS 	((sin(milliseconds()/90))*2)
-#define FLASH_OFS2 	((sin(milliseconds()/90))*4)
+#define FLASH_OFS 				( ( sin( milliseconds() / 90 ) ) * 2 )
+#define FLASH_OFS2 				( ( sin( milliseconds() / 90 ) ) * 4 )
 
-#define HUD_ALPHA 0.65
-#define HUD_FOREGROUND_ALPHA 0.75
-#define DPAD_ICON_ALPHA 0.65
+#define HUD_ALPHA 				0.65
+#define HUD_FOREGROUND_ALPHA 	0.75
+#define DPAD_ICON_ALPHA 		0.65
 
-#define	BOTTOM_RECT_X 0
-#define	BOTTOM_RECT_Y 0
+#define	BOTTOM_RECT_X 			0
+#define	BOTTOM_RECT_Y 			0
 
-#define WEAPINFO_X -4
-#define WEAPINFO_Y -36
+#define WEAPINFO_X 				-4
+#define WEAPINFO_Y 				-36
 {
 	menuDef
 	{
-		name 			"weaponbar_hd"
-		rect			BOTTOM_RECT_X BOTTOM_RECT_Y 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
-		exp				rect Y( BOTTOM_RECT_Y - (ONLINEGAME * ONLINEGAME_OFFSET) );
-		fullScreen		0
-		visible			when( !inkillcam() && dvarBool( "ammoCounterHide" ) == 0 && !flashbanged() && !ui_active() && dvarint( "ui_hud_hardcore" ) == 0 && NOT_SPECTATING );
+		name 				"weaponbar_hd"
+		rect				BOTTOM_RECT_X BOTTOM_RECT_Y 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_BOTTOM
+		exp					rect Y ( BOTTOM_RECT_Y - ( ONLINEGAME * ONLINEGAME_OFFSET ) )
+		fullScreen			0
+		visible				when( !inkillcam() && dvarBool( "ammoCounterHide" ) == 0 && !flashbanged() && !ui_active() && dvarint( "ui_hud_hardcore" ) == 0 && NOT_SPECTATING )
 
 		itemDef
 		{
 			name			"clipGraphic"
-			rect			(WEAPINFO_X - 30) (WEAPINFO_Y + 32 -6) 1 1
+			rect			( WEAPINFO_X - 30 ) ( WEAPINFO_Y + 32 -6 ) 1 1
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_PLAYER_WEAPON_AMMO_CLIP_GRAPHIC
 			visible			1
@@ -40,7 +40,7 @@
 		itemDef
 		{
 			name			"ammoStock"
-			rect			(WEAPINFO_X - 40) (WEAPINFO_Y + 34) 1 1
+			rect			( WEAPINFO_X -40 ) ( WEAPINFO_Y + 34 ) 1 1
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -52,7 +52,7 @@
 		itemDef
 		{
 			name			"offhandFragIcon"
-			rect			(WEAPINFO_X -36) (WEAPINFO_Y -5) 24 24
+			rect			( WEAPINFO_X -36 ) ( WEAPINFO_Y -5 ) 24 24
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_OFFHAND_WEAPON_ICON_FRAG
 			background		"hud_us_grenade" // default texture
@@ -62,7 +62,7 @@
 		itemDef
 		{
 			name			"offhandSmokeIcon"
-			rect			(WEAPINFO_X -66) (WEAPINFO_Y -5) 24 24
+			rect			( WEAPINFO_X -66 ) ( WEAPINFO_Y -5 ) 24 24
 			forecolor		1 1 1 HUD_ALPHA
 			ownerdraw		CG_OFFHAND_WEAPON_ICON_SMOKEFLASH
 			background		"hud_us_smokegrenade" // default texture
@@ -72,7 +72,7 @@
 		itemDef
 		{
 			name			"offHandSmokeAmmo"
-			rect			(WEAPINFO_X -45) (WEAPINFO_Y +20) 25 25
+			rect			( WEAPINFO_X -45 ) ( WEAPINFO_Y +20 ) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -84,7 +84,7 @@
 		itemDef
 		{
 			name			"offHandFragAmmo"
-			rect			(WEAPINFO_X -14) (WEAPINFO_Y +20) 25 25
+			rect			( WEAPINFO_X -14 ) ( WEAPINFO_Y +20 ) 25 25
 			textscale		TEXTSIZE_SMALL
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textfont		UI_FONT_OBJECTIVE
@@ -96,15 +96,15 @@
 		itemDef
 		{
 			name			"weapname"
-			rect			(WEAPINFO_X - 40) (WEAPINFO_Y + 20) 1 1
+			rect			( WEAPINFO_X - 40 ) ( WEAPINFO_Y + 20 ) 1 1
 			textstyle		ITEM_TEXTSTYLE_SHADOWED
 			textscale		TEXTSIZE_SMALL
 			textfont		UI_FONT_OBJECTIVE
 			forecolor		1 1 1 HUD_FOREGROUND_ALPHA
 			ownerdraw		CG_PLAYER_WEAPON_NAME
-//			visible when ( dvarBool( "hiDef" ) == 1 );
+//			visible 		when ( dvarBool( "hiDef" ) == 1 );
 			visible 		1
 			decoration
 		}
 	}
-}	
+}

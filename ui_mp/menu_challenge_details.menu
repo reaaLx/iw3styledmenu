@@ -247,9 +247,9 @@
 		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+8, ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-58-(LIST_ITEM_HEIGHT/4), LIST_ITEM_HEIGHT,"gradient_fadein", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
 		PREPROC_SHADER_DRAW_ADV( (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-50)-(LIST_ITEM_HEIGHT/4), ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2), LIST_ITEM_HEIGHT/4, LIST_ITEM_HEIGHT,"button_highlight_end", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
 
-		// sin cycle for animation of the hightlighting bars
-		#define F_HEIGHT_OFFSET ((1-((8+sin(milliseconds()/80))/8))/2)*LIST_ITEM_HEIGHT
-		#define F_HEIGHT ((8+sin(milliseconds()/80))/8)*LIST_ITEM_HEIGHT
+		// hightlight cycle animations for bars  
+		#define F_HEIGHT_OFFSET ( ( 1 - ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) ) / 2 ) * LIST_ITEM_HEIGHT
+		#define F_HEIGHT ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) * LIST_ITEM_HEIGHT
 
 		PREPROC_LIST_ITEM( 1, "1" )
 		PREPROC_LIST_ITEM( 2, "2" )	
