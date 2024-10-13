@@ -22,9 +22,9 @@
  
 #define NOT_SPECTATING 			( !spectatingClient() )
        
-#define TEAM_IS_TIED 			( team( "score" ) == otherteam( "score" ) )
-#define TEAM_IS_WINNING 		( team( "score" ) > otherteam( "score" ) )
-#define TEAM_IS_LOSING 			( team( "score" ) < otherteam( "score" ) )
+//#define TEAM_IS_TIED 			( team( "score" ) == otherteam( "score" ) )
+//#define TEAM_IS_WINNING 		( team( "score" ) > otherteam( "score" ) )
+//#define TEAM_IS_LOSING		( team( "score" ) < otherteam( "score" ) )
 
 // At ui_bomb_timer 0, regular timer shows up next to the scoreboard.
 // At ui_bomb_timer 1, the briefcase being shown with countdown timer.

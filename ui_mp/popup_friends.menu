@@ -1,0 +1,113 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#undef CHOICE_X_START
+#define CHOICE_X_START			0
+
+#undef CHOICE_Y_START
+#define CHOICE_Y_START			0
+
+#define CHOICE_GROUP			"friends"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+#undef CHOICE_SIZE_X			
+#define CHOICE_SIZE_X		520
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y		370
+
+#undef CHOICE_HORIZONTAL_ALIGN
+#define CHOICE_HORIZONTAL_ALIGN	HORIZONTAL_ALIGN_CENTER
+
+#undef CHOICE_VERTICAL_ALIGN
+#define CHOICE_VERTICAL_ALIGN	VERTICAL_ALIGN_CENTER
+
+#define ITEM_NUM 1
+{
+	menuDef
+	{
+		name "popup_friends"
+		rect ( 0 - ( CHOICE_POPUP_WIDTH / 2 ) ) -200 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+		border 1
+		bordersize CHOICE_POPUP_BORDER_WIDTH
+		bordercolor CHOICE_POPUP_BORDER_COLOR
+		focusColor COLOR_FOCUSED
+	   	style WINDOW_STYLE_FILLED
+		popup
+		onOpen
+		{
+			setLocalVarBool	"ui_centerPopup" ( 1 );			
+			uiScript "LoadFriends";
+		}		
+		onClose
+		{
+			setLocalVarBool	"ui_centerPopup" ( 0 );
+		}
+		onESC
+		{
+			close "self";
+			setLocalVarBool	"ui_centerPopup" ( 0 );
+		}
+		PREPROC_CANCEL_OVERLAY( 1, ITEM_NUM )
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect 0 0 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			background "white"
+			forecolor CHOICE_POPUP_BACKCOLOR
+			visible 1
+			decoration
+		}
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect 0 0 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			background "gradient_bottom"
+			forecolor 1 1 1 0.7
+			visible 1
+			decoration
+		}				
+		itemDef
+		{
+			name "friendsList"
+			rect 0 24 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) ( 331 ) HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_CENTER
+			type ITEM_TYPE_LISTBOX
+			style WINDOW_STYLE_FILLED
+			elementWidth 120
+			elementHeight 16
+			textFont UI_FONT_NORMAL
+			foreColor CHOICE_TEXTCOLOR
+			//backColor 0 0 0 0.5
+			background "gradient_bottom"
+			outlineColor 0 0 0 0.6
+			textScale .25
+			feeder 61
+			visible 1
+	//		numcols			xpos		xwidth		textlen		alignment
+			columns 3		8			16			4			0
+							42			178			51			0
+							226			263			52			0
+			doubleClick
+			{
+				uiScript "JoinFriend";
+			}
+		}
+		CHOICE_POPMENU_TITLE( "@MENU_FRIENDS" )
+
+		#undef CHOICE_SIZE_X
+		#define CHOICE_SIZE_X	520
+
+		#undef CHOICE_SIZE_Y
+		#define CHOICE_SIZE_Y	22
+
+		#undef CHOICE_Y_START
+		#define CHOICE_Y_START			350
+
+		CHOICE_BUTTON( 1, "@MENU_CLOSE", close "self"; )
+	}
+}

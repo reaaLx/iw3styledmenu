@@ -102,3 +102,4 @@
 		}
 		CHOICE_BUTTON_EX( 4, "@MENU_OK", close "self"; SET_CAC_RENAME_DATA, name "ok_button" mouseenter { setfocus "ok_button"; } )
 	}
+}

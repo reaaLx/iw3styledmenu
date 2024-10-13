@@ -1,3 +1,6 @@
+#define CAC_STATNAME( statNum ) \
+		getplayerdata( "customClasses", statNum, "name" ) \
+
 #define CAC_STATNUM( statNum ) \
 		setPlayerData( "customClasses" , statNum , "inUse" , "true" ); \
 		setLocalVarInt "classIndex" ( statNum ); \
@@ -5,6 +8,9 @@
 
 #define CAC_STATNUM_HI( statNum ) \
 		setLocalVarInt "classIndex" ( statNum ); \
+
+#define LOCAL_CAC_BUTTON_POPUP( itemIndex, statNum, visArg ) \
+		CHOICE_BUTTON_FOCUS_VIS( itemIndex, CAC_STATNAME( statNum ), CAC_STATNUM (0), CAC_STATNUM_HI(0); CAC_LOCALVARSTRINGS, ; ) \
 
 #define CAC_LOCALVARSTRINGS \
 		if ( !( tablelookup( "mp/attachmentTable.csv" , 4 , getplayerdata( "customClasses" , localvarint( "classIndex" ) , "weaponSetups" , 0 , "attachment" , 0 ) , 12 ) != "" || tablelookup( "mp/attachmentTable.csv" , 4 , getplayerdata( "customClasses" , localvarint( "classIndex" ) , "weaponSetups" , 1 , "attachment" , 0 ) , 12 ) != "" ) && ( getplayerdata( "customClasses" , localvarint( "classIndex" ) , "perks" , 0 ) == "specialty_null_gl" || getplayerdata( "customClasses" , localvarint( "classIndex" ) , "perks" , 0 ) == "specialty_null_grip" || getplayerdata( "customClasses" , localvarint( "classIndex" ) , "perks" , 0 ) == "specialty_null_shotgun" ) || getplayerdata( "customClasses" , localvarint( "classIndex" ) , "perks" , 0 ) == "specialty_null_heartbeat" ) \

@@ -31,7 +31,8 @@
 		onOpen
 		{
 			setLocalVarBool "ui_hideBack" 1;
-			uiScript loadMods;
+			setFocus "modlist";
+			uiScript "LoadMods";
 		}
 		onClose
 		{
@@ -53,7 +54,24 @@
 		#define ORIGIN_TITLE 64 0
 		
 		CHOICE_MENU_TITLE( "@MENU_MODS" )
-
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect -170 64 340 280 HORIZONTAL_ALIGN_CENTER CHOICE_VERTICAL_ALIGN
+			background "white"
+			forecolor 0.2 0.2 0.22 1
+			visible 1
+			decoration
+		}
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect -170 64 340 280 HORIZONTAL_ALIGN_CENTER CHOICE_VERTICAL_ALIGN
+			background "gradient_bottom"
+			forecolor 1 1 1 0.7
+			visible 1
+			decoration
+		}
 		itemDef 
 		{
 			name				"modlist"
@@ -66,20 +84,20 @@
 			textscale 			CHOICE_TEXTSIZE
 			elementtype			LISTBOX_TEXT
 			feeder				FEEDER_MODS
+			background 			"gradient_bottom"
 			textalignx			6
 			textaligny			0
 			forecolor 			1 1 1 0.9
-			backcolor 			0 0 0 0
 			border				1
-			borderSize 1
+			borderSize 			1
 			bordercolor			1 1 1 0.15
 			outlinecolor 		BUTTON_BG_COLOR
 			visible 			MENU_TRUE
 			action				{ show "accept"; }
-			doubleClick			{ play "mouse_click"; uiScript RunMod; }
+			doubleClick			{ play "mouse_click"; uiScript "RunMod"; }
 		}
 
 		CHOICE_BUTTON( 1, "@MENU_LAUNCH", uiScript "RunMod"; )
-		CHOICE_BUTTON_VIS( 2, "@MENU_LAUNCH_WITHOUT_MODS", uiScript "ClearMods";, when( dvarString( "fs_game" ) != "" ); )
+		CHOICE_BUTTON_VIS( 2, "@MENU_LAUNCH_WITHOUT_MODS", uiScript "ClearMods";, when( dvarString( "fs_game" ) != "" ) )
 	}
 }
