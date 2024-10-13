@@ -2,17 +2,17 @@
 ----------------
 <h2>To Do List</h2>
 <p>
-- Re-design / fix Challenge Detail's (lookup table error) <br>
-- Fix Some typo errors in popup's (cac mostly) <br>
-- show deathstreaks in cac creation <br>
-- create iw3 styled hud <br>
+- Re-design: Player Title/Emblem (lookup table error) <br>
+- Re-design: Rework Challenge Details (lookup table error) <br>
+- Re-design: Create-A-Class Pre-Processors <br>
+- Create IW3 Hud <br>
 </p>
 ----------------
 
-![alt tag](http://puu.sh/q0m3Y.jpg)
-![alt tag](http://puu.sh/q0mbJ.jpg)
-![alt tag](http://puu.sh/q0mjl.jpg)
-![alt tag](http://puu.sh/q0mlc.jpg)
-![alt tag](http://puu.sh/q0WYt.jpg)
-![alt tag](http://puu.sh/q0X6C.jpg)
-![alt tag](http://puu.sh/q1tYa.jpg)
+![alt tag](https://i.imgur.com/cwhOa02.jpeg)
+![alt tag](https://i.imgur.com/HBdQPva.jpeg)
+![alt tag](https://i.imgur.com/RRsv69e.jpeg)
+![alt tag](https://i.imgur.com/4c8ILlx.png)
+![alt tag](https://i.imgur.com/T4el6o2.jpeg)
+![alt tag](https://i.imgur.com/rhabgFr.jpeg)
+![alt tag](https://i.imgur.com/fhxJXDP.jpeg)
