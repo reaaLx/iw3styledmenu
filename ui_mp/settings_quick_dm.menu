@@ -51,8 +51,7 @@
 				open "reset_gamesettings";
 			}
 		}
-		#define DM_SETTINGS;
-//		#define TEAMBASED 1
+		#define DM_SETTINGS
 		#include "ui_mp/settings_quick.inc"
 		
 		CHOICE_SECTION_TITLE( 1, "@MENU_FREE_FOR_ALL" )
