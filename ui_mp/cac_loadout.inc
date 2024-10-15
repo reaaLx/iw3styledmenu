@@ -39,20 +39,22 @@
 	// background frame --------
 	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (LOADOUT_WIDTH+8) 376 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
 
-	//PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-	//PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 342 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-	//PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_WIDTH+4) -4 20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 342 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_WIDTH+4) -4 20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
 	
 	// primary weapon camo
-//	PREPROC_SHADER_DRAW_ALIGNED( -4 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	//PREPROC_SHADER_DRAW_ALIGNED( -4 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	
 	/*
 	might have to re-do this and have it sized accordingly 
 	since its pretty much stretched :s
 	this will do for now!!!
 	*/
+
 	PREPROC_SHADER_DRAW_ALIGNED( -4 16 278 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	//PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/2)-4) 16 100 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
-//	PREPROC_SHADER_DRAW_ALIGNED( ((((LOADOUT_WIDTH+8)/4)*3)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	//PREPROC_SHADER_DRAW_ALIGNED( ((((LOADOUT_WIDTH+8)/4)*3)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	
 	/* top bar */ 			LOADOUT_PLATING( 4, 20, 0, 1 )
 	/* bottom bar */		LOADOUT_PLATING( 386, 16, 1, 0 )
@@ -78,10 +80,10 @@
 		#define INFO_BOX_Y				300
 	#endif     
 
-	//#define INFO_TEXT				""
-	//#define INFO_TITLE				"@MENU_PRIMARY_ATTRIBUTES" //"Primary Attributes"
-	//#define INFO_TITLE_COLOR		CHOICE_TEXTCOLOR
-	//#include "ui_mp/info_box.inc"
+	#define INFO_TEXT				""
+	#define INFO_TITLE				"@MENU_PRIMARY_ATTRIBUTES" //"Primary Attributes"
+	#define INFO_TITLE_COLOR		CHOICE_TEXTCOLOR
+	#include "ui_mp/info_box.inc"
 	
 	// meter bar unit dividers
 	#define ATTRIBUTE_UNITS( px, py ) \
@@ -129,9 +131,6 @@
 			
 	// second weapon image
 	PREPROC_SHADER_DRAW_ALIGNED( 404 134 180 90 LOADOUT_ALIGN_V2, 0 0, tablelookup("mp/statsTable.csv",4,localvarstring("loadoutSecondary"),6), 1 1 1 1, 0, 1, 1 1 1 1 ) 
-
-	
-	// perk loadout info display =============
 	
 	#ifdef PC
 		#define PERK_DESC_TEXTSIZE	0.25
@@ -172,6 +171,9 @@
 	#define EXTRA_Y_ICON_OFFSET			(EQUIPMENT_Y_ICON_OFFSET)
 
 	#define PERK_Y_SPACING	36
+
+	// perk loadout info display =============
+
 	//---------------//
 	// PERK 1 LAYOUT //
 	//---------------//

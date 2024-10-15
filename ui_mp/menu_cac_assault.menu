@@ -80,7 +80,7 @@
 
 		CHOICE_BUTTON( 9, "@MENU_RENAME", open "pc_rename"; )
 		LOCAL_CAC_BUTTON( 10, "@MENU_RESET_TO_DEFAULT", open "popup_cac_template"; )		
-/*
+
 		//#include "ui_mp/info_box.inc"
 		
 		#define ATTRIBUTES_TEXT_X -82 
@@ -105,6 +105,6 @@
 		ATTRIBUTE_BAR_FORMAT_PREVIEW( (INFO_BOX_X+100), (INFO_BOX_Y+86), 6 )
 
 		#include "ui_mp/attributes_stats.inc"
-*/
+
 	}
 }	
