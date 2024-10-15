@@ -65,16 +65,36 @@ itemDef { \
 
 // generic text draw
 #define PREPROC_TEXT_DRAW_ALIGNED_EXP( prect, porigin, ptext, psize, palignx, paligny, palign, pcolor ) \
-itemDef { \
-	rect			prect \
-	origin 			porigin \
-	textalignx		palignx textaligny paligny \
-	textstyle		ITEM_TEXTSTYLE_SHADOWED \
-	textalign		palign \
-	textscale		psize \
-	forecolor		pcolor \
-	exp				text( ptext ); \
-	visible			1 decoration autowrapped }
+		itemDef \
+		{ \
+			rect			prect \
+			origin 			porigin \
+			textalignx		palignx textaligny paligny \
+			textstyle		ITEM_TEXTSTYLE_SHADOWED \
+			textalign		palign \
+			textscale		psize \
+			forecolor		pcolor \
+			exp				text( ptext ) \
+			visible			1 \ 
+			decoration 		\
+			autowrapped 	\
+		}
+
+#define PREPROC_TEXT_DRAW_ALIGNED_EXP_VIS( prect, porigin, ptext, psize, palignx, paligny, palign, pcolor, pvis ) \
+		itemDef \
+		{ \
+			rect			prect \
+			origin 			porigin \
+			textalignx		palignx textaligny paligny \
+			textstyle		ITEM_TEXTSTYLE_SHADOWED \
+			textalign		palign \
+			textscale		psize \
+			forecolor		pcolor \
+			exp				text( ptext ) \
+			visible			pvis \ 
+			decoration 		\
+			autowrapped 	\
+		}
 
 #define PREPROC_TEXT_DRAW_ALIGNED_EXP2( prect, porigin, ptext, pfont, psize, palignx, paligny, palign, pcolor ) \
 itemDef { \
@@ -330,7 +350,7 @@ itemDef{											\
 SINGULAR_BUTTON_RAW( pnum, porigin, phighlight_size, ptext, paction, pvis )
 
 #define LOADOUT_PLATING_RAW( porigin, px, py, pw, ph, palign, vis_gradient_top, vis_gradient_bottom ) \
-	PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-8) pw ph palign, porigin, "white", 0.2 0.2 0.225 1, 0, 0, 0 0 0 0 ) \
-	PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-8) pw ph palign, porigin, "line_horizontal", 0.9 0.9 0.95 0.5, 0, 0, 0 0 0 0 ) \
-	PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py+ph-8) pw 16 palign, porigin, "gradient_top", 1 1 1 0.4, 0, 0, 0 0 0 0 visible when( vis_gradient_bottom ) ) \
-	PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-24) pw 16 palign, porigin, "gradient_bottom", 1 1 1 0.4, 0, 0, 0 0 0 0 visible when( vis_gradient_top ) )
+		PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-8) pw ph palign, porigin, "white", 0.2 0.2 0.225 1, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-8) pw ph palign, porigin, "line_horizontal", 0.9 0.9 0.95 0.5, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py+ph-8) pw 16 palign, porigin, "gradient_top", 1 1 1 0.4, 0, 0, 0 0 0 0 visible when( vis_gradient_bottom ) ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (px-4) (py-24) pw 16 palign, porigin, "gradient_bottom", 1 1 1 0.4, 0, 0, 0 0 0 0 visible when( vis_gradient_top ) )

@@ -138,7 +138,7 @@
 		itemDef	/*button 1*/\
 		{ \
 			type ITEM_TYPE_BUTTON \
-			exp rect X( ORIGIN_LIST_BOX_X+10 ) \
+			exp rect X( ORIGIN_LIST_BOX_X + 10 ) \
 			exp rect Y( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
 			exp rect W( WIDTH_LIST_BOX - 58 ) \
 			exp rect H( LIST_ITEM_HEIGHT ) \

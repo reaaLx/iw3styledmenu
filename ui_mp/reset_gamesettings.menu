@@ -61,8 +61,8 @@
 			visible 1
 			decoration
 		}
-		CHOICE_POPMENU_SUBTITLE( "@MENU_RESET_TO_DEFAULT" )
-		CHOICE_BUTTON( 2, "@MENU_YES", exec "exec default_mp_gamesettings.cfg"; close self )
-		CHOICE_BUTTON( 3, "@MENU_NO", close self )
+		CHOICE_POPMENU_TITLE( "@MENU_RESET_TO_DEFAULT" )
+		CHOICE_BUTTON( 2, "@MENU_YES", exec "exec default_mp_gamesettings.cfg"; close "self" )
+		CHOICE_BUTTON( 3, "@MENU_NO", close "self" )
 	}
 }	

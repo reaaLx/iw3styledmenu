@@ -25,11 +25,11 @@
 		soundloop 		""
 		onOpen
 		{
-			setLocalVarBool ui_hideBack 1;
+			setLocalVarBool "ui_hideBack" 1;
 		}
 		onClose
 		{
-			setLocalVarBool ui_hideBack 0;
+			setLocalVarBool "ui_hideBack" 0;
 		}
 		onESC
 		{

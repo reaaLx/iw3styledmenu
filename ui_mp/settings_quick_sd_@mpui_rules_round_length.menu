@@ -5,7 +5,7 @@
 #define CHOICE_X_START 198
 
 #undef CHOICE_Y_START
-#define CHOICE_Y_START 144
+#define CHOICE_Y_START 46
 
 #define SD_SETTINGS
 #define TEAMBASED 1
@@ -15,7 +15,7 @@
 {
     menuDef
     {
-        name			GAME_OPTIONS_MENU_NAME"_"CHOICE6_TEXT
+        name			GAME_OPTIONS_MENU_NAME"_"CHOICE1_TEXT
         visible			1
         rect			0 0 640 480 0 0
         focusColor		1 1 1 1
@@ -24,12 +24,12 @@
         onOpen
         {
             focusFirst;
-            setfocusbydvar CHOICE6_DVAR;
+            setfocusbydvar CHOICE1_DVAR;
         }
         onESC
         {
             play "mouse_click";
-            close GAME_OPTIONS_MENU_NAME"_"CHOICE6_TEXT;
+            close GAME_OPTIONS_MENU_NAME"_"CHOICE1_TEXT;
         }
         itemDef 
         {
@@ -59,12 +59,11 @@
         #undef CHOICE_Y_SPACING
         #define CHOICE_Y_SPACING 15
 
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 2, setdvar CHOICE6_DVAR CHOICE6_VAL1, CHOICE6_STR1, when ( CHOICE6_STR1 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL1 } )
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 3, setdvar CHOICE6_DVAR CHOICE6_VAL2, CHOICE6_STR2, when ( CHOICE6_STR2 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL2 } )
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 4, setdvar CHOICE6_DVAR CHOICE6_VAL3, CHOICE6_STR3, when ( CHOICE6_STR3 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL3 } )
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 5, setdvar CHOICE6_DVAR CHOICE6_VAL4, CHOICE6_STR4, when ( CHOICE6_STR4 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL4 } )
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 6, setdvar CHOICE6_DVAR CHOICE6_VAL5, CHOICE6_STR5, when ( CHOICE6_STR5 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL5 } )
-        PREPROC_DVAR_POPUP_CHOICE_EX2( 7, setdvar CHOICE6_DVAR CHOICE6_VAL6, CHOICE6_STR6, when ( CHOICE6_STR6 != "" ), dvartest CHOICE6_DVAR; focusdvar { CHOICE6_VAL6 } )
-
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 2, setdvar CHOICE1_DVAR CHOICE1_VAL1, CHOICE1_STR1, when ( CHOICE1_STR1 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL1 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 3, setdvar CHOICE1_DVAR CHOICE1_VAL2, CHOICE1_STR2, when ( CHOICE1_STR2 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL2 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 4, setdvar CHOICE1_DVAR CHOICE1_VAL3, CHOICE1_STR3, when ( CHOICE1_STR3 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL3 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 5, setdvar CHOICE1_DVAR CHOICE1_VAL4, CHOICE1_STR4, when ( CHOICE1_STR4 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL4 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 6, setdvar CHOICE1_DVAR CHOICE1_VAL5, CHOICE1_STR5, when ( CHOICE1_STR5 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL5 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 7, setdvar CHOICE1_DVAR CHOICE1_VAL6, CHOICE1_STR6, when ( CHOICE1_STR6 != "" ), dvartest CHOICE1_DVAR; focusdvar { CHOICE1_VAL6 } )
     }
 }

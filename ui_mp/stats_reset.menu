@@ -89,16 +89,16 @@
 		CHOICE_POPMENU_SUBTITLE( "@MPUI_RESET_STATS_WARNING" )
 
 		#undef CHOICE_SIZE_X
-		#define CHOICE_SIZE_X	    292
+		#define CHOICE_SIZE_X	    	292
 
 		#undef CHOICE_SIZE_Y
-		#define CHOICE_SIZE_Y	    22
+		#define CHOICE_SIZE_Y	    	22
 
 		#undef CHOICE_X_START
-		#define CHOICE_X_START      286
+		#define CHOICE_X_START      	286
 
 		#undef CHOICE_Y_START
-		#define CHOICE_Y_START      98
+		#define CHOICE_Y_START      	98
 
 		CHOICE_BUTTON( 5, "@MENU_RESET", uiScript "resetStats"; close "self"; )
 		CHOICE_BUTTON( 6, "@MENU_CANCEL", close "self"; )

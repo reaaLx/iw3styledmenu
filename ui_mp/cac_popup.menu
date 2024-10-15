@@ -10,8 +10,8 @@
 
 #include "ui_mp/cacpopup.inc"
 
-#define CAC_POPUP_X		( 3 )
-#define CAC_POPUP_Y		( 24 )
+#define CAC_POPUP_X		( 0 )
+#define CAC_POPUP_Y		( 0 )
 
 // new icon placement
 #undef CHOICE_SIZE_X
@@ -22,21 +22,18 @@
 #undef NEW_Y_OFFSET			
 #define NEW_Y_OFFSET	( 0 - 2 )
 
-#define ITEM_NUM 0
+#define ITEM_NUM 10
 {
 	menuDef
 	{
 		name "cac_popup"
-	   	fullscreen 0
-		rect (CAC_POPUP_X) (CAC_POPUP_Y) CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
-		border 0
-		backcolor 0 0 0 0
+		rect 0 0 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
 		bordersize CHOICE_POPUP_BORDER_WIDTH
 		bordercolor CHOICE_POPUP_BORDER_COLOR
 		focusColor COLOR_FOCUSED
 	   	style WINDOW_STYLE_FILLED
 		popup
-		exp rect y ( localvarfloat( "ui_cac_popup_ypos" ) + CAC_POPUP_Y )
+		exp rect y ( localvarfloat( "ui_cac_popup_ypos" ) + 24 )
 		onOpen
 		{
 			setLocalVarFloat "ui_cac_popup_ypos" ( localvarfloat( "ui_popupYPos" ) );		
@@ -51,20 +48,20 @@
 			close "self";
 			setLocalVarBool	"ui_centerPopup" ( 0 );
 		}
-		PREPROC_SHADER_DRAW_ALIGNED( -4 -24 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR )
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 8 -24 (CHOICE_POPUP_WIDTH-4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, "@MPUI_CUSTOM_CLASSES", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR )
+		PREPROC_SHADER_DRAW_ALIGNED( 0 -20 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 -20 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "@MPUI_CUSTOM_CLASSES", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR textAlignX -32 )
 
-		PREPROC_SHADER_DRAW( -4 -4 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR exp rect h (6+(int(5+min(5,getplayerdata("prestige")/2+0.5 ) ))*20 ) )
-		PREPROC_SHADER_DRAW( -4 -4 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_fadein", 0 0 0 0.7, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR exp rect h (6+(int(5+min(5,getplayerdata("prestige")/2+0.5 ) ))*20 ) )
+		PREPROC_SHADER_DRAW( 0 0 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR exp rect h (6+(int(5+min(5,getplayerdata("prestige")/2+0.5 ) ))*20 ) )
+		PREPROC_SHADER_DRAW( 0 0 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_fadein", 0 0 0 0.7, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR exp rect h (6+(int(5+min(5,getplayerdata("prestige")/2+0.5 ) ))*20 ) )
 		
 		/* pointer icon */
-		PREPROC_SHADER_DRAW_ALIGNED( 200 -14 16 8 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "ui_scrollbar_arrow_dwn_a", 0.9 0.9 0.95 0.4, 0, 2, CHOICE_POPUP_BORDER_COLOR )
+		//PREPROC_SHADER_DRAW_ALIGNED( 200 -14 16 16 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "ui_scrollbar_arrow_dwn_a", 0.9 0.9 0.95 0.4, 0, 2, CHOICE_POPUP_BORDER_COLOR )
 
 		#undef CHOICE_X_START
 		#define CHOICE_X_START		0
 		
 		#undef CHOICE_Y_START
-		#define CHOICE_Y_START		0
+		#define CHOICE_Y_START		4
 
 		CHOICE_BUTTON_FOCUS( 1, getplayerdata( "customClasses", 0,"name" ), CAC_STATNUM (0), CAC_STATNUM_HI(0); CAC_LOCALVARSTRINGS, ; )
 		CHOICE_NEWICON_VIS( 1, "specialty_new", when( getplayerdata( "customClasses", 0, "inUse" ) == 0 ) )

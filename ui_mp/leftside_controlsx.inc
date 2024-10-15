@@ -24,7 +24,7 @@ CHOICE_BUTTON( 3, "@MENU_MOVE", LOCAL_CLOSE_ALL open "pc_options_movement"; )
 CHOICE_BUTTON( 4, "@MENU_COMBAT", LOCAL_CLOSE_ALL open "pc_options_actions"; )
 CHOICE_BUTTON( 5, "@MENU_INTERACT", LOCAL_CLOSE_ALL open "pc_options_controls"; )
 CHOICE_BUTTON_VIS( 6, "@MENU_MULTIPLAYER_CONTROLS", LOCAL_CLOSE_ALL open "controls_multi";, when( dvarint( "ui_multiplayer" ) ) )
-CHOICE_DBUTTON_VIS( 6, "@MENU_MULTIPLAYER_CONTROLS", when( !dvarint( "ui_multiplayer" ) ); )
+CHOICE_DBUTTON_VIS( 6, "@MENU_MULTIPLAYER_CONTROLS", when( !dvarint( "ui_multiplayer" ) ) )
 CHOICE_BUTTON( 7, "@MENU_SET_DEFAULT_CONTROLS", LOCAL_CLOSE_ALL open "options_control_defaults"; )		
 
 // ---

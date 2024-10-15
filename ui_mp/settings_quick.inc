@@ -683,7 +683,7 @@
 #define CHOICE5_DVARTEXT	CHOICE5_DVAR"_text"
 #define CHOICE5_SHOW		1
 #define CHOICE5_STRLIST		{ "@MENU_NO" 0 "@MENU_YES" 1 }
-#define CHOICE5_EXEC		toggle ""CHOICE5_DVAR" 0 1"; play "mouse_click";
+#define CHOICE5_EXEC		toggle CHOICE5_DVAR 0 1; play "mouse_click";
 
 #define CHOICE6_TEXT		"@MPUI_RULES_SCORE_LIMIT"
 #define CHOICE6_DVAR		"scr_sab_scorelimit"
@@ -1105,10 +1105,9 @@
             exp             text ( textArg ) \
 			visible 		visArg \
 			extraArg \
-			onFocus \
+			mouseEnter \
 			{ \
 				play        "mouse_submenu_over"; \
-				setLocalVarFloat "ui_popupYPos" ( getfocuseditemy( ) ); \
 			} \
 			action \
 			{ \

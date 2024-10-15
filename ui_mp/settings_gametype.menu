@@ -47,18 +47,20 @@
 
 		CHOICE_MENU_TITLE( "@MENU_CHOOSE_GAME_MODE_CAP" )
 		
-		#define GAMETYPE_LIST \
-				LOCAL_GAMETYPE_SELECTION( 1, "@"+tableLookup( "mp/gametypesTable.csv", 0, "dm",   1 ), "dm" 	)	\
-				LOCAL_GAMETYPE_SELECTION( 2, "@"+tableLookup( "mp/gametypesTable.csv", 0, "war",  1 ), "war" 	)	\
-				LOCAL_GAMETYPE_SELECTION( 3, "@"+tableLookup( "mp/gametypesTable.csv", 0, "sd",   1 ), "sd" 	)	\
-				LOCAL_GAMETYPE_SELECTION( 4, "@"+tableLookup( "mp/gametypesTable.csv", 0, "sab",  1 ), "sab" 	)	\
-				LOCAL_GAMETYPE_SELECTION( 5, "@"+tableLookup( "mp/gametypesTable.csv", 0, "dom",  1 ), "dom" 	)	\
-				LOCAL_GAMETYPE_SELECTION( 6, "@"+tableLookup( "mp/gametypesTable.csv", 0, "koth", 1 ), "koth"	)	\
-				LOCAL_GAMETYPE_SELECTION( 7, "@"+tableLookup( "mp/gametypesTable.csv", 0, "ctf",  1 ), "ctf" 	)
+		#include "ui_mp/gametype_info.inc"	
+
+		LOCAL_GAMETYPE_SELECTION( 1,	"dm", 	"dm" 	)
+		LOCAL_GAMETYPE_SELECTION( 2, 	"war", 	"war" 	)
+		LOCAL_GAMETYPE_SELECTION( 3, 	"sd", 	"sd" 	)
+		LOCAL_GAMETYPE_SELECTION( 4, 	"sab", 	"sab" 	)
+		LOCAL_GAMETYPE_SELECTION( 5, 	"dom", 	"dom" 	)
+		LOCAL_GAMETYPE_SELECTION( 6, 	"koth", "koth" 	)
+		LOCAL_GAMETYPE_SELECTION( 7, 	"ctf", 	"ctf" 	)
+		LOCAL_GAMETYPE_SELECTION( 8, 	"dd", 	"dd" 	)
+		LOCAL_GAMETYPE_SELECTION( 9, 	"vip", 	"vip" 	)
+		LOCAL_GAMETYPE_SELECTION( 10, 	"gtnw",	"gtnw" 	)
 		
-		#define GAMETYPE_TABLE "mp/gametypesTable.csv"
-		
-		#include "ui_mp/gametype_info.inc"			
+			
 	}
 }
 

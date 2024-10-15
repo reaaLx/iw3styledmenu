@@ -60,7 +60,7 @@
 			textalign		ITEM_ALIGN_LEFT
 			textscale		TEXTSIZE_SMALL
 			textaligny		18
-			visible			when( localVarBool( "ui_showApply" ) );
+			visible			when( localVarBool( "ui_showApply" ) )
 			mouseEnter		{ play "mouse_over"; }
 			action 
 			{

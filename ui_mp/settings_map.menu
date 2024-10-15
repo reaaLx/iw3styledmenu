@@ -86,22 +86,22 @@
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )
 
 		#define MAP_LIST \
-				LOCAL_MAP_SELECTION( 2, "mp_afghan", "@MPUI_AFGHAN", "@MPUI_DESC_MAP_AFGHAN", "preview_mp_afghan" ) \
-				LOCAL_MAP_SELECTION( 3, "mp_derail", "@MPUI_DERAIL", "@MPUI_DESC_MAP_DERAIL", "preview_mp_derail" ) \
-				LOCAL_MAP_SELECTION( 4, "mp_estate", "@MPUI_ESTATE", "@MPUI_DESC_MAP_ESTATE", "preview_mp_estate" ) \
-				LOCAL_MAP_SELECTION( 5, "mp_favela", "@MPUI_FAVELA", "@MPUI_DESC_MAP_favela", "preview_mp_favela" ) \
-				LOCAL_MAP_SELECTION( 6, "mp_highrise", "@MPUI_HIGHRISE", "@MPUI_DESC_MAP_HIGHRISE", "preview_mp_highrise" ) \
-				LOCAL_MAP_SELECTION( 7, "mp_invasion", "@MPUI_INVASION", "@MPUI_DESC_MAP_INVASION", "preview_mp_invasion" ) \
-				LOCAL_MAP_SELECTION( 8, "mp_checkpoint", "@MPUI_CHECKPOINT", "@MPUI_DESC_MAP_CHECKPOINT", "preview_mp_checkpoint" ) \
-				LOCAL_MAP_SELECTION( 9, "mp_quarry", "@MPUI_QUARRY", "@MPUI_DESC_MAP_QUARRY", "preview_mp_quarry" ) \
-				LOCAL_MAP_SELECTION( 10, "mp_rundown", "@MPUI_RUNDOWN", "@MPUI_DESC_MAP_RUNDOWN", "preview_mp_rundown" ) \
-				LOCAL_MAP_SELECTION( 11, "mp_rust", "@MPUI_RUST", "@MPUI_DESC_MAP_RUST", "preview_mp_rust" ) \
-				LOCAL_MAP_SELECTION( 12, "mp_boneyard", "@MPUI_BONEYARD", "@MPUI_DESC_MAP_BONEYARD", "preview_mp_boneyard" ) \
-				LOCAL_MAP_SELECTION( 13, "mp_nightshift", "@MPUI_RAID", "@MPUI_DESC_MAP_NIGHTSHIFT", "preview_mp_nightshift" ) \
-				LOCAL_MAP_SELECTION( 14, "mp_subbase", "@MPUI_SUBBASE", "@MPUI_DESC_MAP_SUBBASE", "preview_mp_subbase" ) \
-				LOCAL_MAP_SELECTION( 15, "mp_terminal", "@MPUI_TERMINAL", "@MPUI_DESC_MAP_TERMINAL", "preview_mp_terminal" ) \
-				LOCAL_MAP_SELECTION( 16, "mp_underpass", "@MPUI_UNDERPASS", "@MPUI_DESC_MAP_UNDERPASS", "preview_mp_underpass" ) \
-				LOCAL_MAP_SELECTION( 17, "mp_brecourt", "@MPUI_WASTELAND", "@MPUI_DESC_MAP_BRECOURT", "preview_mp_brecourt" )
+				LOCAL_MAP_SELECTION( 2, 	"mp_afghan", 		"@MPUI_AFGHAN", 	"@MPUI_DESC_MAP_AFGHAN", 		"preview_mp_afghan" 	) \
+				LOCAL_MAP_SELECTION( 3, 	"mp_derail", 		"@MPUI_DERAIL", 	"@MPUI_DESC_MAP_DERAIL", 		"preview_mp_derail" 	) \
+				LOCAL_MAP_SELECTION( 4, 	"mp_estate", 		"@MPUI_ESTATE", 	"@MPUI_DESC_MAP_ESTATE", 		"preview_mp_estate" 	) \
+				LOCAL_MAP_SELECTION( 5, 	"mp_favela", 		"@MPUI_FAVELA", 	"@MPUI_DESC_MAP_favela", 		"preview_mp_favela" 	) \
+				LOCAL_MAP_SELECTION( 6, 	"mp_highrise", 		"@MPUI_HIGHRISE", 	"@MPUI_DESC_MAP_HIGHRISE", 		"preview_mp_highrise" 	) \
+				LOCAL_MAP_SELECTION( 7, 	"mp_invasion", 		"@MPUI_INVASION", 	"@MPUI_DESC_MAP_INVASION", 		"preview_mp_invasion" 	) \
+				LOCAL_MAP_SELECTION( 8, 	"mp_checkpoint", 	"@MPUI_CHECKPOINT", "@MPUI_DESC_MAP_CHECKPOINT", 	"preview_mp_checkpoint" ) \
+				LOCAL_MAP_SELECTION( 9, 	"mp_quarry", 		"@MPUI_QUARRY", 	"@MPUI_DESC_MAP_QUARRY", 		"preview_mp_quarry" 	) \
+				LOCAL_MAP_SELECTION( 10, 	"mp_rundown", 		"@MPUI_RUNDOWN", 	"@MPUI_DESC_MAP_RUNDOWN", 		"preview_mp_rundown" 	) \
+				LOCAL_MAP_SELECTION( 11, 	"mp_rust", 			"@MPUI_RUST", 		"@MPUI_DESC_MAP_RUST", 			"preview_mp_rust" 		) \
+				LOCAL_MAP_SELECTION( 12, 	"mp_boneyard", 		"@MPUI_BONEYARD", 	"@MPUI_DESC_MAP_BONEYARD", 		"preview_mp_boneyard" 	) \
+				LOCAL_MAP_SELECTION( 13, 	"mp_nightshift", 	"@MPUI_RAID", 		"@MPUI_DESC_MAP_NIGHTSHIFT", 	"preview_mp_nightshift" ) \
+				LOCAL_MAP_SELECTION( 14, 	"mp_subbase", 		"@MPUI_SUBBASE", 	"@MPUI_DESC_MAP_SUBBASE", 		"preview_mp_subbase" 	) \
+				LOCAL_MAP_SELECTION( 15, 	"mp_terminal", 		"@MPUI_TERMINAL", 	"@MPUI_DESC_MAP_TERMINAL", 		"preview_mp_terminal" 	) \
+				LOCAL_MAP_SELECTION( 16, 	"mp_underpass", 	"@MPUI_UNDERPASS", 	"@MPUI_DESC_MAP_UNDERPASS", 	"preview_mp_underpass" 	) \
+				LOCAL_MAP_SELECTION( 17, 	"mp_brecourt", 		"@MPUI_WASTELAND", 	"@MPUI_DESC_MAP_BRECOURT", 		"preview_mp_brecourt" 	)
 				
 			
 		#define MAP_TABLE	"mp/mapsTable.csv"
