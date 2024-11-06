@@ -10,10 +10,11 @@
 
 #include "ui_mp/cacpopup.inc"
 #include "ui_mp/cac_macros.inc"
+
 #undef CHOICE_SIZE_X
 #define CHOICE_SIZE_X	212
 
-#define CAC_POPUP_X		-57
+#define CAC_POPUP_X		-64
 #define CAC_POPUP_Y		0
 
 #undef NEW_X_OFFSET			
@@ -52,20 +53,20 @@
 		#include "ui_mp/cac.inc"
 		
 		// tab 1
-		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, localvarstring("ui_tab1Name"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
+		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab1Name"), TEXTSIZE_SMALL, -24, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
 		// tab 2
-		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, localvarstring("ui_tab2Name"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
+		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab2Name"), TEXTSIZE_SMALL, -24, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
 		// tab 3
-		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, localvarstring("ui_tab3Name"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
+		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab3Name"), TEXTSIZE_SMALL, -24, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
 		// tab 4
-		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, localvarstring("ui_tab4Name"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
+		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab4Name"), TEXTSIZE_SMALL, -24, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
 		// tab 5
-		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
-		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -32 0, localvarstring("ui_tab5Name"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
+		PREPROC_SHADER_DRAW_ALIGNED( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 0 (CHOICE_POPUP_WIDTH+4) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab5Name"), TEXTSIZE_SMALL, -24, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
 
 		PREPROC_SHADER_DRAW( 0 0 480 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
 		PREPROC_SHADER_DRAW( 0 0 480 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_bottom", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )

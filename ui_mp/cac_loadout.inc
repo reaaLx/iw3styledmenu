@@ -34,14 +34,14 @@
 	#define PERK_ALIGN		
 	
 	#define LOADOUT_PLATING( py, ph, vis_gradient_top, vis_gradient_bottom ) \
-			LOADOUT_PLATING_RAW( ORIGIN_LOADOUT, 0, py, (LOADOUT_WIDTH+8), ph, LOADOUT_ALIGN, vis_gradient_top, vis_gradient_bottom )
+			LOADOUT_PLATING_RAW( 0 0, 333, py, 277, ph, LOADOUT_ALIGN_V2, vis_gradient_top, vis_gradient_bottom )
 		
 	// background frame --------
-	PREPROC_SHADER_DRAW_ALIGNED( -4 12 (LOADOUT_WIDTH+8) 376 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( 328 42 278 376 LOADOUT_ALIGN_V2, 0 0, "gradient_center", 0.3 0.3 0.325 0.6, 0, 0, 0 0 0 0 )
 
-	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-	PREPROC_SHADER_DRAW_ALIGNED( -24 -4 -20 342 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
-	PREPROC_SHADER_DRAW_ALIGNED( (LOADOUT_WIDTH+4) -4 20 398 LOADOUT_ALIGN, ORIGIN_LOADOUT, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( 309 36 -20 398 LOADOUT_ALIGN_V2, 0 0, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	//PREPROC_SHADER_DRAW_ALIGNED( 318 42 -20 342 LOADOUT_ALIGN_V2, 0 0, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
+	PREPROC_SHADER_DRAW_ALIGNED( 606 36 20 398 LOADOUT_ALIGN_V2, 0 0, "gradient", 1 1 1 0.65, 0, 0, 0 0 0 0 )
 	
 	// primary weapon camo
 	//PREPROC_SHADER_DRAW_ALIGNED( -4 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
@@ -52,21 +52,21 @@
 	this will do for now!!!
 	*/
 
-	PREPROC_SHADER_DRAW_ALIGNED( -4 16 278 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
+	PREPROC_SHADER_DRAW_ALIGNED( 333 56 278 80 LOADOUT_ALIGN_V2, 0 0, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	//PREPROC_SHADER_DRAW_ALIGNED( (((LOADOUT_WIDTH+8)/2)-4) 16 100 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "loadoutPrimaryCamo" ) , 4 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
 	//PREPROC_SHADER_DRAW_ALIGNED( ((((LOADOUT_WIDTH+8)/4)*3)-4) 16 ((LOADOUT_WIDTH+8)/4) 80 LOADOUT_ALIGN, ORIGIN_LOADOUT, tablelookup( "mp/attachmenttable.csv", 11, STAT_CAC_CAMO, 6 ), 1 1 1 0.5, 0, 1, 1 1 1 1) 
-	
-	/* top bar */ 			LOADOUT_PLATING( 4, 20, 0, 1 )
-	/* bottom bar */		LOADOUT_PLATING( 386, 16, 1, 0 )
-	/* weapon divider */ 	LOADOUT_PLATING( 104, 8, 1, 1 )
-	/* perk plate */ 		LOADOUT_PLATING( 192, 16, 1, 1 )
+	#define LOADOUT_PLATE_Y 40
+	/* top bar */ 			LOADOUT_PLATING( (4+LOADOUT_PLATE_Y), 20, 0, 1 )
+	/* bottom bar */		LOADOUT_PLATING( (386+LOADOUT_PLATE_Y), 16, 1, 0 )
+	/* weapon divider */ 	LOADOUT_PLATING( (104+LOADOUT_PLATE_Y), 8, 1, 1 )
+	/* perk plate */ 		LOADOUT_PLATING( (192+LOADOUT_PLATE_Y), 16, 1, 1 )
+
+	// custom class name
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( 333 36 278 20 LOADOUT_ALIGN_V2, 0 0, getplayerdata( "customClasses" , localvarint( "classIndex" ) , "name" ), TEXTSIZE_DEFAULT, 0, 0, ITEM_ALIGN_MIDDLE_CENTER, CHOICE_TEXTCOLOR )
 
 	// perks //
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( -4 181 (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, "@MPUI_PERKS_AND_INVENTORY", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_CENTER, CHOICE_TEXTCOLOR )
+	PREPROC_TEXT_DRAW_ALIGNED_EXP( 333 222 278 20 LOADOUT_ALIGN_V2, 0 0, "@MPUI_PERKS_AND_INVENTORY", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_CENTER, CHOICE_TEXTCOLOR )
 	
-	// custom class name
-	PREPROC_TEXT_DRAW_ALIGNED_EXP( -4 -4 (LOADOUT_WIDTH+8) 20 LOADOUT_ALIGN, ORIGIN_LOADOUT, getplayerdata( "customClasses" , localvarint( "classIndex" ) , "name" ), TEXTSIZE_DEFAULT, 0, 0, ITEM_ALIGN_MIDDLE_CENTER, CHOICE_TEXTCOLOR )
-
 // attributes box ======================
 
 #ifndef HIDE_WEAPON_ATTRIBUTE		

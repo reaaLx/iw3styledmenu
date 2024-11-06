@@ -1,0 +1,57 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			0
+
+#define CHOICE_GROUP				"main"
+#define CHOICE_SEP_1				2
+
+#define STYLE_PC					1
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+{
+    menuDef
+    {
+        name            "menu_online_barracks"
+		fullScreen		1
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop 		"music_mainmenu_mp"
+		fadeClamp		1.0
+		fadeCycle		1
+		fadeAmount		0.1
+		onOpen
+		{ 
+			exec "selectStringTableEntryInDvar mp/didyouknow.csv 0 didyouknow";
+		}
+		onEsc
+		{
+			close "self";
+		}
+		// Menu items -------------------------------------------
+		#include "ui/bg.inc"
+
+		#define BACK_ENABLE	1
+		#include "ui_mp/navcontrols.inc"
+
+		CHOICE_MENU_TITLE( "@MPUI_BARRACKS" )	
+
+        CHOICE_BUTTON( 1, "@MPUI_CHALLENGES", open "menu_challenges"; )
+        CHOICE_BUTTON( 2, "@MPUI_ACCOLADES", open "menu_records"; )
+
+        CHOICE_SEPARATOR( CHOICE_SEP_1 )
+
+        CHOICE_BUTTON( 3, "Reset Stats", open "stats_reset"; )
+        CHOICE_BUTTON( 4, "Unlock Stats", open ""; )
+        CHOICE_BUTTON( 5, "Prestige Mode", open "prestige_reset1"; )
+
+        #include "ui_mp/player_info.inc"
+    }
+}

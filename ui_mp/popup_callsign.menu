@@ -1,0 +1,203 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define STYLE_PC		1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+#include "ui_mp/cacpopup.inc"
+#include "ui_mp/cac_macros.inc"
+
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X	212
+
+#define CHOICE_SEP_1    2
+
+#undef NEW_X_OFFSET			
+#define NEW_X_OFFSET	( 0 - CHOICE_SIZE_X )
+#undef NEW_Y_OFFSET			
+#define NEW_Y_OFFSET	( 0 - 2 )
+
+#define ITEM_NUM 9
+{
+    menuDef
+    {
+        name "popup_callsign"
+		rect 0 0 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+		bordersize CHOICE_POPUP_BORDER_WIDTH
+		bordercolor CHOICE_POPUP_BORDER_COLOR
+		focusColor COLOR_FOCUSED
+	   	style WINDOW_STYLE_FILLED
+		popup
+		exp rect y ( localvarfloat( "ui_popup_callsign_ypos" ) + 24 )
+		onOpen
+		{
+			setLocalVarFloat "ui_popup_callsign_ypos" ( localvarfloat( "ui_popupYPos" ) );		
+			setLocalVarBool	"ui_centerPopup" ( 1 );
+		}
+		onClose
+		{
+			setLocalVarBool	"ui_centerPopup" ( 0 );
+		}
+		onESC
+		{
+			close "self";
+			setLocalVarBool	"ui_centerPopup" ( 0 );
+		}
+		PREPROC_SHADER_DRAW_ALIGNED( -64 -20 (CHOICE_POPUP_WIDTH+65) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( -64 -20 (CHOICE_POPUP_WIDTH+65) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "@MENU_PLAYERCARD", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR textAlignX -32 )
+
+		PREPROC_SHADER_DRAW( -64 0 780 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_SHADER_DRAW( -64 0 780 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_bottom", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+		
+        //PREPROC_SHADER_DRAW_ALIGNED( CHOICE_POPUP_HEIGHT( ITEM_NUM ) 6 246 98 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "gradient_bottom", 1 1 1 0.3, 0, 2, CHOICE_POPUP_BORDER_COLOR )
+
+        CHOICE_BUTTON( 1, "@MENU_TITLE_CAPS", open "menu_playercard_title_popup")
+        CHOICE_BUTTON( 2, "@MENU_EMBLEM_CAPS", open "menu_playercard_icon_popup")
+
+        CHOICE_SEPARATOR(2)
+        
+        CHOICE_BUTTON( 3, "@MENU_KILLSTREAK_REWARDS_CAPS", open "menu_cas_popup")
+
+        #define PLAYERCARD_X 65
+
+        // frame
+        PREPROC_SHADER_DRAW_ADV_VIS( 344 - PLAYERCARD_X, 6, 208, 70, "white", 0 0 0 0.25, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)) )
+        PREPROC_SHADER_DRAW_ADV_VIS( 344 - PLAYERCARD_X, 6, 208, 70, "cardtitle_248x48", 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)) )
+       
+        // player card
+        PREPROC_SHADER_DRAW_ADV_VIS( 344 - PLAYERCARD_X, 4, 160, 32, tablelookupbyrow("mp/cardTitleTable.csv",getplayercardinfo(1,1,0),2), 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)) )
+        PREPROC_TEXT_DRAW_CPLEX_VIS( 344 - PLAYERCARD_X, 4, 160, 32, "@"+tablelookupbyrow("mp/cardTitleTable.csv",getplayercardinfo(1,1,0),1), 0.375, 0, 0, 8, 9, 1 1 1 1, when (getplayercardinfo(0,1,0)) )
+        PREPROC_TEXT_DRAW_CPLEX_VIS( 344 - PLAYERCARD_X, 34, 160, 18, getplayercardinfo(8,1,0), 0.3333, 8, 0, 8, 4, 1 1 1 1, when (getplayercardinfo(0,1,0)) )
+        
+        // player emblem
+        PREPROC_SHADER_DRAW_ADV_VIS( 504 - PLAYERCARD_X, 6, 48, 48, tablelookupbyrow("mp/cardIconTable.csv",getplayercardinfo(2,1,0),1), 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)) )
+       
+        // player clan tag
+        PREPROC_TEXT_DRAW_CPLEX_VIS( 344 - PLAYERCARD_X, 54, 208, 20, "["+getplayercardinfo(9,1,0)+"]", 0.375, 8, 0, 7, 8, 1 1 1 1, when (getplayercardinfo(0,1,0) && getplayercardinfo(9,1,0)) )
+        // player level icon
+        PREPROC_SHADER_DRAW_ADV_VIS( 508 - PLAYERCARD_X, 54, 20, 20, tablelookup("mp/rankIconTable.csv",0,getplayercardinfo(4,1,0),(getplayercardinfo(5,1,0)+1)), 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0) && getplayercardinfo(4,1,0)) )
+        // player level text
+        PREPROC_TEXT_DRAW_CPLEX_VIS( 508 - PLAYERCARD_X, 54, 20, 20, tablelookup("mp/rankTable.csv",0,getplayercardinfo(4,1,0),14), 0.375, 20, 0, 7, 9, 1 1 1 1, when (getplayercardinfo(0,1,0)&&getplayercardinfo(4,1,0)) )
+		
+		itemDef
+		{
+			rect 280 78 208 20 1 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 10
+			textalign 5
+			textscale 0.3333
+			text "@MPUI_KILLSTREAKS"
+		}
+		itemDef
+		{
+			rect 280 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.15
+			background "white"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 280 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.35
+			background "gradient_inset_rect"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 351 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.15
+			background "white"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 351 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.35
+			background "gradient_inset_rect"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 422 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.15
+			background "white"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 422 96 66 64 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.35
+			background "gradient_inset_rect"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 297 106 32 32 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 0.65
+			backcolor 1 1 1 1
+			textfont 3
+			textalign 13
+			textaligny 18
+			textscale 0.375
+			exp text ( locstring( "@MPUI_N_KILLS" , int( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 0 ) , 4 ) ) ) )
+			exp material ( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 0 ) , 14 ) )
+		}
+		itemDef
+		{
+			rect 368 106 32 32 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 0.65
+			backcolor 1 1 1 1
+			textfont 3
+			textalign 13
+			textaligny 18
+			textscale 0.375
+			exp text ( locstring( "@MPUI_N_KILLS" , int( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 1 ) , 4 ) ) ) )
+			exp material ( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 1 ) , 14 ) )
+		}
+		itemDef
+		{
+			rect 439 106 32 32 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 0.65
+			backcolor 1 1 1 1
+			textfont 3
+			textalign 13
+			textaligny 18
+			textscale 0.375
+			exp text ( locstring( "@MPUI_N_KILLS" , int( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 2 ) , 4 ) ) ) )
+			exp material ( tablelookup( "mp/killstreakTable.csv" , 1 , getplayerdata( "killstreaks" , 2 ) , 14 ) )
+		}
+    }
+}

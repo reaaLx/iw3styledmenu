@@ -1,0 +1,279 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+#define CHOICE_GROUP			"playercard"
+
+#undef  CHOICE_Y_START
+#define CHOICE_Y_START		-20
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y 		18
+		
+#undef CHOICE_TEXTSIZE
+#define CHOICE_TEXTSIZE 	0.33
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+{
+	menuDef
+	{
+		name "menu_playercard_title_popup"
+		rect 0 0 640 480 0 0
+		style 1
+		forecolor 1 1 1 1
+		focuscolor 1 1 1 1
+		fullscreen 1
+		fadeCycle 1
+		fadeClamp 1
+		fadeAmount 0.1
+		soundLoop "music_mainmenu_mp"
+		onOpen
+		{
+			setLocalVarInt "ui_pageIndex" ( 0 );
+			setLocalVarInt "ui_numPages" ( 25 );
+		}
+		onRequestClose
+		{
+			execnow "uploadstats";
+		}
+		onEsc
+		{
+			close "self";
+		}
+		#include "ui/blurredbg.inc"
+		CHOICE_MENU_TITLE( "@MENU_TITLE_CAPS" )
+
+		#define BACK_ENABLE	1
+		#include "ui_mp/navcontrols.inc"
+
+		itemDef
+		{
+			rect 202 0 64 18 2 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 0.65
+			background "white"
+			textfont CHOICE_TEXTFONT
+			textalign 4
+			textalignx 20
+			textscale 0.375
+			dvar "party_statusString"
+			visible when ( !dvarint( "xblive_privatematch" ) && inlobby() )
+		}
+		itemDef
+		{
+			rect 202 0 64 18 2 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 0.65
+			background "white"
+			textfont CHOICE_TEXTFONT
+			textalign 4
+			textalignx 20
+			textscale 0.375
+			dvar "party_partyPlayerCount"
+			visible when ( !inlobby() )
+		}
+		itemDef
+		{
+			rect 202 28 64 24 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont CHOICE_TEXTFONT
+			textalign 6
+			textalignx -4
+			textscale 0.3333
+			visible when ( 1 )
+			exp text ( locstring( "@MPUI_PAGE_N_SLASH_N" , ( localvarint( "ui_pageIndex" ) + 1 ) , ( localvarint( "ui_numPages" ) + 1 ) ) )
+		}
+		#define PLAYERCARD_X 104 + 105
+		#define PLAYERCARD_Y 30 + 45
+
+		PREPROC_SHADER_DRAW_ADV_VIS( (PLAYERCARD_X), (PLAYERCARD_Y+2), 208, 48, "cardtitle_248x48", 1 1 1 1, 1, 1, 0 0 0 0.75, when (getplayercardinfo(0,1,0)!=0) )
+		PREPROC_SHADER_DRAW_ADV_VIS( (PLAYERCARD_X), (PLAYERCARD_Y), 160, 32, tablelookupbyrow("mp/cardTitleTable.csv",getplayercardinfo(1,1,0),2), 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)!=0) )
+		PREPROC_TEXT_DRAW_CPLEX_VIS( (PLAYERCARD_X), (PLAYERCARD_Y), 160, 32, "@"+tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo(1,1,0),1), 0.375, 0, 0, 8, 9, 1 1 1 1, when (getplayercardinfo(0,1,0)!=0) )
+		PREPROC_TEXT_DRAW_CPLEX_VIS( (PLAYERCARD_X), (PLAYERCARD_Y+30), 18, 2, getplayercardinfo(8,1,0), 0.3333, 8, 0, 8, 4, 1 1 1 1, when (getplayercardinfo(0,1,0)!=0) )
+		PREPROC_SHADER_DRAW_ADV_VIS( (PLAYERCARD_X+160), (PLAYERCARD_Y+2), 48, 48, tablelookupbyrow("mp/cardIconTable.csv",getplayercardinfo(2,1,0),1), 1 1 1 1, 0, 0, 0 0 0 0, when (getplayercardinfo(0,1,0)!=0) )
+
+		#include "ui_mp/cardtitle_info.inc"
+
+		LOCAL_CARDTITLE( 0, "cardTitle1_0", 0 )
+		LOCAL_CARDTITLE( 1, "cardTitle1_1", 1 )
+		LOCAL_CARDTITLE( 2, "cardTitle1_2", 2 )
+		LOCAL_CARDTITLE( 3, "cardTitle2_0", 3 )
+		LOCAL_CARDTITLE( 4, "cardTitle2_1", 4 )
+		LOCAL_CARDTITLE( 5, "cardTitle2_2", 5 )
+		LOCAL_CARDTITLE( 6, "cardTitle3_0", 6 )
+		LOCAL_CARDTITLE( 7, "cardTitle3_1", 7 )
+		LOCAL_CARDTITLE( 8, "cardTitle3_2", 8 )
+
+		LOCAL_CARDTITLE( 20, "cardTitle4_0", 9 )
+		LOCAL_CARDTITLE( 21, "cardTitle4_1", 10 )
+		LOCAL_CARDTITLE( 22, "cardTitle4_2", 11 )
+		LOCAL_CARDTITLE( 23, "cardTitle5_0", 12 )
+		LOCAL_CARDTITLE( 24, "cardTitle5_1", 13 )
+		LOCAL_CARDTITLE( 25, "cardTitle5_2", 14 )
+		LOCAL_CARDTITLE( 26, "cardTitle6_0", 15 )
+		LOCAL_CARDTITLE( 27, "cardTitle6_1", 16 )
+		LOCAL_CARDTITLE( 28, "cardTitle6_2", 17 )
+		
+		LOCAL_CARDTITLE( 40, "cardTitle7_0", 18 )
+		LOCAL_CARDTITLE( 41, "cardTitle7_1", 19 )
+		LOCAL_CARDTITLE( 42, "cardTitle7_2", 20 )
+		LOCAL_CARDTITLE( 43, "cardTitle8_0", 21 )
+		LOCAL_CARDTITLE( 44, "cardTitle8_1", 22 )
+		LOCAL_CARDTITLE( 45, "cardTitle8_2", 23 )
+		LOCAL_CARDTITLE( 46, "cardTitle9_0", 24 )
+		LOCAL_CARDTITLE( 47, "cardTitle9_1", 25 )
+		LOCAL_CARDTITLE( 48, "cardTitle9_2", 26 )
+
+		itemDef
+		{
+			rect -304 140 -32 128 2 1
+			visible 1
+			group "left_arrow"
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) && dvarbool( "wideScreen" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) - 1 );
+				}
+			}
+		}
+		itemDef
+		{
+			rect -304 140 32 128 2 1
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) && dvarbool( "wideScreen" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) - 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "left_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "left_arrow" forecolor 1 1 1 1;
+			}
+		}
+		itemDef
+		{
+			rect 272 140 32 128 2 1
+			visible 1
+			group "right_arrow"
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) && dvarbool( "wideScreen" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) + 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "right_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "right_arrow" forecolor 1 1 1 1;
+			}
+		}
+		itemDef
+		{
+			rect -260 26 -20 80 2 1
+			decoration
+			visible 1
+			group "left_arrow"
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) && !dvarbool( "wideScreen" ) )
+		}
+		itemDef
+		{
+			rect -260 26 20 80 2 1
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) && !dvarbool( "wideScreen" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) - 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "left_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "left_arrow" forecolor 1 1 1 1;
+			}
+		}
+		itemDef
+		{
+			rect 240 26 20 80 2 1
+			visible 1
+			group "right_arrow"
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) && !dvarbool( "wideScreen" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) + 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "right_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "right_arrow" forecolor 1 1 1 1;
+			}
+		}
+	}
+}

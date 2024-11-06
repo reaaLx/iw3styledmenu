@@ -1,0 +1,303 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			34
+	
+#define CHOICE_SEP_1			2
+
+#define CHOICE_GROUP			"xboxlive_privatematch"
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+{
+    menuDef
+    {
+        name "menu_xboxlive_privatelobby"
+        rect 0 0 640 480 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
+        style WINDOW_STYLE_FILLED
+        borderSize 1
+        focusColor 1 1 1 1
+        foreColor 1 1 1 1
+        fullScreen 1
+        soundLoop "music_mainmenu_mp"
+        onOpen
+        {
+			if ( dvarbool( "ui_opensummary" ) )
+			{
+				setLocalVarInt "ui_autoopened" ( 1 );
+				open "popup_summary";
+				setdvar "ui_opensummary" 0;
+			}
+			execnow "xblive_rankedmatch 0";
+			execnow "xblive_privatematch 1";
+			exec "exec dvar_defaults.cfg";
+			focusfirst;
+        }
+        onESC
+        {
+        	open "leavelobbywarning";
+        }
+		#include "ui/bg.inc"
+		
+		#define BACK_ENABLE 1
+		#include "ui_mp/navcontrols.inc"
+
+		CHOICE_MENU_TITLE( "@MPUI_PRIVATE_MATCH_LOBBY" )
+
+        itemDef
+        {
+            rect -270 38 270 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.69 0.69 0.69 1
+            textAlign ITEM_ALIGN_LEGACY_RIGHT
+            textAlignY -6
+            textScale 0.375
+            dvarFloat "party_lobbyPlayerCount" -1 -1 -1
+            visible when ( inlobby() )
+            decoration                
+        }
+        itemDef
+        {
+            rect -270 38 256 15 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.69 0.69 0.69 1
+            textAlignY -6
+            textScale 0.375
+            exp text ( locstring( "@MPUI_RECOMMENDEDPLAYERS" , int( min( dvarint( "party_maxplayers" ) , maxrecommendedplayers() ) ) ) )
+            visible when ( privatepartyhost() )
+            decoration                
+        }
+
+		#include "ui_mp/game_info.inc"
+		GAME_INFO( "preview_" + dvarString ("ui_mapname"), dvarString ( "party_mapname" ), dvarString( "party_gametype" ), 1 )
+
+
+        #define CLEAR_UI_HINT setLocalVarString "ui_hint_text" ( "@NULL_EMPTY" );
+
+        #define UI_HINT(hintText) setLocalVarString "ui_hint_text" (hintText);
+
+        #define VOTE_BTN_VIS_TEXT \
+                if ( dvarbool( "party_vetoButtonVisible" ) ) \
+                { setLocalVarString "ui_hint_text" ( "@MPUI_DESC_VOTE_TO_SKIP" ); } \
+				else \
+                { setLocalVarString "ui_hint_text" ( "@MPUI_VOTE_CAST" ); } \
+
+        #define CHOICE_BTN_03 \
+				if ( isitemunlocked( "cac" ) ) { setLocalVarString "ui_hint_text" ( "@MPUI_DESC_CREATE_A_CLASS" ); } \
+				else \
+                { if ( tablelookup( "mp/unlockTable.csv" , 0 , "cac" , 2 ) == 9999 ) { setLocalVarString "ui_hint_text" ( "@PERKS_UNLOCKED_AT_NONE" ); } \
+                else \
+                { if ( tablelookup( "mp/unlockTable.csv" , 0 , "cac" , 3 ) != "" ) { setLocalVarString "ui_hint_text" ( "@PERKS_UNLOCKED_BY_CHALLENGE" ); } \
+                else \
+                { setLocalVarString "ui_hint_text" ( "@" + tablelookup( "mp/rankTable.csv" , 0 , tablelookup( "mp/unlockTable.csv" , 0 , "cac" , 2 ) , 17 ) ); } } } \
+
+        CHOICE_BUTTON_FOCUS_VIS(1, "@MENU_START_MATCH", exec "xpartygo";, UI_HINT("@MENU_DESC_START_MATCH"), CLEAR_UI_HINT, when ( dvarbool( "onlinegameandhost" ) ) )
+        CHOICE_DBUTTON_FOCUS_VIS( 1, "@MENU_START_MATCH", UI_HINT("@MENU_DESC_START_MATCH_LOCKED"), CLEAR_UI_HINT, when ( !dvarbool( "onlinegameandhost" ) ) )        
+
+        CHOICE_BUTTON_FOCUS_VIS(2, "@MENU_GAME_SETUP", open "popup_gamesetup";, UI_HINT("@MPUI_DESC_GAME_SETUP"), CLEAR_UI_HINT, when ( dvarbool( "onlinegameandhost" ) ) )
+        CHOICE_DBUTTON_FOCUS_VIS( 2, "@MENU_GAME_SETUP", UI_HINT("@MPUI_DESC_GAME_SETUP_LOCKED"), CLEAR_UI_HINT, when ( !dvarbool( "onlinegameandhost" ) ) )
+
+		CHOICE_SEPARATOR( CHOICE_SEP_1 )
+		
+        CHOICE_BUTTON_FOCUS_VIS_EX( 3, "@MPUI_CREATE_A_CLASS", open "cac_popup";, CHOICE_BTN_03, CLEAR_UI_HINT, 1, disabled when ( !isitemunlocked( "cac" ) ) )
+		//CHOICE_BUTTON_FOCUS_VIS( 3, "@MPUI_CREATE_A_CLASS", open "cac_popup";, UI_HINT("@MPUI_DESC_CREATE_A_CLASS"), CLEAR_UI_HINT, when( isItemUnlocked("cac") ) )
+		//CHOICE_DBUTTON_FOCUS_VIS( 3, "@MPUI_CREATE_A_CLASS", UI_HINT("@MPUI_DESC_CREATE_A_CLASS_LOCKED"), CLEAR_UI_HINT, when( !isItemUnlocked("cac") ) )
+
+		//CHOICE_NEWICON_VIS( 3, "specialty_new", when( 1 ) )
+
+		CHOICE_BUTTON_FOCUS_VIS( 4, "@MPUI_BARRACKS", open "menu_online_barracks";, UI_HINT("@MPUI_DESC_BARRACKS"), CLEAR_UI_HINT, when(1) )
+		//CHOICE_NEWICON_VIS( 4, "specialty_new", when( 1 ) )
+		
+		CHOICE_BUTTON_FOCUS_VIS( 5, "@MENU_INVITE_FRIENDS", exec "xshowfriendslist";, UI_HINT("@MENU_DESC_INVITE_FRIENDS"), CLEAR_UI_HINT, when( !dvarbool( "ui_partyFull" ) ) )
+
+        itemDef
+        {
+            name "desc_arrow"
+            rect 15 183 10 10 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            borderSize 1
+            foreColor 1 1 1 0.25
+            background "ui_arrow_right"
+            textScale 0.55
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            name "description_choice"
+            rect 27 180 210 36 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 1 1 1 0.7
+            textAlignY 16
+            textScale 0.375
+            exp text ( localvarstring( "ui_hint_text" ) )
+            visible 1
+            decoration                
+            autoWrapped               
+        }
+        itemDef
+        {
+            rect -270 390 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.9 0.925 1 0.07
+            textScale 1.75
+            textStyle ITEM_TEXTSTYLE_SHADOWED
+            text "@MENU_LOBBY"
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 50 278 334 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 0.3 0.3 0.325 0.6
+            textScale 0.55
+            exp material ( "gradient_center" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -294 34 -20 342 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 1 1 1 0.65
+            textScale 0.55
+            exp material ( "gradient" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect 4 34 20 358 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 1 1 1 0.65
+            textScale 0.55
+            exp material ( "gradient" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 34 278 16 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 0.175 0.2 0.25 1
+            textScale 0.55
+            exp material ( "white" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 34 278 16 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 0.9 0.9 0.95 0.5
+            textScale 0.55
+            exp material ( "line_horizontal" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 50 278 16 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 1 1 1 0.2
+            textScale 0.55
+            exp material ( "gradient_top" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 384 278 8 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 0.175 0.2 0.25 1
+            textScale 0.55
+            exp material ( "white" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 384 278 8 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 0.9 0.9 0.95 0.5
+            textScale 0.55
+            exp material ( "line_horizontal" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -274 368 278 16 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            style WINDOW_STYLE_SHADER
+            foreColor 1 1 1 0.2
+            textScale 0.55
+            exp material ( "gradient_bottom" )
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -270 38 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.6 0.6 0.6 1
+            textAlignY 12
+            textScale 0.375
+            textStyle ITEM_TEXTSTYLE_SHADOWED
+            text "@MPUI_RANK"
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -238 38 0 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.6 0.6 0.6 1
+            textAlignX 6
+            textAlignY 12
+            textScale 0.375
+            textStyle ITEM_TEXTSTYLE_SHADOWED
+            text "@MPUI_NAME"
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            rect -34 38 30 0 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.6 0.6 0.6 1
+            align ITEM_ALIGN_LEGACY_RIGHT
+            textAlignY 12
+            textScale 0.375
+            textStyle ITEM_TEXTSTYLE_SHADOWED
+            text "@MPUI_SCORE"
+            visible 1
+            decoration                
+        }
+        itemDef
+        {
+            name "partyList"
+            rect -238 52 256 324 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP
+            borderSize 1
+            foreColor 0.69 0.69 0.69 1
+            backColor 0.5 0.5 0.5 0
+            outlineColor 0.85 0.85 0.925 0.2
+            type ITEM_TYPE_LISTBOX
+            textScale 0.375
+            feeder FEEDER_PARTY_MEMBERS
+            elementWidth 256
+            elementHeight 18
+            columns 1    6   14  40
+            selectBorder 0.8 0.95 1 0
+            noScrollBars              
+            visible when ( ( ! dvarbool( "party_timerVisible" ) || ! dvarbool( "party_teambased" ) || ! dvarbool( "party_autoteams" ) ) && ! inlobby() )
+        }
+    }
+}

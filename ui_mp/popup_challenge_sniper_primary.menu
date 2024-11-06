@@ -1,0 +1,173 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define STYLE_PC		1
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X	212
+
+#define CH_POPUP_X		0
+#define CH_POPUP_Y		0
+
+#define TAB_X_SIZE 		65
+#define POS_X_START 	0
+
+#undef NEW_X_OFFSET			
+#define NEW_X_OFFSET	( 0 - CHOICE_SIZE_X )
+#undef NEW_Y_OFFSET			
+#define NEW_Y_OFFSET	( 0 - 2 )
+
+#define ITEM_NUM 6
+{
+	menuDef
+	{
+		name "popup_challenge_sniper_primary"
+		rect (-64) (CH_POPUP_Y) (580) CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+		bordersize CHOICE_POPUP_BORDER_WIDTH
+		bordercolor CHOICE_POPUP_BORDER_COLOR
+		focusColor COLOR_FOCUSED
+	   	style WINDOW_STYLE_FILLED
+		popup
+		visible when ( localvarint( "ui_tabDepth" ) == localvarint( "ui_popup_challenge_sniper_primary_tabDepth" ) )
+		exp rect y ( localvarfloat( "ui_popupYPos" ) + localvarint( "ui_tabDepth" ) * 20 )
+		onOpen
+		{
+			focusfirst;
+			setLocalVarInt "ui_tabDepth" ( localvarint( "ui_tabDepth" ) + 1 );
+			setLocalVarInt "ui_popup_challenge_sniper_primary_tabDepth" ( localvarint( "ui_tabDepth" ) );
+		}
+		onRequestClose
+		{
+			setLocalVarInt "ui_tabDepth" ( localvarint( "ui_tabDepth" ) - 1 );
+		}
+		onEsc
+		{
+			close "self";
+		}
+
+		#define LOCAL_TAB_ACTION( tabName ) \
+				if ( localvarint( "ui_tabDepth" ) == 0 ) \
+				{ \
+					setLocalVarString "ui_tab1Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 1 ) \
+				{ \
+					setLocalVarString "ui_tab2Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 2 ) \
+				{ \
+					setLocalVarString "ui_tab3Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 3 ) \
+				{ \
+					setLocalVarString "ui_tab4Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 4 ) \
+				{ \
+					setLocalVarString "ui_tab5Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 5 ) \
+				{ \
+					setLocalVarString "ui_tab6Name" ( "@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 ) ); \
+				} \
+				setLocalVarString "ui_challengeTierTable" ( tablelookup( "mp/challengeTable.csv" , 6 , tabName , 4 ) ); \
+				open "menu_challenge_details"; \
+				setLocalVarInt "tierForWeapon" ( int( tablelookup( "mp/challengeTable.csv" , 6 , tabName , 0 ) ) ); \
+				setPlayerData( "challengeTierNew" , "localVarInt" ( "tierForWeapon" ) , "false" );
+
+		#define LOCAL_TAB_FOCUS( tabName ) \
+				setLocalVarString "ui_selected_ref" ( tabName );
+
+		#define LOCAL_TAB_TEXT( tabName ) \
+				"@" + tablelookup( "mp/statsTable.csv" , 4 , tabName , 3 )
+
+		#define CLEAR_UI_HINT setLocalVarString "ui_info_name" ( "@NULL_EMPTY" );
+
+		#define TEXT_POS_X -24
+
+		// tab 1
+		PREPROC_SHADER_DRAW_ALIGNED( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab1Name"), TEXTSIZE_SMALL, TEXT_POS_X, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-1)*20)) visible when(localvarint("ui_tabDepth")>(1-1)))
+		// tab 2
+		PREPROC_SHADER_DRAW_ALIGNED( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, -0 0, localvarstring("ui_tab2Name"), TEXTSIZE_SMALL, TEXT_POS_X, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-2)*20)) visible when(localvarint("ui_tabDepth")>(2-1)))
+		// tab 3
+		PREPROC_SHADER_DRAW_ALIGNED( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab3Name"), TEXTSIZE_SMALL, TEXT_POS_X, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-3)*20)) visible when(localvarint("ui_tabDepth")>(3-1)))
+		// tab 4
+		PREPROC_SHADER_DRAW_ALIGNED( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab4Name"), TEXTSIZE_SMALL, TEXT_POS_X, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-4)*20)) visible when(localvarint("ui_tabDepth")>(4-1)))
+		// tab 5
+		PREPROC_SHADER_DRAW_ALIGNED( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( POS_X_START 0 (CHOICE_POPUP_WIDTH+TAB_X_SIZE) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, localvarstring("ui_tab5Name"), TEXTSIZE_SMALL, TEXT_POS_X, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR exp rect y(-20-((localvarint("ui_tabDepth")-5)*20)) visible when(localvarint("ui_tabDepth")>(5-1)))
+
+		PREPROC_SHADER_DRAW( POS_X_START 0 580 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "white", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+		PREPROC_SHADER_DRAW( POS_X_START 0 580 CHOICE_POPUP_HEIGHT( ITEM_NUM ), 0 0, "gradient_bottom", CHOICE_POPUP_BACKCOLOR, 1, CHOICE_POPUP_BORDER_WIDTH, CHOICE_POPUP_BORDER_COLOR )
+
+		#undef CHOICE_X_START
+		#define CHOICE_X_START		64
+
+		CHOICE_BUTTON_FOCUS( 1, 	LOCAL_TAB_TEXT( "barrett" ), 	LOCAL_TAB_ACTION( "barrett" ),		LOCAL_TAB_FOCUS( "barrett" ), 		CLEAR_UI_HINT )
+		CHOICE_BUTTON_FOCUS( 2, 	LOCAL_TAB_TEXT( "cheytac" ), 	LOCAL_TAB_ACTION( "cheytac" ), 		LOCAL_TAB_FOCUS( "cheytac" ), 		CLEAR_UI_HINT )
+		CHOICE_BUTTON_FOCUS( 3, 	LOCAL_TAB_TEXT( "wa2000" ), 	LOCAL_TAB_ACTION( "wa2000" ), 		LOCAL_TAB_FOCUS( "wa2000" ),		CLEAR_UI_HINT )
+		CHOICE_BUTTON_FOCUS( 4, 	LOCAL_TAB_TEXT( "m21" ), 		LOCAL_TAB_ACTION( "m21" ), 			LOCAL_TAB_FOCUS( "m21" ), 			CLEAR_UI_HINT )
+
+		itemDef
+		{
+			rect -56 0 200 184 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 4
+			textalignx 4
+			textscale 0.375
+			exp text ( "@" + tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "ui_selected_ref" ) , 3 ) )
+		}
+		itemDef
+		{
+			rect -56 10 200 100 2 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp material ( tablelookup( "mp/statsTable.csv" , 4 , localvarstring( "ui_selected_ref" ) , 6 ) )
+		}
+		itemDef
+		{
+			rect -56 0 200 184 2 1
+			decoration
+			autowrapped
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont 3
+			textalign 4
+			textalignx 4
+			textaligny 104
+			textscale 0.375
+			visible when ( isitemunlocked( localvarstring( "ui_selected_ref" ) ) )
+			exp text ( "@" + tablelookup( "mp/statstable.csv" , 4 , localvarstring( "ui_selected_ref" ) , 7 ) )
+		}
+		itemDef
+		{
+			rect -56 0 200 184 2 1
+			decoration
+			autowrapped
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont 3
+			textalign 4
+			textalignx 4
+			textaligny 104
+			textscale 0.375
+			visible when ( !isitemunlocked( localvarstring( "ui_selected_ref" ) ) )
+			exp text ( "@" + tablelookup( "mp/rankTable.csv" , 0 , tablelookup( "mp/unlockTable.csv" , 0 , localvarstring( "ui_selected_ref" ) , 2 ) , 17 ) )
+		}
+	}
+}

@@ -430,55 +430,55 @@
 		}
 	
 #define CHOICE_SECTION_TITLE( itemIndex, titleArg ) \
-	CHOICE_SECTION_TITLE_VIS( itemIndex, titleArg, 1 )	
+		CHOICE_SECTION_TITLE_VIS( itemIndex, titleArg, 1 )	
 
 #define CHOICE_SECTION_TITLE_VIS( itemIndex, titleArg, visArg ) \
-	itemDef \
-	{ \
-		style			WINDOW_STYLE_SHADER \
-		rect			(SECTION_X_OFFSET+0) 7 240 0.5 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
-		origin			CHOICE_ORIGIN( itemIndex ) \
-		background		"line_horizontal" \
-		forecolor		1 1 1 0.85 \
-		visible			visArg \
-		decoration \
-	}	 \
-	itemDef \
-	{ \
-		style			WINDOW_STYLE_SHADER \
-		rect			(SECTION_X_OFFSET+20) 8 200 10 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
-		origin			CHOICE_ORIGIN( itemIndex ) \
-		background		"line_horizontal" \
-		forecolor		0.4 0.6 1 0.8 \
-		visible			visArg \
-		decoration \
-	} \
-	itemDef \
-	{ \
-		style			WINDOW_STYLE_SHADER \
-		rect			(SECTION_X_OFFSET+0) 19 240 0.5 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
-		origin			CHOICE_ORIGIN( itemIndex ) \
-		background		"line_horizontal" \
-		forecolor		1 1 1 0.85 \
-		visible			visArg \
-		decoration \
-	} \
-	itemDef \
-	{ \
-		type			ITEM_TYPE_TEXT \
-		rect			(SECTION_X_OFFSET+0) -1 240 24 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
-		origin			CHOICE_ORIGIN( itemIndex ) \
-		forecolor		1 1 1 0.8 \
-		exp				text( titleArg );\
-		textstyle 		ITEM_TEXTSTYLE_SHADOWED \
-		textfont		UI_FONT_NORMAL \
-		textscale		TEXTSIZE_DEFAULT \
-		textstyle		CHOICE_TEXTSTYLE \
-		textAlign		ITEM_ALIGN_MIDDLE_CENTER \
-		textAlignX		SECTION_TEXT_OFFSET_X \
-		visible 		visArg \
-		decoration \
-	}
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			(SECTION_X_OFFSET+0) 7 240 0.5 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			origin			CHOICE_ORIGIN( itemIndex ) \
+			background		"line_horizontal" \
+			forecolor		1 1 1 0.85 \
+			visible			visArg \
+			decoration \
+		}	 \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			(SECTION_X_OFFSET+20) 8 200 10 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			origin			CHOICE_ORIGIN( itemIndex ) \
+			background		"line_horizontal" \
+			forecolor		0.4 0.6 1 0.8 \
+			visible			visArg \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			style			WINDOW_STYLE_SHADER \
+			rect			(SECTION_X_OFFSET+0) 19 240 0.5 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			origin			CHOICE_ORIGIN( itemIndex ) \
+			background		"line_horizontal" \
+			forecolor		1 1 1 0.85 \
+			visible			visArg \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			type			ITEM_TYPE_TEXT \
+			rect			(SECTION_X_OFFSET+0) -1 240 24 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN \
+			origin			CHOICE_ORIGIN( itemIndex ) \
+			forecolor		1 1 1 0.8 \
+			exp				text( titleArg );\
+			textstyle 		ITEM_TEXTSTYLE_SHADOWED \
+			textfont		UI_FONT_NORMAL \
+			textscale		TEXTSIZE_DEFAULT \
+			textstyle		CHOICE_TEXTSTYLE \
+			textAlign		ITEM_ALIGN_MIDDLE_CENTER \
+			textAlignX		SECTION_TEXT_OFFSET_X \
+			visible 		visArg \
+			decoration \
+		}
 
 
 #define CHOICE_SEPARATOR( afterItemIndex ) \
@@ -566,6 +566,7 @@
 			textAlign		CHOICE_TEXTALIGN \
 			textAlignX		CHOICE_TEXT_OFFSET_X \
 			forecolor		CHOICE_TEXTCOLOR \
+			disablecolor 	CHOICE_TEXTCOLOR_DISABLED \
 			visible			visArg \
 			extraArgs \
 			CHOICE_SCRIPTS_ALL( itemIndex, actionArg, onFocusArg, leaveFocusArg ) \
@@ -577,7 +578,7 @@
 		{ \
 			type			ITEM_TYPE_TEXT \
 			rect			CHOICE_RECT( itemIndex ) \
-			exp				text( textArg ); \
+			exp				text( textArg ) \
 			textfont		CHOICE_TEXTFONT \
 			textscale		CHOICE_TEXTSIZE \
 			textstyle		CHOICE_TEXTSTYLE \
@@ -595,7 +596,7 @@
 		{ \
 			type			ITEM_TYPE_TEXT \
 			rect			CHOICE_RECT( itemIndex ) \
-			exp				text( textArg ); \
+			exp				text( textArg ) \
 			textfont		UI_FONT_NORMAL \
 			textscale		CHOICE_TEXTSIZE \
 			textstyle		CHOICE_TEXTSTYLE \
@@ -603,8 +604,25 @@
 			textAlignX		CHOICE_TEXT_OFFSET_X \
 			forecolor		CHOICE_TEXTCOLOR_DISABLED \
 			disablecolor 	CHOICE_TEXTCOLOR_DISABLED \
-			disabled		visArg \
+			visible			visArg \
 			decoration \
+		} \
+
+#define CHOICE_DBUTTON_FOCUS_VIS( itemIndex, textArg, onFocusArg, leaveFocusArg, visArg ) \
+		CHOICE_BUTTON_BG( itemIndex, visArg ) \
+		itemDef \
+		{ \
+			type			ITEM_TYPE_BUTTON \
+			rect			CHOICE_RECT( itemIndex ) \
+			exp 			text ( textArg ) \
+			textfont		UI_FONT_NORMAL \
+			textscale		CHOICE_TEXTSIZE \
+			textstyle		CHOICE_TEXTSTYLE \
+			textAlign		CHOICE_TEXTALIGN \
+			textAlignX		CHOICE_TEXT_OFFSET_X \
+			forecolor		CHOICE_TEXTCOLOR_DISABLED \
+			visible			visArg \
+			CHOICE_SCRIPTS_ALL( itemIndex, ;, onFocusArg, leaveFocusArg ) \
 		} \
 
 #define CHOICE_DVARENUMLIST( itemIndex, textArg, dvarArg, dvarListArg, actionArg ) \
@@ -647,7 +665,7 @@
 			textstyle 		ITEM_TEXTSTYLE_SHADOWED \
 			style			WINDOW_STYLE_FILLED \
 			forecolor		CHOICE_TEXTCOLOR \
-			visible			visArg ; \
+			visible			visArg \
 			CHOICE_SCRIPTS_ALL( itemIndex, actionArg, onFocusArg, leaveFocusArg ) \
 		}
 
@@ -871,28 +889,26 @@
 
 
 #define CHOICE_SCRIPTS_ACTION( itemIndex, actionArg ) \
-	CHOICE_SCRIPTS_ALL( itemIndex, actionArg, ;, ; )
-
-
+		CHOICE_SCRIPTS_ALL( itemIndex, actionArg, ;, ; )
 
 #define CHOICE_SCRIPTS_ALL( itemIndex, actionArg, onFocusArg, leaveFocusArg ) \
-			onFocus \
-			{ \
-				play CHOICE_FOCUS_SOUND; \
-				setLocalVarInt ui_highlight itemIndex; \
-				setLocalVarString ui_choicegroup CHOICE_GROUP; \
-				onFocusArg \
-			} \
-			leaveFocus \
-			{ \
-				setLocalVarInt ui_highlight 0; \
-				leaveFocusArg \
-			} \
-			action \
-			{ \
-				play "mouse_click"; \
-				actionArg; \
-			}
+		onFocus \
+		{ \
+			play CHOICE_FOCUS_SOUND; \
+			setLocalVarInt "ui_highlight" ( itemIndex ); \
+			setLocalVarString "ui_choicegroup" ( CHOICE_GROUP ); \
+			onFocusArg \
+		} \
+		leaveFocus \
+		{ \
+			setLocalVarInt "ui_highlight" ( 0 ); \
+			leaveFocusArg \
+		} \
+		action \
+		{ \
+			play "mouse_click"; \
+			actionArg; \
+		}
 
 
 #define CHOICE_APPLY( textArg, actionArg ) \

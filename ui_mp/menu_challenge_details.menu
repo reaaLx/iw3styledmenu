@@ -39,50 +39,300 @@
 #define WIDTH_INFO_BOX				(((WIDTH_TIER_FRAME+4)-PADDING*3)/2)
 #define HEIGHT_INFO_BOX				296
 
-#define LABEL_TEXT_COLOR		0.7 0.75 0.75 1
+#define LABEL_TEXT_COLOR			0.7 0.75 0.75 1
+
+// ------ CHALLENGE ITEMS ------
+#define LIST_ITEM_HEIGHT			14
+#define LIST_ITEM_COLOR				0.7 0.75 0.75 0.8
+#define LIST_ITEM_COLOR_LOCKED		0.4 0.45 0.45 0.8
+
+// hightlight cycle animations for bars  
+#define F_HEIGHT_OFFSET ( ( 1 - ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) ) / 2 ) * LIST_ITEM_HEIGHT
+#define F_HEIGHT ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) * LIST_ITEM_HEIGHT
 {
-	menuDef	
+	menuDef
 	{
-		name 			"menu_challenge_details"
-		visible			0
-		fullscreen		0
-		rect			0 0 640 480 0 0
-		focusColor		COLOR_FOCUSED
-		style			WINDOW_STYLE_FILLED
+		name "menu_challenge_details"
+		rect 0 0 640 480 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
+		style WINDOW_STYLE_FILLED
+		borderSize 1
+		foreColor 1 1 1 1
+		focusColor 1 1 1 1
 		popup
-		onOpen 
-		{ 
-			exec "set ui_table_slot 1";
-			focusFirst; 
+		onOpen
+		{
+			//exec "set ui_hide_desc 1";
+			//exec "set ui_table_name";
+			focusFirst;
 		}
 		onClose
 		{
-			exec "set ui_table_slot 0";
+			//exec "set ui_hide_desc 0";
 		}
 		onESC
-		{ 
+		{
 			play "mouse_click";
-			close "menu_challenge_details" 
+			close "menu_challenge_details";
 		}
-		//=================== main frame ==================
+
 		/*macro ex:		PREPROC_SHADER_DRAW_ADV( px, py, pw, ph, porigin, pshader, pcolor, pborder, pbordersize, pbordercolor ) */
 		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 2 2, "white", 0.25 0.25 0.27 1, 0, 0, 0 0 0 0 )
 		/*mainframe*/	PREPROC_SHADER_DRAW( RECT_TIER_FRAME, 0 0, "white", COLOR_TIER_FRAME, BORDER_TIER_FRAME, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
 		/*mainframe*/	PREPROC_SHADER_DRAW_ADV( ORIGIN_TIER_FRAME_X, ORIGIN_TIER_FRAME_Y+2, WIDTH_TIER_FRAME, HEIGHT_TIER_FRAME-2, "line_horizontal", 0.8 0.8 0.8 0.45, 0, 1, 1 1 1 1 )
-//		/*perforation*/	PREPROC_PERFORATION( ORIGIN_TIER_FRAME_X+WIDTH_TIER_FRAME-64, ORIGIN_TIER_FRAME_Y, -64, 16, 0, 4, 0, 0 )
-//		/*perforation*/	PREPROC_PERFORATION( ORIGIN_TIER_FRAME_X+WIDTH_TIER_FRAME-64, ORIGIN_TIER_FRAME_Y, -64, 16, 0, 20, 0, 0 )
 		/*listbox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X, ORIGIN_LIST_BOX_Y, WIDTH_LIST_BOX, HEIGHT_LIST_BOX, "gradient_center", 0 0 0 0.85, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
 		/*infobox*/		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y, WIDTH_INFO_BOX, HEIGHT_INFO_BOX, "gradient_center", 0 0 0 0.55, WINDOW_BORDER_SUNKEN, BORDER_SIZE_TIER_FRAME, BORDER_COLOR_TIER_FRAME )
-		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40, exp text ( "@" + tablelookup( "mp/challengeTable.csv" , 4 , localvarstring( "ui_challengeTierTable" ) , 1 ) ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
+		/*title*/		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X, ORIGIN_INFO_BOX_Y-2, WIDTH_INFO_BOX, 40,  exp text( "@" + tablelookup( "mp/challengeTable.csv" , 4 , localvarstring( "ui_challengeTierTable" ) , 1 ) ), TEXTSIZE_DEFAULT, 0, -6, ITEM_ALIGN_CENTER, LABEL_TEXT_COLOR )
 
-		// ------ CHALLENGE ITEM NAME ------
+#define PREPROC_NEW_LOCKED_ICON( pslot, pslot_s ) \
+		itemDef \
+		{ \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 1 0.9 0.75 0.85 \
+			borderColor 0.9 0.95 1 0.25 \
+			textScale 0.55 \
+			exp material ( "specialty_new" ) \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 48 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) + 2 ) \
+			exp rect W ( 40 ) \
+			exp rect H ( LIST_ITEM_HEIGHT + 4 ) \
+			visible when ( getPlayerDataAnyBoolTrue( "challengeTierNew" ) || getPlayerData( "featureNew" , "challenges" ) || getPlayerData( "featureNew" , "challenges" ) || getPlayerData( "featureNew" , "prestige" ) ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.8 0.9 1 0.65 \
+			borderColor 0.9 0.95 1 0.25 \
+			textScale 0.55 \
+			exp material ( "specialty_locked" ) \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 48 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + ( pslot - 1 )  * ( LIST_ITEM_HEIGHT + 2 ) + 2 ) \
+			exp rect W ( 40 ) \
+			exp rect H ( LIST_ITEM_HEIGHT + 4 ) \
+			visible when ( !isitemunlocked( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) || !isitemunlocked( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) ) ) \
+			decoration \
+		}
 
 
-		// ------ CHALLENGE ITEMS ------
-		#define LIST_ITEM_HEIGHT	14
-		#define LIST_ITEM_COLOR		0.7 0.75 0.75 0.8
-		#define LIST_ITEM_COLOR_LOCKED	0.4 0.45 0.45 0.8		
-		
+#define PREPROC_PROGRESS_BAR( pslot, pslot_s ) \
+		itemDef \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 48 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 4 + (pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
+			exp rect W ( 40 ) \
+			exp rect H ( LIST_ITEM_HEIGHT ) \
+			style WINDOW_STYLE_SHADER \
+			border WINDOW_BORDER_FULL \
+			borderSize 2 \
+			foreColor 0.8 0.85 0.95 0.1 \
+			borderColor 0.8 0.85 0.95 0.25 \
+			textScale 0.55 \
+			exp material ( "white" ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 46 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 6 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
+			exp rect w ( ( ( getplayerdata( "challengeProgress" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) - 0 ) / ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s, 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) - 0 ) ) * 40 ) \
+			exp rect H ( LIST_ITEM_HEIGHT - 4 ) \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.8 0.85 0.95 0.25 \
+			borderColor 0.9 0.95 1 0.25 \
+			textScale 0.55 \
+			exp material ( "white" ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			foreColor 0.8 0.85 0.95 0.5 \
+			textAlign ITEM_ALIGN_LEGACY_CENTER \
+			textScale 0.375 \
+			textStyle ITEM_TEXTSTYLE_SHADOWED \
+			exp text ( "@MENU_100PERCENT" ) \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 49 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 2 + ( pslot ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
+			exp rect W ( 40 ) \
+			exp rect H ( LIST_ITEM_HEIGHT ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		}
+
+// begin button work
+
+#define PREPROC_LIST_ITEM( pslot, pslot_s ) \
+		PREPROC_NEW_LOCKED_ICON( pslot, pslot_s ) \
+		PREPROC_PROGRESS_BAR( pslot, pslot_s ) \
+		itemDef \
+		{ \
+			rect ( ORIGIN_LIST_BOX_X + 8 ) ( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) ( WIDTH_LIST_BOX - 58 - (LIST_ITEM_HEIGHT / 4 ) ) LIST_ITEM_HEIGHT 0 0 \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.9 0.9 1 0.07 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "gradient_fadein" ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			rect ( ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 50 ) - ( LIST_ITEM_HEIGHT / 4 ) ) ( ORIGIN_LIST_BOX_Y + 4 +( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) ( LIST_ITEM_HEIGHT / 4 ) LIST_ITEM_HEIGHT 0 0 \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.9 0.9 1 0.07 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "button_highlight_end" ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		}  \
+		itemDef \
+		{ \
+			rect ( ORIGIN_LIST_BOX_X + 8 ) ( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) ( WIDTH_LIST_BOX - 58 - (LIST_ITEM_HEIGHT / 4 ) ) LIST_ITEM_HEIGHT 0 0 \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.8 0.85 0.95 0.25 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "gradient_fadein" ) \
+			visible when ( localvarint( "ui_ch_highlight" ) == pslot ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			rect ( ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 50 ) - ( LIST_ITEM_HEIGHT / 4 ) ) ( ORIGIN_LIST_BOX_Y + 4 +( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) ( LIST_ITEM_HEIGHT / 4 ) LIST_ITEM_HEIGHT 0 0 \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.8 0.85 0.95 0.25 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "button_highlight_end" ) \
+			visible when ( localvarint( "ui_ch_highlight" ) == pslot ) \
+			decoration \
+		}  \
+		itemDef \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + 4 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) + F_HEIGHT_OFFSET ) \
+			exp rect W ( 2 ) \
+			exp rect H ( F_HEIGHT ) \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.55 1 0.55 0.8 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "white" ) \
+			visible when ( localvarint( "ui_ch_highlight" ) == pslot && tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		} \
+		itemDef \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + WIDTH_LIST_BOX - 6 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) + F_HEIGHT_OFFSET ) \
+			exp rect W ( 2 ) \
+			exp rect H ( F_HEIGHT ) \
+			style WINDOW_STYLE_SHADER \
+			borderSize 1 \
+			foreColor 0.55 1 0.55 0.8 \
+			borderColor 1 1 1 0.65 \
+			textScale 0.55 \
+			exp material ( "white" ) \
+			visible when ( localvarint( "ui_ch_highlight" ) == pslot && tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			decoration \
+		} \
+		itemDef /* unlocked */ \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + 10 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 4 +( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
+			exp rect W ( WIDTH_LIST_BOX - 6 ) \
+			exp rect H ( LIST_ITEM_HEIGHT ) \
+			foreColor LIST_ITEM_COLOR  \
+			type ITEM_TYPE_BUTTON \
+			textScale 0.375 \
+			textStyle ITEM_TEXTSTYLE_SHADOWED \
+			textAlignY 15 \
+			exp text ( locstring( "@" + tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 1 ) ) + locstring( "@" + tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 3 ) + "_" + int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) ) ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && ( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			onFocus \
+            { \
+            	play "mouse_over"; \
+            	setLocalVarInt "ui_ch_highlight" ( pslot ); \
+				setLocalVarString "ui_selected_ref" ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot , 0 ) ); \
+				setLocalVarString "ui_selected_unlock" ( tablelookup( "mp/unlockTable.csv" , 0 , localvarstring( "ui_selected_ref" ) , ( 4 + int( max( getplayerdata( "challengeState" , localvarstring( "ui_selected_ref" ) ) , 1 ) ) ) - 1 ) ); \
+				setLocalVarString "ui_selected_unlockType" ( "" ); \
+				if ( tablelookup( "mp/camoTable.csv" , 1 , localvarstring( "ui_selected_unlock" ) , 1 ) != "" ) \
+				{ \
+					setLocalVarString "ui_selected_unlockType" ( "camo" ); \
+				} \
+				if ( tablelookup( "mp/attachmentTable.csv" , 4 , localvarstring( "ui_selected_unlock" ) , 4 ) != "" ) \
+				{ \
+					setLocalVarString "ui_selected_unlockType" ( "attachment" ); \
+				} \
+				if ( localvarstring( "ui_selected_unlock" ) == "title" ) \
+				{ \
+					setLocalVarString "ui_selected_unlockType" ( "title" ); \
+				} \
+				if ( localvarstring( "ui_selected_unlock" ) == "icon" ) \
+				{ \
+					setLocalVarString "ui_selected_unlockType" ( "icon" ); \
+				} \
+            } \
+            leaveFocus \
+            { \
+            	setLocalVarInt "ui_ch_highlight" ( 0 ); \
+            } \
+		} \
+		itemDef /* locked */ \
+		{ \
+			exp rect X ( ORIGIN_LIST_BOX_X + 10 ) \
+			exp rect Y ( ORIGIN_LIST_BOX_Y + 4 +( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
+			exp rect W ( WIDTH_LIST_BOX - 6 ) \
+			exp rect H ( LIST_ITEM_HEIGHT ) \
+			type ITEM_TYPE_BUTTON \
+			foreColor 0.6 0.55 0.55 1  \
+			textScale 0.375 \
+			textStyle ITEM_TEXTSTYLE_SHADOWED \
+			textAlignY 15 \
+			exp text ( locstring( "@" + tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 1 ) ) + locstring( "@" + tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 3 ) + "_" + ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) ) ) \
+			visible when ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) != "" && !( int( tablelookup( "mp/allChallengesTable.csv" , 0 , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) , 6 + ( ( int( max( getplayerdata( "challengeState" , tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) , 1 ) ) - 1 ) * 2 ) ) ) == "" ) && !( ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) == "tier_prestige" ) && !isitemunlocked( "tier_prestige" ) ) ) \
+			onFocus \
+            { \
+            	play "mouse_over"; \
+            	setLocalVarInt "ui_ch_highlight" ( pslot ); \
+				setLocalVarString "ui_selected_ref" ( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot , 0 ) ); \
+            } \
+            leaveFocus \
+            { \
+            	setLocalVarInt "ui_ch_highlight" ( 0 ); \
+            } \
+		}
+		PREPROC_LIST_ITEM( 1, "1" )
+		PREPROC_LIST_ITEM( 2, "2" )	
+		PREPROC_LIST_ITEM( 3, "3" )
+		PREPROC_LIST_ITEM( 4, "4" )
+		PREPROC_LIST_ITEM( 5, "5" )
+		PREPROC_LIST_ITEM( 6, "6" )
+		PREPROC_LIST_ITEM( 7, "7" )
+		PREPROC_LIST_ITEM( 8, "8" )
+		PREPROC_LIST_ITEM( 9, "9" )
+		PREPROC_LIST_ITEM( 10, "10" )
+		PREPROC_LIST_ITEM( 11, "11" )
+		PREPROC_LIST_ITEM( 12, "12" )
+		PREPROC_LIST_ITEM( 13, "13" )
+		PREPROC_LIST_ITEM( 14, "14" )
+		PREPROC_LIST_ITEM( 15, "15" )
+		PREPROC_LIST_ITEM( 16, "16" )
+		PREPROC_LIST_ITEM( 17, "17" )
+		PREPROC_LIST_ITEM( 18, "18" )
+		PREPROC_LIST_ITEM( 19, "19" )
+		PREPROC_LIST_ITEM( 20, "20" )
+
 		// background bar
 		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+2, WIDTH_INFO_BOX-4, 22,"white", 0.65 0.7 0.8 0.2, 0, 1, 0 0 0 0 )
 		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+24, WIDTH_INFO_BOX-4, 2,"white", 0 0 0 0.35, 0, 1, 0 0 0 0 )
@@ -130,146 +380,14 @@
 		PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+6, ORIGIN_INFO_BOX_Y+310, WIDTH_INFO_BOX-8, 20,  exp text (locstring("@MPUI_VII","@"+tablelookup("mp/camoTable.csv",1,(tablelookup("mp/unlockTable.csv",0,localvarstring("ui_selected_ref"),(4+7)-1)),2))), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR autowrapped 	visible when((tablelookup("mp/unlockTable.csv",0,localvarstring("ui_selected_ref"),(4+7)-1))!=""&&!(int(tablelookup("mp/allChallengesTable.csv",0,localvarstring("ui_selected_ref"),6+((int(max(getplayerdata("challengeState",localvarstring("ui_selected_ref")),1))-1)*2)))=="")&&localvarstring("ui_selected_unlockType")=="camo"))
 
 		// progress
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+WIDTH_INFO_BOX-46, ORIGIN_INFO_BOX_Y+6, 40, LIST_ITEM_HEIGHT, "white", 0 0 0 0, 1, 1, 0.9 0.95 1 0.25 )
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+WIDTH_INFO_BOX-44, ORIGIN_INFO_BOX_Y+8, 36*(PROGRESS_BAR_WIDTH(dvarString(ui_table_slot))), LIST_ITEM_HEIGHT-4, "line_vertical", 1 1 1 1, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_INPROGRESS )
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+2, (ORIGIN_INFO_BOX_X-67)*(PROGRESS_BAR_WIDTH(dvarString(ui_table_slot))), 22, "gradient_fadein", 0.8 0.8 0.825 0.175, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_INPROGRESS )
-
-#define PREPROC_LIST_ITEM( pslot, pslot_s ) \
-		itemDef	/*button 1*/\
-		{ \
-			type ITEM_TYPE_BUTTON \
-			exp rect X( ORIGIN_LIST_BOX_X + 10 ) \
-			exp rect Y( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
-			exp rect W( WIDTH_LIST_BOX - 58 ) \
-			exp rect H( LIST_ITEM_HEIGHT ) \
-			forecolor 1 1 0.5 1 \
-			disablecolor CHOICE_TEXTCOLOR_DISABLED \
-			visible when(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)!=""&&!(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")&&!isitemunlocked("tier_prestige")))\
-			disabled when (!isitemunlocked(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0))||!isitemunlocked(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1))) \
-			onFocus	\
-			{ \
-				play "mouse_over"; \
-				execnow "set ui_table_slot "pslot_s \
-				setLocalVarString "ui_selected_ref" (tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)); \
-				setLocalVarString "ui_selected_unlock" (tablelookup("mp/unlockTable.csv",0,localvarstring("ui_selected_ref"),(4+int(max(getplayerdata("challengeState",localvarstring("ui_selected_ref")),1)))-1)); \
-				setLocalVarString "ui_selected_unlockType" ( "" ); \
-				if ( tablelookup("mp/camoTable.csv",1,localvarstring("ui_selected_unlock"),1)!="") \
-				{ \
-					setLocalVarString "ui_selected_unlockType" ( "camo" ); \
-				} \
-				if ( tablelookup("mp/attachmentTable.csv",4,localvarstring("ui_selected_unlock"),4)!="") \
-				{ \
-					setLocalVarString "ui_selected_unlockType" ( "attachment" ); \
-				} \
-				if ( localvarstring( "ui_selected_unlock" ) == "title" ) \
-				{ \
-					setLocalVarString "ui_selected_unlockType" ( "title" ); \
-				} \
-				if ( localvarstring( "ui_selected_unlock" ) == "icon" ) \
-				{ \
-					setLocalVarString "ui_selected_unlockType" ( "icon" ); \
-				} \
-			} \
-		} \
-		itemDef /*button 2*/\
-		{ \
-			type ITEM_TYPE_BUTTON \
-			exp rect X( ORIGIN_LIST_BOX_X+10 ) \
-			exp rect Y( ORIGIN_LIST_BOX_Y + 4 + ( pslot - 1 ) * ( LIST_ITEM_HEIGHT + 2 ) ) \
-			exp rect W( WIDTH_LIST_BOX - 58 ) \
-			exp rect H( LIST_ITEM_HEIGHT ) \
-			forecolor 1 1 0.5 1 \
-			disablecolor CHOICE_TEXTCOLOR_DISABLED \
-			visible when (tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)!=""&&(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")&&!isitemunlocked("tier_prestige"))) \
-			disabled when (!isitemunlocked(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0))||!isitemunlocked(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1))) \
-			onFocus	\
-			{ \
-				play "mouse_over"; \
-				execnow "set ui_table_slot "pslot_s \
-				setLocalVarString "ui_selected_ref" (tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)); \
-			} \
-		} \
-		itemDef /*progress bar*/\
-		{ \
-			rect (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-46) (ORIGIN_LIST_BOX_Y+6+(pslot-1)*(LIST_ITEM_HEIGHT+2)) 36 (LIST_ITEM_HEIGHT-4) 0 0 \
-			exp material ( "white" ); \
-			textscale 0.55 \
-			forecolor 0.8 0.85 0.95 0.25 \
-			style 3 \
-			decoration \
-			visible 1 \
-			border 1 \
-			bordersize 0 \
-			bordercolor 0.9 0.95 1 0.25 \
-			exp rect w (((getplayerdata("challengeProgress",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot,0))-0)/(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot,0)),1))-1)*2)))-0))*40) \
-			visible when (tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot,0)!=""&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot,1)=="tier_prestige")&&!isitemunlocked("tier_prestige"))) \
-		} \
-		/* item bg box */  \
-		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+8, ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-58-(LIST_ITEM_HEIGHT/4), LIST_ITEM_HEIGHT, "white", 0.8 0.85 0.95 0.1, 0, 1, 1 1 1 0.25 ) \
-		/* item bg box edge */ \
-		PREPROC_SHADER_DRAW_ADV( (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-50)-(LIST_ITEM_HEIGHT/4), ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), LIST_ITEM_HEIGHT/4, LIST_ITEM_HEIGHT, "button_highlight_end", 0.8 0.85 0.95 0.1, 0, 1, 1 1 1 0.25 ) \
-		/* bar bg box */ \
-		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+4+(pslot-1)*(LIST_ITEM_HEIGHT+2), 40, LIST_ITEM_HEIGHT, "white", 0.8 0.85 0.95 0.1, 1, 2, 0.8 0.85 0.95 0.25 ) \
-		/* item name */ \
-		PREPROC_TEXT_DRAW_ADV( ORIGIN_LIST_BOX_X+10, ORIGIN_LIST_BOX_Y+2+(pslot)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-6, LIST_ITEM_HEIGHT, \
-		exp text(locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),1))+locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),3)+"_"+int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1)))), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR \
-		visible when(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)!=""&&!(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")&&!isitemunlocked("tier_prestige"))) \
-		glowColor 0 0 0 1 \
-		exp glowcolor r((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.25*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5)) \
-		exp glowcolor g((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.75*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5)) \
-		exp glowcolor b ((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.25*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5)) ) \
-		/* item name + level num + highlighted index(pslot_s) */ \
-		PREPROC_TEXT_DRAW_ADV( ORIGIN_LIST_BOX_X+10, ORIGIN_LIST_BOX_Y+2+(pslot)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-6, LIST_ITEM_HEIGHT, \
-		exp text (locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),1))+locstring("@"+tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),3)+"_"+(int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1))), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_LEFT, LIST_ITEM_COLOR \
-		visible when (tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)!=""&&(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")&&!isitemunlocked("tier_prestige"))) \
-		glowColor 0 0 0 1 \
-		exp glowcolor r((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.25*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5)) \
-		exp glowcolor g((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.75*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5)) \
-		exp glowcolor b ((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")*0.25*((sin(milliseconds()/150)*0.5+0.5)*0.5+0.5))) \
-		/* highlight 2 green thingo */ \
-		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+4, ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2)+F_HEIGHT_OFFSET, 2, F_HEIGHT,"white", 0.55 1 0.55 0.8, 0, 1, 1 1 1 0.65 ) \
-		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-6, ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2)+F_HEIGHT_OFFSET, 2, F_HEIGHT,"white", 0.55 1 0.55 0.8, 0, 1, 1 1 1 0.65 ) \
-		/* complete */ \
-		PREPROC_TEXT_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-49, ORIGIN_LIST_BOX_Y+2+(pslot)*(LIST_ITEM_HEIGHT+2), 40, LIST_ITEM_HEIGHT,  exp text( "@MENU_100PERCENT" ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_CENTER, 0.8 0.85 0.95 0.5 visible when(tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)!=""&&(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,0)),1))-1)*2)))=="")&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),pslot_s,1)=="tier_prestige")&&!isitemunlocked("tier_prestige"))) ) \
-
-//		/* progress bar */
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-46, ORIGIN_LIST_BOX_Y+6+(pslot-1)*(LIST_ITEM_HEIGHT+2), 36, LIST_ITEM_HEIGHT-4, "white", 0.8 0.85 0.95 0.25, 0, 1, 0.9 0.95 1 0.25 \
-//		exp rect w (((getplayerdata("challengeProgress",tablelookupbyrow(localvarstring("ui_challengeTierTable"),19,0))-0)/(int(tablelookup("mp/allChallengesTable.csv",0,tablelookupbyrow(localvarstring("ui_challengeTierTable"),19,0),6+((int(max(getplayerdata("challengeState",tablelookupbyrow(localvarstring("ui_challengeTierTable"),19,0)),1))-1)*2)))-0))*40) \
-//		visible when (tablelookupbyrow(localvarstring("ui_challengeTierTable"),19,0)!=""&&!((tablelookupbyrow(localvarstring("ui_challengeTierTable"),19,1)=="tier_prestige")&&!isitemunlocked("tier_prestige")))) \
-
-//		/* lock status */ \
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+(pslot-1)*(LIST_ITEM_HEIGHT+2)+2, 40, LIST_ITEM_HEIGHT+4, "specialty_locked", 0.8 0.9 1 0.65, 0, 1, 0.9 0.95 1 0.25 disabled when ( !isitemunlocked( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 0 ) ) || !isitemunlocked( tablelookupbyrow( localvarstring( "ui_challengeTierTable" ) , pslot_s , 1 ) ) ) ) \
-//		/* new status */ \
-//		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-48, ORIGIN_LIST_BOX_Y+(pslot-1)*(LIST_ITEM_HEIGHT+2)+2, 40, LIST_ITEM_HEIGHT+4, "specialty_new", 1 0.9 0.75 0.85, 0, 1, 0.9 0.95 1 0.25 ) \
-
-
-		/* highlight */
-		PREPROC_SHADER_DRAW_ADV( ORIGIN_LIST_BOX_X+8, ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2), WIDTH_LIST_BOX-58-(LIST_ITEM_HEIGHT/4), LIST_ITEM_HEIGHT,"gradient_fadein", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
-		PREPROC_SHADER_DRAW_ADV( (ORIGIN_LIST_BOX_X+WIDTH_LIST_BOX-50)-(LIST_ITEM_HEIGHT/4), ORIGIN_LIST_BOX_Y+4+(dvarint("ui_table_slot")-1)*(LIST_ITEM_HEIGHT+2), LIST_ITEM_HEIGHT/4, LIST_ITEM_HEIGHT,"button_highlight_end", 0.8 0.85 0.95 0.25, 0, 1, 1 1 1 0.65 )
-
-		// hightlight cycle animations for bars  
-		#define F_HEIGHT_OFFSET ( ( 1 - ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) ) / 2 ) * LIST_ITEM_HEIGHT
-		#define F_HEIGHT ( ( 8 + sin( milliseconds() / 80 ) ) / 8 ) * LIST_ITEM_HEIGHT
-
-		PREPROC_LIST_ITEM( 1, "1" )
-		PREPROC_LIST_ITEM( 2, "2" )	
-		PREPROC_LIST_ITEM( 3, "3" )
-		PREPROC_LIST_ITEM( 4, "4" )
-		PREPROC_LIST_ITEM( 5, "5" )
-		PREPROC_LIST_ITEM( 6, "6" )
-		PREPROC_LIST_ITEM( 7, "7" )
-		PREPROC_LIST_ITEM( 8, "8" )
-		PREPROC_LIST_ITEM( 9, "9" )
-		PREPROC_LIST_ITEM( 10, "10" )
-		PREPROC_LIST_ITEM( 11, "11" )
-		PREPROC_LIST_ITEM( 12, "12" )
-		PREPROC_LIST_ITEM( 13, "13" )
-		PREPROC_LIST_ITEM( 14, "14" )
-		PREPROC_LIST_ITEM( 15, "15" )
-		PREPROC_LIST_ITEM( 16, "16" )
-		PREPROC_LIST_ITEM( 17, "17" )
-		PREPROC_LIST_ITEM( 18, "18" )
-		PREPROC_LIST_ITEM( 19, "19" )
-		PREPROC_LIST_ITEM( 20, "20" )
+		//PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+2, ORIGIN_INFO_BOX_Y+2, (ORIGIN_INFO_BOX_X-67)*(PROGRESS_BAR_WIDTH(dvarString(ui_table_slot))), 22, "gradient_fadein", 0.8 0.8 0.825 0.175, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_INPROGRESS )
+		
+		/* lock status */ 
+		//PREPROC_SHADER_DRAW_ADV( ORIGIN_INFO_BOX_X+WIDTH_INFO_BOX-46, ORIGIN_INFO_BOX_Y+4, 40, 18, "specialty_locked", 0.8 0.9 1 0.65, 0, 1, 0.9 0.95 1 0.25 VIS_WHEN_LOCKED )
+		/* new status */
+		
+		// progress in text
+		//PREPROC_TEXT_DRAW_ADV( ORIGIN_INFO_BOX_X+43, ORIGIN_INFO_BOX_Y+20, WIDTH_INFO_BOX-52, 20,  exp text( int(PQ_STAT / PQ_TARGET_SCALE) + "/" + int(PQ_TARGET / PQ_TARGET_SCALE) ), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_RIGHT, LIST_ITEM_COLOR autowrapped VIS_WHEN_UNLOCKED )	
+		
 	}
-}	
+}

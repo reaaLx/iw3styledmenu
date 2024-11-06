@@ -1,0 +1,212 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define CHOICE_X_START			0
+#define CHOICE_Y_START			80
+
+#define CHOICE_GROUP			"theater"
+#define CHOICE_SEP_1			2
+#define CHOICE_SEP_2			5
+#define CHOICE_SEP_3			8
+
+#define STYLE_PC	            1
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+{
+    menuDef
+    {
+        name            "pc_theater_menu"
+		fullscreen      1
+		rect            0 0 640 480
+		foreColor       COLOR_FOCUSED
+		focusColor      COLOR_FOCUSED
+		soundLoop       "music_mainmenu_mp"
+		fadeCycle       1
+		fadeClamp       1
+		fadeAmount      0.1
+		onOpen
+		{
+			uiScript "LoadArenas";
+			uiScript "loadDemos";
+			setFoucs "demoList";
+		}
+		onEsc
+		{
+			close "self";
+		}
+		// Menu items -------------------------------------------
+		#include "ui/bg.inc"
+
+		#define BACK_ENABLE	1
+		#include "ui_mp/navcontrols.inc"
+
+		CHOICE_MENU_TITLE( "@MENU_THEATER_CAPS" )
+
+		#define FRAME_BG_COLOR 0.175 0.175 0.2 0.55
+		#define FRAME_FORECOLOR 0 0 0 0
+		#define LABEL_X_START -242
+		#define LABEL_X_SIZE 222
+
+#define UI_DRAW_PLATE( y_pos, h_pos ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (-242) (y_pos) (242) (h_pos) HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, "white", 0.2 0.2 0.225 1, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (-242) (y_pos) (242) (h_pos) HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, "line_horizontal", 0.9 0.9 0.95 0.5, 0, 0, 0 0 0 0 ) \
+		PREPROC_SHADER_DRAW_ALIGNED( (-242) (y_pos) (242) (h_pos) HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, "gradient_top", 1 1 1 0.2, 0, 0, 0 0 0 0 ) \
+
+
+		PREPROC_SHADER_DRAW_ALIGNED( (-242) 28 242 356 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, "white", FRAME_BG_COLOR, 0, 0, FRAME_FORECOLOR )
+		PREPROC_SHADER_DRAW_ALIGNED( (-242) 28 242 356 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, "gradient_center", 0.3 0.3 0.325 0.8, 0, 0, FRAME_FORECOLOR )
+
+		UI_DRAW_PLATE( 28, 21 )
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( (LABEL_X_START) 28 (LABEL_X_SIZE) 22 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP, 0 0, locString("@MENU_MAP_NAME") + ": " + dvarString("ui_demo_mapname_localized"), TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_TOP_LEFT, CHOICE_TEXTCOLOR )
+		
+		UI_DRAW_PLATE( (180), 18 )
+		itemDef 
+		{ 
+			name			"image" 
+			rect			(LABEL_X_START) 50 (LABEL_X_SIZE) 127 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			style			WINDOW_STYLE_SHADER 
+			foreColor		1 1 1 1 
+			decoration		
+			textScale		TEXTSIZE_SMALL
+			visible			when(dvarString("ui_demo_mapname") != "") 
+			exp				material ("preview_" + dvarString("ui_demo_mapname")) 
+		} 
+		itemDef 
+		{ 
+			name			"image" 
+			rect			(LABEL_X_START) 50 (LABEL_X_SIZE) 127 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			style			WINDOW_STYLE_SHADER 
+			foreColor		1 1 1 1 
+			decoration		
+			textScale		0.55 
+			visible			when(dvarString("ui_demo_mapname") == "") 
+			exp				material ("loadscreen_mp_bonusmaps") 
+		} 
+		itemDef 
+		{ 
+			name			"gametype" 
+			rect			(LABEL_X_START) 180 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_LEFT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			visible			1 
+			exp				text (locString("@MENU_GAME_TYPE") + dvarString("ui_demo_gametype")) 
+		} 
+		itemDef 
+		{ 
+			name			"author_label" 
+			rect			(LABEL_X_START) 200 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_LEFT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			text			"@MPUI_DEMO_AUTHOR" 
+			visible			1 
+		} 
+		itemDef 
+		{ 
+			name			"author" 
+			rect			(LABEL_X_START) 200 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_RIGHT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			visible			1 
+			exp				text (" " + dvarString("ui_demo_author")) 
+		} 
+		itemDef 
+		{ 
+			name			"length_label" 
+			rect			(LABEL_X_START) 220 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_LEFT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			text			"@MPUI_DEMO_LENGTH" 
+			visible			1 
+		} 
+		itemDef 
+		{ 
+			name			"length" 
+			rect			(LABEL_X_START) 220 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_RIGHT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			visible			1 
+			exp				text (" " + dvarString("ui_demo_length")) 
+		} 
+		itemDef 
+		{ 
+			name			"date_label" 
+			rect			(LABEL_X_START) 240 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_LEFT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			text			"@MPUI_DEMO_DATE" 
+			visible			1 
+		} 
+		itemDef 
+		{ 
+			name			"date" 
+			rect			(LABEL_X_START) 240 (LABEL_X_SIZE) 20 HORIZONTAL_ALIGN_RIGHT VERTICAL_ALIGN_TOP 
+			foreColor		1 1 1 0.65 
+			decoration		
+			autoWrapped		
+			textAlign		ITEM_ALIGN_TOP_RIGHT 
+			textScale		TEXTSIZE_SMALL 
+			textFont		UI_FONT_SMALL 
+			visible			1 
+			exp				text (" " + dvarString("ui_demo_date")) 
+		} 
+
+		itemDef
+		{
+			name            "demoList"
+			rect            0 28 260 356 HORIZONTAL_ALIGN_LEFT VERTICAL_ALIGN_TOP
+			style           WINDOW_STYLE_FILLED
+			foreColor       CHOICE_TEXTCOLOR
+			backColor       0 0 0 0.5
+			outLineColor    0 0 0 0.6
+			type            ITEM_TYPE_LISTBOX
+			textFont        UI_FONT_NORMAL
+			textAlignX      6
+			textScale       0.3
+			visible         1
+			feeder          FEEDER_DEMOS
+			elementWidth    260
+			elementHeight   16
+		//	numcols			xpos		xwidth		textlen		alignment
+			columns 1		8			260			80			0
+			doubleClick
+			{
+				uiScript    "launchDemo";
+			}
+			execKeyInt 13
+			{
+				uiScript    "launchDemo";
+			}
+		}
+	}
+}

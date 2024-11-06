@@ -26,7 +26,7 @@ CHOICE_DBUTTON_VIS( 3, "@MENU_TEXTURE_SETTINGS", when( ( dvarint( "sv_running" )
 CHOICE_BUTTON( 4, "@MENU_SOUND", LOCAL_CLOSE_ALL open "pc_options_audio" )
 CHOICE_BUTTON_VIS( 5, "@MENU_VOICECHAT", LOCAL_CLOSE_ALL open "options_voice", when( dvarint( "ui_multiplayer" ) ) )
 CHOICE_DBUTTON_VIS( 5, "@MENU_VOICECHAT", when( !dvarint( "ui_multiplayer" ) ) )
-CHOICE_BUTTON( 6, "@MENU_GAME_OPTIONS", LOCAL_CLOSE_ALL open "options_game" )
+CHOICE_BUTTON( 6, "@MENU_GAME_OPTIONS", LOCAL_CLOSE_ALL open "pc_options_game" )
 
 CHOICE_BUTTON_VIS( 7, "@MENU_MULTIPLAYER_OPTIONS", LOCAL_CLOSE_ALL open "options_multi", when( dvarint( "ui_multiplayer" ) ) )
 

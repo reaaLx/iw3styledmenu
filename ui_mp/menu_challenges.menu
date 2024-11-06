@@ -2,7 +2,7 @@
 #include "ui_mp/common_macro.inc"
 
 #undef CHOICE_X_START
-#define CHOICE_X_START				-60
+#define CHOICE_X_START				0
 
 #undef CHOICE_Y_START
 #define CHOICE_Y_START				0
@@ -55,17 +55,49 @@
 		#include "ui/safearea.menu"
 		CHOICE_MENU_TITLE( "@MENU_RANK_AND_CHALLENGES_CAP" )
 
+		#define LOCAL_CH_TAB_ACTION( tabName ) \
+				setLocalVarInt "ui_tabDepth" ( 0 ); \
+				if ( localvarint( "ui_tabDepth" ) == 0 ) \
+				{ \
+					setLocalVarString "ui_tab1Name" ( tabName ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 1 ) \
+				{ \
+					setLocalVarString "ui_tab2Name" ( tabName ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 2 ) \
+				{ \
+					setLocalVarString "ui_tab3Name" ( tabName ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 3 ) \
+				{ \
+					setLocalVarString "ui_tab4Name" ( tabName ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 4 ) \
+				{ \
+					setLocalVarString "ui_tab5Name" ( tabName ); \
+				} \
+				if ( localvarint( "ui_tabDepth" ) == 5 ) \
+				{ \
+					setLocalVarString "ui_tab6Name" ( tabName ); \
+				}
+
+		#define LOCAL_CH_TAB_FOCUS( selectedText, hintText ) \
+				setLocalVarFloat "ui_popupYPos" ( getfocuseditemy() ); \
+				setLocalVarString "ui_selected_tier_ref" ( selectedText ); \
+				setLocalVarString "ui_hint_text" ( hintText );
+
 		#define LOCAL_CH_ACTION( ch_stat ) \
-				setLocalVarString "ui_challengeTierTable" ( tablelookup( "mp/challengeTable.csv", 5, ch_stat, 4 ) ) \
+				setLocalVarString "ui_challengeTierTable" (tablelookup("mp/challengeTable.csv",5,ch_stat,4)) \
 				open "menu_challenge_details"; \
-				setLocalVarInt "dataValue" ( tablelookup( "mp/challengeTable.csv", 5, ch_stat, 0 ) ) \
-				setPlayerData( "challengeTierNew", "localVarInt" ( "dataValue" ), "false" )
+				setLocalVarInt "dataValue" (tablelookup("mp/challengeTable.csv",5,ch_stat,0)) \
+				setPlayerData("challengeTierNew","localVarInt"("dataValue"),"false")
 
 		#define CLEARUIHINT	\
 				setLocalVarString "ui_hint_text" ( "@NULL_EMPTY" )
 		
 		#define LOCAL_CH_SHOW( ch_stat ) \
-				setLocalVarString "ui_hint_text" ( "@" + tablelookup( "mp/challengeTable.csv" , 5 , ch_stat , 2 ) )
+				setLocalVarString "ui_hint_text" ("@"+tablelookup("mp/challengeTable.csv",5,ch_stat,2))
 
 		// lookup textArg
 //		#define LOCAL_CH_VIS( itemIndex, textArg, ch_stat, ch_vis ) \
@@ -76,11 +108,13 @@
 				CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, textArg, LOCAL_CH_ACTION( ch_stat ), LOCAL_CH_SHOW( ch_stat ), CLEARUIHINT, ch_vis, vis )
 
 //		CHOICE_BUTTON_FOCUS_VIS_ADV( itemIndex, textArg, actionArg, onFocusArg, leaveFocusArg, visArg, vis )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 1, "@MPUI_PRIMARY", open "popup_challenge_weapon_primary", setLocalVarString "ui_hint_text" ( "@CHALLENGE_PRIMARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
-		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_SECONDARY", open "popup_challenge_weapon_secondary", setLocalVarString "ui_hint_text" ( "@CHALLENGE_SECONDARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
+		CHOICE_BUTTON_FOCUS_VIS_ADV( 1, "@MPUI_PRIMARY", LOCAL_CH_TAB_ACTION( "@CHALLENGE_PRIMARY_WEAPONS_CAPS" ); open "popup_challenge_weapon_primary", LOCAL_CH_TAB_FOCUS( "@CHALLENGE_PRIMARY_WEAPONS_CAPS", "@CHALLENGE_PRIMARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
+		CHOICE_BUTTON_FOCUS_VIS_ADV( 2, "@MPUI_SECONDARY", LOCAL_CH_TAB_ACTION( "@CHALLENGE_SECONDARY_WEAPONS_CAPS" ); open "popup_challenge_weapon_secondary", LOCAL_CH_TAB_FOCUS( "@CHALLENGE_SECONDARY_WEAPONS_CAPS", "@CHALLENGE_SECONDARY_WEAPONS_HINT" ), CLEARUIHINT, 1, ; )
 		LOCAL_CH_VIS( 3, "Perks", 2, 1 )
 		LOCAL_CH_VIS( 4, "Equipment", 3, 1 )
+		
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )
+
 		LOCAL_CH_VIS( 5, "Basic Training", 4, 1 )
 		LOCAL_CH_VIS( 6, "Operations", 5, 1 )
 		LOCAL_CH_VIS( 7, "Killstreak", 6, 1 )
@@ -89,6 +123,7 @@
 		LOCAL_CH_VIS( 10, "Elite", 11, 1 )
 		LOCAL_CH_VIS( 11, "Intimidation", 12, 1 )
 		LOCAL_CH_VIS( 12, "Prestige", 13, 1 )
+
 		// if any iw4 client enables it lol
 		//LOCAL_CH_VIS( 13, "Secret (DEV ONLY)";, 14, 1 )
 		
@@ -98,7 +133,6 @@
 			name			"desc_arrow"
 			style			WINDOW_STYLE_SHADER
 			rect			ORIGIN_DESCRIPTION 10 10 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP
-			origin			-12 6
 			background		"ui_arrow_right"
 			forecolor		1 1 1 0.3
 			visible			1
@@ -108,11 +142,12 @@
 		{
 			name			"desc_text"
 			style			1
-			rect			ORIGIN_DESCRIPTION 400 240 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP
-			origin			5 18
+			rect			ORIGIN_DESCRIPTION 245 85 CHOICE_HORIZONTAL_ALIGN VERTICAL_ALIGN_TOP
 			forecolor		1 1 1 0.3
 			visible			1
 			textScale		0.375
+			textAlignX		15
+			textAlignY		15
 			exp 			text ( localvarstring( "ui_hint_text" ) )
 			autoWrapped
 			decoration

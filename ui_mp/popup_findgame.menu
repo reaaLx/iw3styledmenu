@@ -1,0 +1,174 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#undef CHOICE_X_START
+#define CHOICE_X_START  0
+
+#undef CHOICE_Y_START
+#define CHOICE_Y_START  0
+
+#define CHOICE_GROUP    "findgame"
+
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#include "ui_mp/popupstyle.inc"	
+#include "ui/choices_setup_popmenu.menu"
+
+#undef CHOICE_SIZE_X
+#define CHOICE_SIZE_X			216
+
+#define FINDGAME_POPUP_X		(0)
+#define FINDGAME_POPUP_Y		(22)
+
+#define ITEM_NUM 14
+{
+	menuDef
+	{
+        name "popup_findgame"
+        rect 0 0 CHOICE_POPUP_WIDTH CHOICE_POPUP_HEIGHT( ITEM_NUM ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+        style WINDOW_STYLE_FILLED
+        border WINDOW_BORDER_FULL
+        borderSize 2
+        focusColor 1 1 1 1
+        foreColor 1 1 1 1
+        popup 
+        exp rect y ( localvarfloat( "ui_popup_findgame_ypos" ) + 24 )
+        onOpen
+        {
+            setLocalVarFloat "ui_popup_findgame_ypos" ( localvarfloat( "ui_popupYPos" ) );
+            setLocalVarBool	"ui_centerPopup" ( 1 );
+        	focusfirst;
+        }
+		onClose
+		{
+			setLocalVarBool	"ui_centerPopup" ( 0 );
+		}
+        onESC
+        {
+        	play "mouse_click";
+        	close "self";
+        	close "popup_gettingdata";
+            setLocalVarBool	"ui_centerPopup" ( 0 );
+        }
+
+        PREPROC_CANCEL_OVERLAY( 1, ITEM_NUM )
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect 0 0 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			background "white"
+			forecolor CHOICE_POPUP_BACKCOLOR
+			visible 1
+			decoration
+		}
+        itemDef
+        {
+            rect 0 0 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) + 254 ) ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+            style WINDOW_STYLE_SHADER
+            border WINDOW_BORDER_FULL
+            borderSize 2
+            foreColor 0.2 0.2 0.22 1
+            borderColor 0.4 0.4 0.42 1
+            textScale 0.55
+            exp material ( "white" )
+            visible 1
+            decoration
+        }
+        //LOADOUT_PLATING_RAW( porigin, px, py, pw, ph, palign, vis_gradient_top, vis_gradient_bottom )
+        LOADOUT_PLATING_RAW( ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) 10, 0, 0, 250, ( ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) ) - 4 ), CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0, 0 )
+
+		itemDef
+		{
+			style WINDOW_STYLE_SHADER
+			rect 2 0 ( CHOICE_POPUP_WIDTH - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) + 250 ) ( CHOICE_POPUP_HEIGHT( ITEM_NUM ) - ( CHOICE_POPUP_BORDER_WIDTH * 2 ) - 2 ) CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN
+			background "gradient_bottom"
+			forecolor 1 1 1 0.7
+			visible 1
+			decoration
+		}		
+
+		PREPROC_SHADER_DRAW_ALIGNED( 0 -20 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "white", 0.15 0.15 0.17 1, 1, 2, CHOICE_POPUP_BORDER_COLOR )
+		
+        PREPROC_TEXT_DRAW_ALIGNED_EXP( 0 -20 (CHOICE_POPUP_WIDTH) 22 CHOICE_HORIZONTAL_ALIGN CHOICE_VERTICAL_ALIGN, 0 0, "@MENU_PUBLIC_PLAYLISTS", TEXTSIZE_SMALL, 0, 0, ITEM_ALIGN_MIDDLE_RIGHT, CHOICE_TEXTCOLOR textAlignX -32 )
+
+		itemDef 
+		{
+			rect -362 4 214 270 2 1
+			type ITEM_TYPE_LISTBOX
+			feeder FEEDER_PLAYLISTS
+			textFont UI_FONT_DEFAULT
+			textScale TEXTSIZE_SMALL
+			foreColor CHOICE_TEXTCOLOR
+			outlineColor 0.9 0.9 0.925 0.2
+			selectBorder 0.8 0.95 1 0
+			disableColor 0.3 0.3 0.3 1
+			textStyle ITEM_TEXTSTYLE_SHADOWED
+			selectIcon "ui_button_xenon_3d_a_32x32"
+			visible 1
+			elementWidth 20
+			elementHeight 18
+			noScrollBars
+			//	numcols		xpos	xwidth	textlen		alignment
+			columns 		1 		22 		190 		64
+			onfocus 
+			{
+				play "mouse_over";
+			}
+			doubleclick
+			{
+				play "mouse_click";
+				exec "party_timerVisible 0";
+				exec "sv_privateclients 1";
+				exec "xstartparty";
+				exec "updategamerprofile";
+				close "popup_findgame";
+				open "menu_xboxlive_lobby";
+				close "menu_xboxlive_party";
+			}
+		}
+		itemDef
+		{
+			rect -133 10 230 162 2 1
+			forecolor 1 1 1 .75
+			type ITEM_TYPE_BUTTON
+			ownerdraw UI_PLAYLISTDESCRIPTION
+			textalign ITEM_ALIGN_LEFT
+			textaligny 14
+			textfont UI_FONT_DEFAULT
+			textscale TEXTSIZE_SMALL
+			textstyle ITEM_TEXTSTYLE_SHADOWED
+			visible 1
+			decoration
+			autowrapped
+		}
+		itemDef
+		{
+			rect -133 (240+10) 230 14 2 1
+			textfont UI_FONT_NORMAL
+			type ITEM_TYPE_BUTTON
+			dvar "playlist_population"
+			textalign ITEM_ALIGN_LEFT
+			textstyle ITEM_TEXTSTYLE_SHADOWED
+			textscale TEXTSIZE_SMALL
+			forecolor COLOR_TITLE
+			textaligny 14
+			visible 1
+			decoration
+		}
+		itemDef
+		{
+			rect -133 (255+10) 230 14 2 1
+			textfont UI_FONT_NORMAL
+			type ITEM_TYPE_BUTTON
+			dvar "playlist_totalonline"
+			textalign ITEM_ALIGN_LEFT
+			textstyle ITEM_TEXTSTYLE_SHADOWED
+			textscale TEXTSIZE_SMALL
+			forecolor COLOR_TITLE
+			textaligny 14
+			visible 1
+			decoration
+		}
+	}
+}

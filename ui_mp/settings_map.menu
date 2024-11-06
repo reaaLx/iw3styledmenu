@@ -103,9 +103,8 @@
 				LOCAL_MAP_SELECTION( 16, 	"mp_underpass", 	"@MPUI_UNDERPASS", 	"@MPUI_DESC_MAP_UNDERPASS", 	"preview_mp_underpass" 	) \
 				LOCAL_MAP_SELECTION( 17, 	"mp_brecourt", 		"@MPUI_WASTELAND", 	"@MPUI_DESC_MAP_BRECOURT", 		"preview_mp_brecourt" 	)
 				
-			
-		#define MAP_TABLE	"mp/mapsTable.csv"
-		
+		#define MAP_TABLE "mp/mapsTable.csv"
+	
 		#include "ui_mp/map_info.inc"
 	}
 }

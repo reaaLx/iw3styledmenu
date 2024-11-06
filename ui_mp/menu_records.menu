@@ -1,0 +1,191 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+#define CHOICE_GROUP			"records"
+
+#undef  CHOICE_Y_START
+#define CHOICE_Y_START		-20
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y 		18
+		
+#undef CHOICE_TEXTSIZE
+#define CHOICE_TEXTSIZE 	0.33
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef TITLE_X_OFFSET
+#define TITLE_X_OFFSET				-36
+#undef TITLE_Y_OFFSET
+#define TITLE_Y_OFFSET				-36	
+{
+	menuDef
+	{
+		name "menu_records"
+		rect 0 0 640 480 0 0
+		style WINDOW_STYLE_FILLED
+		foreColor CHOICE_TEXTCOLOR
+		focusColor CHOICE_TEXTCOLOR
+		fullScreen 1
+		fadeCycle 1
+		fadeClamp 1
+		fadeAmount 0.1
+		soundLoop "music_mainmenu_mp"
+		onOpen
+		{
+			setLocalVarInt "ui_pageIndex" ( 0 );
+			setLocalVarInt "ui_numPages" ( 5 );
+			focusFirst;
+		}
+		onEsc
+		{
+			close self;
+		}
+		#include "ui/blurredbg.inc"
+		CHOICE_MENU_TITLE( "@MPUI_HIGHLIGHTS_CAPS" )
+
+		#define BACK_ENABLE	1
+		#include "ui_mp/navcontrols.inc"
+
+		itemDef
+		{
+			rect 202 28 64 24 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont CHOICE_TEXTFONT
+			textalign 6
+			textalignx -4
+			textscale 0.3333
+			exp text ( locstring( "@MPUI_PAGE_N_SLASH_N" , ( localvarint( "ui_pageIndex" ) + 1 ) , ( localvarint( "ui_numPages" ) + 1 ) ) )
+		}
+		#include "ui_mp/accolades_info.inc"
+
+		CHOICE_ACCOLADE( -234, 51, "highlightImage0_0", 0 )
+		CHOICE_ACCOLADE( -234, 127, "highlightImage0_1", 1 )
+		CHOICE_ACCOLADE( -234, 203, "highlightImage0_2", 2 )
+
+		CHOICE_ACCOLADE( -157, 51, "highlightImage1_0", 3 )
+		CHOICE_ACCOLADE( -157, 127, "highlightImage1_1", 4 )
+		CHOICE_ACCOLADE( -157, 203, "highlightImage1_2", 5 )
+
+		CHOICE_ACCOLADE( -79, 51, "highlightImage2_0", 6 )
+		CHOICE_ACCOLADE( -79, 127, "highlightImage2_1", 7 )
+		CHOICE_ACCOLADE( -79, 203, "highlightImage2_2", 8 )
+
+		CHOICE_ACCOLADE( -1, 51, "highlightImage3_0", 9 )
+		CHOICE_ACCOLADE( -1, 127, "highlightImage3_1", 10 )
+		CHOICE_ACCOLADE( -1, 203, "highlightImage3_2", 11 )
+
+		CHOICE_ACCOLADE( 75, 51, "highlightImage4_0", 12 )
+		CHOICE_ACCOLADE( 75, 127, "highlightImage4_1", 13 )
+		CHOICE_ACCOLADE( 75, 203, "highlightImage4_2", 14 )
+
+		CHOICE_ACCOLADE( 153, 51, "highlightImage5_0", 15 )
+		CHOICE_ACCOLADE( 153, 127, "highlightImage5_1", 16 )
+		CHOICE_ACCOLADE( 153, 203, "highlightImage5_2", 17 )
+
+		itemDef
+		{
+			rect 0 296 640 64 4 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.5
+			background "black"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect -232 -112 464 64 2 3
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont CHOICE_TEXTFONT
+			textalign 5
+			textaligny 8
+			textscale 0.5833
+			exp text ( "@" + tablelookup( "mp/awardTable.csv" , 1 , tablelookupbyrow( "mp/awardTable.csv" , localvarint( "ui_highlightIndex" ) , 1 ) , 3 ) )
+		}
+		itemDef
+		{
+			rect -232 -112 464 64 2 3
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont CHOICE_TEXTFONT
+			textalign 5
+			textaligny 32
+			textscale 0.375
+			exp text ( "@" + tablelookup( "mp/awardTable.csv" , 1 , tablelookupbyrow( "mp/awardTable.csv" , localvarint( "ui_highlightIndex" ) , 1 ) , 4 ) )
+		}
+		itemDef
+		{
+			rect -272 104 -32 128 2 1
+			decoration
+			visible 1
+			group "left_arrow"
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) )
+		}
+		itemDef
+		{
+			rect -272 104 32 128 2 1
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) - 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "left_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "left_arrow" forecolor 1 1 1 1;
+			}
+		}
+		itemDef
+		{
+			name "right_arrow"
+			rect 240 104 32 128 2 1
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "summary_arrow"
+			type 1
+			textscale 0.55
+			visible when ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) )
+			action
+			{
+				if ( localvarint( "ui_pageIndex" ) < localvarint( "ui_numPages" ) )
+				{
+					setLocalVarInt "ui_pageIndex" ( localvarint( "ui_pageIndex" ) + 1 );
+				}
+			}
+			onFocus
+			{
+				play "mouse_over";
+				setItemColor "right_arrow" forecolor 1 1 "0.5" 1;
+			}
+			leaveFocus
+			{
+				setItemColor "right_arrow" forecolor 1 1 1 1;
+			}
+		}
+	}
+}

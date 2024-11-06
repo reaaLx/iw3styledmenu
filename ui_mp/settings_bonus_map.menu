@@ -87,8 +87,12 @@
 				LOCAL_MAP_SELECTION( 9, "mp_trailerpark",	"@PATCH_TRAILERPARK","@PATCH_DESC_MAP_TRAILERPARK", "preview_mp_trailerpark") \
 				LOCAL_MAP_SELECTION( 10, "mp_vacant", 		"@MPUI_VACANT",		"@MPUI_DESC_MAP_VACANT",		"preview_mp_vacant"		) \
 
-		#define MAP_TABLE	"mp/mapsTable.csv"
+		#define MAP_TABLE "mp/mapsTable.csv"
 		
 		#include "ui_mp/map_info.inc"
+
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 324 100 275 16  HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT, 0 0, localvarstring( "ui_info_name" ), TEXTSIZE_SMALL, 0, 16, ITEM_ALIGN_LEFT, COLOR_TITLE )
+		PREPROC_SHADER_DRAW_ALIGNED(   324 100 275 174 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT, 0 0, localvarstring( "ui_info_icon" ), 1 1 1 1, 0, 0, 0 0 0 0 )
+		PREPROC_TEXT_DRAW_ALIGNED_EXP( 324 282 275 100 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT, 0 0, localvarstring( "ui_info_desc" ), TEXTSIZE_SMALL, 0, 16, ITEM_ALIGN_LEFT, CHOICE_TEXTCOLOR )
 	}
 }

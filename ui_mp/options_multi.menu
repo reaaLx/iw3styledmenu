@@ -2,7 +2,7 @@
 #include "ui_mp/common_macro.inc"
 
 #define OPTIONS_STYLE			1
-#define CHOICE_SEP_1			23
+#define CHOICE_SEP_1			22
 
 #define PC
 #include "ui_mp/menustyle.inc"
@@ -56,12 +56,14 @@
 		#include "ui_mp/leftside_optionsx.inc"
 		
 		CHOICE_SECTION_TITLE( 21, "@MENU_MULTIPLAYER_OPTIONS" )
-		
-		CHOICE_DVARYESNO( 22, "@MPUI_PUNKBUSTER", "cl_punkbuster", ; )
-		CHOICE_DVARYESNO( 23, "@MENU_ALLOW_DOWNLOAD", "cl_allowdownload", ; )
+
+		CHOICE_DVAREDIT( 22, "@MENU_PLAYER_NAME", "ui_name", ; )
+
 		CHOICE_SEPARATOR( CHOICE_SEP_1 )
-		CHOICE_DVAREDIT_VIS( 24, "@MENU_PLAYER_NAME", "ui_name", 15, 15, ;, 1 )
-		CHOICE_BUTTON( 25, "@MENU_ENTER_KEY_CODE", open "cdkey_menu"; )
+
+		CHOICE_DVAREDIT( 23, "Custom Title", "customTitle", ; )
+		CHOICE_DVAREDIT( 24, "Clan Title", "clanName", ; )
+		
 		CHOICE_KEYBINDHELP
 	}
 }

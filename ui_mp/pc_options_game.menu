@@ -1,0 +1,74 @@
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#define OPTIONS_STYLE			1
+#define CHOICE_SEP_1			23
+#define CHOICE_SEP_2			25
+
+#define PC
+#include "ui_mp/menustyle.inc"
+#include "ui/choices_setup_common.menu"
+
+#undef  CHOICE_Y_START
+#define CHOICE_Y_START		-20
+
+#undef CHOICE_SIZE_Y
+#define CHOICE_SIZE_Y 		18
+		
+#undef CHOICE_TEXTSIZE
+#define CHOICE_TEXTSIZE 	0.33
+{
+	menuDef 
+	{
+		name			"pc_options_game"
+		fullScreen		0
+		rect			0 0 640 480
+		focusColor		COLOR_FOCUSED
+		soundloop		""
+		onOpen
+		{
+			close "options_look";
+			close "options_move";
+			close "options_shoot";
+			close "options_misc";
+			close "options_graphics";
+			close "options_sound";
+			close "options_view";
+			close "options_defaults";
+			close "options_driverinfo";
+			close "options_credits";
+			close "options_multi";
+			close "options_graphics_defaults";
+			close "options_graphics_texture";
+			close "options_control_defaults";
+
+			setLocalVarBool "ui_hideBack" ( 1 );
+
+			uiScript "getLanguage";
+		}
+		onClose
+		{
+			setLocalVarBool "ui_hideBack" ( 0 );
+		}
+		onESC 
+		{ 
+			close "self";
+		}
+		
+		#include "ui/bg.inc"
+		#include "ui_mp/leftside_optionsx.inc"
+		
+		CHOICE_SECTION_TITLE( 21, "@MENU_GAME_OPTIONS" )
+		
+		CHOICE_DVARYESNO( 22, "@MENU_SHOW_BLOOD", cg_blood, ; )
+		CHOICE_DVARFLOATLIST( 23, "@MENU_ENABLE_CONSOLE", monkeytoy, { "@MENU_YES" 0 "@MENU_NO" 1 }, ; )
+		CHOICE_SEPARATOR( CHOICE_SEP_1 )
+		CHOICE_DVARYESNO(24, "@MENU_AUTORECORD", cl_autoRecord, ; )
+		CHOICE_DVAREDIT(25, "@MENU_DEMOS_KEEP", cl_demosKeep, ; )
+		CHOICE_SEPARATOR( CHOICE_SEP_2 )
+		CHOICE_DVARYESNO(26, "@MENU_NEWCOLORS", cg_newColors, ; )
+		CHOICE_DVARYESNO(27, "@MENU_COLORBLIND_MODE", r_colorBlindTeams, ; )
+
+		CHOICE_APPLY_VIS( "@MENU_APPLY_LANGUAGE_CHANGE", open "language_restart_popmenu", when ( dvarint( "ui_languageChanged" ) ) )		
+	}
+}

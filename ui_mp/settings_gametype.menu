@@ -60,7 +60,6 @@
 		LOCAL_GAMETYPE_SELECTION( 9, 	"vip", 	"vip" 	)
 		LOCAL_GAMETYPE_SELECTION( 10, 	"gtnw",	"gtnw" 	)
 		
-			
 	}
 }
 
