@@ -1,193 +1,69 @@
-
 #include "ui/menudefinition.h"
+#include "ui/choices_setup_common.menu"
+
+#undef CHOICE_X_START
+#define CHOICE_X_START      198
+
+#define SD_SETTINGS
+#define TEAMBASED 1
+#include "ui_mp/settings_quick.inc"
+
+#define POPUP_ITEM_HEIGHT	15
 {
     menuDef
     {
-        name "settings_quick_sd_@mpui_rules_plant_time"
-        rect 0 0 640 480 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
-        style WINDOW_STYLE_FILLED
-        borderSize 1
-        focusColor 1 1 1 1
-        foreColor 1 1 1 1
-        fadeCycle 1
-        fadeClamp 1
-        fadeAmount 0.1
-        popup 
+        name			GAME_OPTIONS_MENU_NAME"_"CHOICE3_TEXT
+        rect			(CHOICE_X_START) 0 110 ( POPUP_ITEM_HEIGHT * 6 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+        focusColor		1 1 1 1
+        style			WINDOW_STYLE_FILLED
+        popup
+        visible			1
+        exp rect Y      ( localvarint( "ui_popupYPos" ) - 36 )
         onOpen
         {
         	focusFirst;
-        	setFocusbydvar "scr_sd_planttime";
+        	setFocusbydvar CHOICE3_DVAR;
         }
         onESC
         {
         	play "mouse_click";
-        	close "settings_quick_sd_@MPUI_RULES_PLANT_TIME";
+        	close GAME_OPTIONS_MENU_NAME"_"CHOICE3_TEXT;
         }
-        itemDef
+        itemDef 
         {
-            rect -600 -800 2000 2000 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
-            borderSize 1
-            foreColor 1 1 1 1
-            type ITEM_TYPE_BUTTON
-            textFont UI_FONT_NORMAL
-            textScale 0.55
-            text ""
-            visible 1
-            action 
-            { 
-                close "self"; 
-            }
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 6 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            style			WINDOW_STYLE_SHADER
+            forecolor		0.2 0.2 0.22 1
+            border			1
+            borderSize		2
+            borderColor		0.4 0.4 0.42 1
+            exp				material( "white" )
+            visible			1
+            decoration
         }
-        itemDef
+        itemDef 
         {
-            rect 198 126 110 85 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            style WINDOW_STYLE_SHADER
-            border WINDOW_BORDER_FULL
-            borderSize 2
-            foreColor 0.2 0.2 0.22 1
-            borderColor 0.4 0.4 0.42 1
-            textScale 0.55
-            exp material ( "white" )
-            visible 1
-            decoration                
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 6 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            style			WINDOW_STYLE_SHADER
+            forecolor		0.2 0.2 0.22 1
+            border			1
+            borderSize		2
+            borderColor		0.4 0.4 0.42 1
+            exp				material( "gradient_bottom" )
+            visible			1
+            decoration
         }
-        itemDef
-        {
-            rect 198 132 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_1SECOND"
-            dvarTest "scr_sd_planttime"
-            focusDvar { 1 }
-            visible when ( "@MPUI_RULES_1SECOND" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 1;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
-        itemDef
-        {
-            rect 198 147 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_2_5SECONDS"
-            dvarTest "scr_sd_planttime"
-            focusDvar { 2.5 }
-            visible when ( "@MPUI_RULES_2_5SECONDS" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 2.5;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
-        itemDef
-        {
-            rect 198 162 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_5SECONDS"
-            dvarTest "scr_sd_planttime"
-            focusDvar { 5 }
-            visible when ( "@MPUI_RULES_5SECONDS" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 5;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
-        itemDef
-        {
-            rect 198 177 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_7_5SECONDS"
-            dvarTest "scr_sd_planttime"
-            focusDvar { 7.5 }
-            visible when ( "@MPUI_RULES_7_5SECONDS" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 7.5;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
-        itemDef
-        {
-            rect 198 192 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_10SECONDS"
-            dvarTest "scr_sd_planttime"
-            focusDvar { 10 }
-            visible when ( "@MPUI_RULES_10SECONDS" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 10;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
-        itemDef
-        {
-            rect 198 207 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text ""
-            dvarTest "scr_sd_planttime"
-            focusDvar { 0 }
-            visible when ( "" != "" )
-            action
-            {
-            	setdvar "scr_sd_planttime" 0;
-            	play "mouse_click";
-            	close "self";
-            }
-            leaveFocus
-            {
-            	play "mouse_submenu_over";
-            }
-        }
+
+        #undef CHOICE_Y_SPACING
+        #define CHOICE_Y_SPACING    15
+
+        #undef CHOICE_Y_START
+        #define CHOICE_Y_START      62
+
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 2, setdvar CHOICE3_DVAR CHOICE3_VAL1, CHOICE3_STR1, when ( CHOICE3_STR1 != "" ), dvartest CHOICE3_DVAR; focusdvar { CHOICE3_VAL1 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 3, setdvar CHOICE3_DVAR CHOICE3_VAL2, CHOICE3_STR2, when ( CHOICE3_STR2 != "" ), dvartest CHOICE3_DVAR; focusdvar { CHOICE3_VAL2 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 4, setdvar CHOICE3_DVAR CHOICE3_VAL3, CHOICE3_STR3, when ( CHOICE3_STR3 != "" ), dvartest CHOICE3_DVAR; focusdvar { CHOICE3_VAL3 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 5, setdvar CHOICE3_DVAR CHOICE3_VAL4, CHOICE3_STR4, when ( CHOICE3_STR4 != "" ), dvartest CHOICE3_DVAR; focusdvar { CHOICE3_VAL4 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 6, setdvar CHOICE3_DVAR CHOICE3_VAL5, CHOICE3_STR5, when ( CHOICE3_STR5 != "" ), dvartest CHOICE3_DVAR; focusdvar { CHOICE3_VAL5 } )
     }
 }

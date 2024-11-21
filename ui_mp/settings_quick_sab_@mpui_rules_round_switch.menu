@@ -1,142 +1,71 @@
-
 #include "ui/menudefinition.h"
+#include "ui/choices_setup_common.menu"
+
+#undef CHOICE_X_START
+#define CHOICE_X_START      198
+
+#define SAB_SETTINGS
+#define TEAMBASED 1
+#include "ui_mp/settings_quick.inc"
+
+#define POPUP_ITEM_HEIGHT	15
 {
     menuDef
     {
-        name "settings_quick_sab_@mpui_rules_round_switch"
-        rect 0 0 640 480 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
-        style WINDOW_STYLE_FILLED
-        borderSize 1
-        focusColor 1 1 1 1
-        foreColor 1 1 1 1
-        fadeCycle 1
-        fadeClamp 1
-        fadeAmount 0.1
-        popup 
+        name			GAME_OPTIONS_MENU_NAME"_"CHOICE7_TEXT
+        rect			(CHOICE_X_START) 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+        focusColor		1 1 1 1
+        style			WINDOW_STYLE_FILLED
+        popup
+        visible			1
+        exp rect Y      ( localvarint( "ui_popupYPos" ) - 36 )
         onOpen
         {
-        	focusFirst;
-        	setFocusbydvar "scr_sab_roundswitch";
+            focusFirst;
+            setfocusbydvar CHOICE7_DVAR;
         }
         onESC
         {
-        	play "mouse_click";
-        	close "settings_quick_sab_@MPUI_RULES_ROUND_SWITCH";
+            play "mouse_click";
+            close GAME_OPTIONS_MENU_NAME"_"CHOICE7_TEXT;
         }
-        itemDef
+        itemDef 
         {
-            rect -600 -800 2000 2000 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_SUBTOP
-            borderSize 1
-            foreColor 1 1 1 1
-            type ITEM_TYPE_BUTTON
-            textFont UI_FONT_NORMAL
-            textScale 0.55
-            text ""
-            action { close "self"; }
-            visible 1
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            style			WINDOW_STYLE_SHADER
+            forecolor		0.2 0.2 0.22 1
+            border			1
+            borderSize		2
+            borderColor		0.4 0.4 0.42 1
+            exp				material( "white" )
+            visible			1
+            decoration
         }
-        itemDef
+        itemDef 
         {
-            rect 198 222 110 85 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            style WINDOW_STYLE_SHADER
-            border WINDOW_BORDER_FULL
-            borderSize 2
-            foreColor 0.2 0.2 0.22 1
-            borderColor 0.4 0.4 0.42 1
-            textScale 0.55
-            exp material ( "white" )
-            visible 1
-            decoration                
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            style			WINDOW_STYLE_SHADER
+            forecolor		0.2 0.2 0.22 1
+            border			1
+            borderSize		2
+            borderColor		0.4 0.4 0.42 1
+            exp				material( "gradient_bottom" )
+            visible			1
+            decoration
         }
-        itemDef
-        {
-            rect 198 228 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_NEVER"
-            action { setdvar scr_sab_roundswitch 0 play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 0  }
-            visible when ( "@MPUI_RULES_NEVER" != "" )
-        }
-        itemDef
-        {
-            rect 198 243 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_EVERY_ROUND"
-            action { setdvar "scr_sab_roundswitch" 1; play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 1  }
-            visible when ( "@MPUI_RULES_EVERY_ROUND" != "" )
-        }
-        itemDef
-        {
-            rect 198 258 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_EVERY_2ROUNDS"
-            action { setdvar "scr_sab_roundswitch" 2; play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 2  }
-            visible when ( "@MPUI_RULES_EVERY_2ROUNDS" != "" )
-        }
-        itemDef
-        {
-            rect 198 273 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_EVERY_3ROUNDS"
-            action { setdvar "scr_sab_roundswitch" 3; play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 3  }
-            visible when ( "@MPUI_RULES_EVERY_3ROUNDS" != "" )
-        }
-        itemDef
-        {
-            rect 198 288 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text "@MPUI_RULES_EVERY_4ROUNDS"
-            action { setdvar "scr_sab_roundswitch" 4; play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 4  }
-            visible when ( "@MPUI_RULES_EVERY_4ROUNDS" != "" )
-        }
-        itemDef
-        {
-            rect 198 303 110 15 HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
-            borderSize 1
-            foreColor 1 1 1 0.65
-            textAlign ITEM_ALIGN_MIDDLE_CENTER
-            textScale 0.375
-            textStyle ITEM_TEXTSTYLE_SHADOWED
-            text ""
-            action { setdvar "scr_sab_roundswitch" 0; play "mouse_click"; close "self"; }
-            leaveFocus { play "mouse_submenu_over"; }
-            dvarTest "scr_sab_roundswitch"
-            focusDvar { 0  }
-            visible when ( "" != "" )
-        }
+
+        #undef CHOICE_Y_SPACING
+        #define CHOICE_Y_SPACING    15
+
+        #undef CHOICE_Y_START
+        #define CHOICE_Y_START      62
+
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 2, setdvar CHOICE7_DVAR CHOICE7_VAL1, CHOICE7_STR1, when ( CHOICE7_STR1 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL1 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 3, setdvar CHOICE7_DVAR CHOICE7_VAL2, CHOICE7_STR2, when ( CHOICE7_STR2 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL2 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 4, setdvar CHOICE7_DVAR CHOICE7_VAL3, CHOICE7_STR3, when ( CHOICE7_STR3 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL3 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 5, setdvar CHOICE7_DVAR CHOICE7_VAL4, CHOICE7_STR4, when ( CHOICE7_STR4 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL4 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 6, setdvar CHOICE7_DVAR CHOICE7_VAL5, CHOICE7_STR5, when ( CHOICE7_STR5 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL5 } )
+        PREPROC_DVAR_POPUP_CHOICE_EX2( 7, setdvar CHOICE7_DVAR CHOICE7_VAL6, CHOICE7_STR6, when ( CHOICE7_STR6 != "" ), dvartest CHOICE7_DVAR; focusdvar { CHOICE7_VAL6 } )
+
     }
 }

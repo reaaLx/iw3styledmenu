@@ -4,9 +4,6 @@
 #undef CHOICE_X_START
 #define CHOICE_X_START 198
 
-#undef CHOICE_Y_START
-#define CHOICE_Y_START 244
-
 #define CTF_SETTINGS
 #define TEAMBASED 1
 #include "ui_mp/settings_quick.inc"
@@ -16,12 +13,12 @@
     menuDef
     {
         name			GAME_OPTIONS_MENU_NAME"_"CHOICE_WAVERESPAWN_TEXT
-        visible			1
-        rect			0 0 640 480 0 0
+        rect			(CHOICE_X_START) 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
         focusColor		1 1 1 1
         style			WINDOW_STYLE_FILLED
-		foreColor 		1 1 1 1
         popup
+        visible			1
+        exp rect Y      ( localvarint( "ui_popupYPos" ) - 36 )
         onOpen
         {
             focusFirst;
@@ -34,7 +31,7 @@
         }
         itemDef 
         {
-            rect			CHOICE_X ( 2 ) CHOICE_Y( 2 ) 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
             style			WINDOW_STYLE_SHADER
             forecolor		0.2 0.2 0.22 1
             border			1
@@ -46,7 +43,7 @@
         }
         itemDef 
         {
-            rect			CHOICE_X ( 2 ) CHOICE_Y( 2 ) 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
+            rect			0 0 110 ( POPUP_ITEM_HEIGHT * 7 ) HORIZONTAL_ALIGN_SUBLEFT VERTICAL_ALIGN_TOP
             style			WINDOW_STYLE_SHADER
             forecolor		0.2 0.2 0.22 1
             border			1
@@ -58,7 +55,10 @@
         }
         
         #undef CHOICE_Y_SPACING
-        #define CHOICE_Y_SPACING 15
+        #define CHOICE_Y_SPACING    15
+
+        #undef CHOICE_Y_START
+        #define CHOICE_Y_START      62
 
         PREPROC_DVAR_POPUP_CHOICE_EX2( 2, setdvar WAVERESPAWN_DVAR CHOICE_WAVERESPAWN_VAL1, CHOICE_WAVERESPAWN_STR1, when ( CHOICE_WAVERESPAWN_STR1 != "" ), dvartest WAVERESPAWN_DVAR; focusdvar { CHOICE_WAVERESPAWN_VAL1 } )
         PREPROC_DVAR_POPUP_CHOICE_EX2( 3, setdvar WAVERESPAWN_DVAR CHOICE_WAVERESPAWN_VAL2, CHOICE_WAVERESPAWN_STR2, when ( CHOICE_WAVERESPAWN_STR2 != "" ), dvartest WAVERESPAWN_DVAR; focusdvar { CHOICE_WAVERESPAWN_VAL2 } )
